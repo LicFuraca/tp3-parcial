@@ -20,7 +20,7 @@ Es un parcial grupal (grupo 4) de ORT.
 - **Lenguaje:** Kotlin
 - **Arquitectura:** MVVM con **LiveData**
 - **Networking:** **Retrofit**
-- **Navegación:** **Navigation Component** (no compose-navigation)
+- **Navegación:** **Navigation Component** vía `androidx.navigation:navigation-compose` (la variante de Navigation Component integrada con Compose)
 - **DI:** **Hilt**
 - **UI:** **Material 3** con **Jetpack Compose**
 - **Imágenes:** **Glide**
@@ -30,7 +30,7 @@ Es un parcial grupal (grupo 4) de ORT.
 - **Package:** `com.example.parcial_grupo_4`
 - **Dependencias:** Version catalog en `gradle/libs.versions.toml` (siempre usar `libs.*`)
 
-> Importante: el stack mezcla Compose con Navigation Component clásico + LiveData. Es **a propósito** (requisito del parcial). No proponer reemplazarlos por StateFlow / compose-navigation salvo que se pida.
+> Importante: el stack mezcla Compose + Navigation Component (variante `navigation-compose`) + **LiveData** (no StateFlow). Es **a propósito** (requisito del parcial). No proponer reemplazar LiveData por StateFlow salvo que se pida.
 
 ## API
 
@@ -55,10 +55,10 @@ Reglas de integración:
 ## Funcionalidades obligatorias
 
 ### Autenticación
-- Login con **teléfono + contraseña**.
-- Registro con validación de campos y verificación por SMS.
-- **Persistencia de sesión**: si hay token guardado, no volver al Login al relanzar.
-- **Logout** disponible desde la sección Manager.
+- Login con **teléfono + contraseña** vía `POST /auth/login` (Retrofit). El backend de auth es la API mock, **no Firebase**.
+- Registro con validación de campos y **verificación SMS simulada** (input de código contra valor mock — la API mock no envía SMS reales).
+- **Persistencia de sesión**: guardar el token devuelto por la API en DataStore o SharedPreferences. Si hay token al abrir la app, ir directo a Home.
+- **Logout** disponible desde la sección Manage (borra el token persistido).
 
 ### Navegación
 - **Bottom Navigation Bar** con 5 tabs: **Home, Loans, Shop, History, Manage**.
