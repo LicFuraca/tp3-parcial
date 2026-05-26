@@ -1,15 +1,91 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
+# ---------- Android / Gradle ----------
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
 /build
+**/build/
 /captures
 .externalNativeBuild
 .cxx
+release/
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+
+# Local config (SDK paths, signing, secrets)
 local.properties
+/local.properties
+keystore.properties
+*.jks
+*.keystore
+
+# Lint / generated
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+
+# ---------- Android Studio / IntelliJ ----------
+*.iml
+.idea/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries/
+.idea/shelf/
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetSelector.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/gradle.xml
+.idea/compiler.xml
+.idea/runConfigurations.xml
+
+# ---------- Kotlin ----------
+.kotlin/
+*.kotlin_module
+
+# ---------- Java ----------
+*.log
+*.ctxt
+hs_err_pid*
+replay_pid*
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+!gradle/wrapper/gradle-wrapper.jar
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------- Editores varios ----------
+*.swp
+*.swo
+*~
+.vscode/
+.fleet/
+
+# ---------- Claude Code ----------
+.claude/
+CLAUDE.local.md
