@@ -2,10 +2,44 @@ package com.example.parcial_grupo_4.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+object LendlyColors {
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+    object Content {
+        val Primary = Color(0xFF122300)
+        val Secondary = Color(0xFF454745)
+        val Tertiary = Color(0xFF6A6C6A)
+        val Link = Color(0xFF163300)
+    }
+
+    object Interactive {
+        val Primary = Color(0xFF163300)
+        val Secondary = Color(0xFF868685)
+        val Accent = Color(0xFF7BF179)
+        val Contrast = Color(0xFF7BF179)
+        val Control = Color(0xFF163300)
+    }
+
+    object Background {
+        val Screen = Color(0xFFFFFFFF)
+        val Elevated = Color(0xFFFFFFFF)
+        val Neutral = Color(0xFFE5F5EA)
+        val Overlay = Color(0xFFE5F5EA)
+    }
+
+    object Border {
+        val Neutral = Color(0x1F0E0F0C)
+        val Overlay = Color(0x1F0E0F0C)
+    }
+
+    object Sentiment {
+        val Negative = Color(0xFFA8200D)
+        val Positive = Color(0xFF2F5711)
+        val Warning = Color(0xFFEDC843)
+    }
+
+    object Contrast {
+        val Base = Color(0xFFFFFFFF)
+        val Light = Color(0xFFFFFFFF)
+        val Dark = Color(0xFF121511)
+    }
+}
