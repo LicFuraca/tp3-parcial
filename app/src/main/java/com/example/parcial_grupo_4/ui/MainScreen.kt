@@ -2,12 +2,6 @@ package com.example.parcial_grupo_4.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CreditCard
-import androidx.compose.material.icons.outlined.GridView
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,11 +29,11 @@ private object LendlyRoutes {
 }
 
 private val BottomBarItems = listOf(
-    LendlyBottomBarItem(LendlyRoutes.Home, R.string.tab_home, Icons.Outlined.Home),
-    LendlyBottomBarItem(LendlyRoutes.Loan, R.string.tab_loan, Icons.Outlined.CreditCard),
-    LendlyBottomBarItem(LendlyRoutes.Shop, R.string.tab_shop, Icons.Outlined.ShoppingBag),
-    LendlyBottomBarItem(LendlyRoutes.History, R.string.tab_history, Icons.Outlined.History),
-    LendlyBottomBarItem(LendlyRoutes.Manage, R.string.tab_manage, Icons.Outlined.GridView),
+    LendlyBottomBarItem(LendlyRoutes.Home, R.string.tab_home, R.drawable.ic_nav_home),
+    LendlyBottomBarItem(LendlyRoutes.Loan, R.string.tab_loan, R.drawable.ic_nav_loans),
+    LendlyBottomBarItem(LendlyRoutes.Shop, R.string.tab_shop, R.drawable.ic_nav_shop),
+    LendlyBottomBarItem(LendlyRoutes.History, R.string.tab_history, R.drawable.ic_nav_history),
+    LendlyBottomBarItem(LendlyRoutes.Manage, R.string.tab_manage, R.drawable.ic_nav_manage),
 )
 
 @Composable
