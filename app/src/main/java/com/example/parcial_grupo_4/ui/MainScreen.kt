@@ -14,6 +14,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBar
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBarItem
+import com.example.parcial_grupo_4.ui.common.LendlyTopBar
+import com.example.parcial_grupo_4.ui.common.LendlyTopBar
 import com.example.parcial_grupo_4.ui.history.HistoryScreen
 import com.example.parcial_grupo_4.ui.home.HomeScreen
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
@@ -43,6 +45,7 @@ fun MainScreen() {
     val currentRoute = backStackEntry?.destination?.route
 
     Scaffold(
+        topBar = { LendlyTopBar() },
         bottomBar = {
             LendlyBottomBar(
                 items = BottomBarItems,
