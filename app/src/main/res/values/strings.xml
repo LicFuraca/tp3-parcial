@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">parcial-grupo-4</string>
+    <string name="title_onboarding_1">Quick Loans</string>
+    <string name="title_onboarding_2">Loan product in-app</string>
+    <string name="title_onboarding_3">Track &amp; pay easily</string>
+    <string name="subtitle_onboarding_1">Trusted for easy,fast loan approvals.</string>
+    <string name="subtitle_onboarding_2">Many products to loan.</string>
+    <string name="onboarding_btn_get_started">Get Started</string>
 </resources>
