@@ -47,11 +47,17 @@ fun NavGraphBuilder.shopNavGraph(navController: NavHostController) {
                 }
             )
         }
-        composable(ShopRoute.Search.route) {
+        composable(ShopRoute.Search.route) { backStackEntry ->
+            val parentEntry = remember(backStackEntry) { navController.getBackStackEntry("shop_graph") }
+            val viewModel: ShopViewModel = hiltViewModel(parentEntry)
+
             SearchScreen(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    viewModel.searchProducts("") //
+                    navController.popBackStack()
+                },
                 onSearchSubmit = { query ->
-                    // Logic to search products could be here
+                    viewModel.searchProducts(query) //
                     navController.popBackStack()
                 }
             )
@@ -75,10 +81,22 @@ fun NavGraphBuilder.shopNavGraph(navController: NavHostController) {
 
             when {
                 product != null -> ProductDetailScreen(product, onBackClick = { navController.popBackStack() })
-                error != null   -> ErrorState(error!!, onRetry = viewModel::fetchProducts)
-                shopData != null -> NotFoundState(onBack = { navController.popBackStack() }) // id no existe
-                else            -> CircularProgressIndicator()
-            }
+                error != null -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(text = error!!)
+                    }
+                }
+                shopData != null -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(text = "Product not found")
+                    }
+                }
+                else -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
             }
         }
     }
+}

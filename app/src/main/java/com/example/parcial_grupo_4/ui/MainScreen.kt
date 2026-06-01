@@ -21,11 +21,12 @@ import com.example.parcial_grupo_4.ui.home.HomeScreen
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
+import com.example.parcial_grupo_4.ui.shop.shopNavGraph
 
 private object LendlyRoutes {
     const val Home = "home"
     const val Loan = "loan"
-    const val Shop = "shop"
+    const val Shop = "shop_graph"
     const val History = "history"
     const val Manage = "manage"
 }
@@ -71,7 +72,7 @@ fun MainScreen() {
         ) {
             composable(LendlyRoutes.Home) { HomeScreen() }
             composable(LendlyRoutes.Loan) { LoansScreen() }
-            composable(LendlyRoutes.Shop) { ShopScreen() }
+            shopNavGraph(navController)
             composable(LendlyRoutes.History) { HistoryScreen() }
             composable(LendlyRoutes.Manage) { ManageScreen() }
         }
