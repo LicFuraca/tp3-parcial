@@ -34,25 +34,6 @@ lint/tmp/
 # ---------- Android Studio / IntelliJ ----------
 *.iml
 .idea/
-!.idea/codeStyles/
-!.idea/inspectionProfiles/
-.idea/caches/
-.idea/libraries/
-.idea/modules.xml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/usage.statistics.xml
-.idea/dictionaries/
-.idea/shelf/
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
-.idea/deploymentTargetDropDown.xml
-.idea/deploymentTargetSelector.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/gradle.xml
-.idea/compiler.xml
-.idea/runConfigurations.xml
 
 # ---------- Kotlin ----------
 .kotlin/
