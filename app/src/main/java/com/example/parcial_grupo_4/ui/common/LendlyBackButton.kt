@@ -19,13 +19,12 @@ import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 private val ButtonSize = 40.dp
 private val IconSize = 20.dp
-private val DefaultBackground = Color(0xFFE7E7E7)
 
 @Composable
 fun LendlyBackButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    background: Color = DefaultBackground,
+    background: Color = LendlyColors.Background.Subtle,
 ) {
     Box(
         modifier = modifier

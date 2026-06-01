@@ -17,8 +17,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,9 +39,7 @@ private val ChipShape = RoundedCornerShape(8.dp)
 
 @Composable
 fun TransactionDetailScreen(
-    title: String,
-    amount: String,
-    company: String,
+    transaction: TransactionUiModel,
     modifier: Modifier = Modifier,
     onHelpClick: () -> Unit = {},
 ) {
@@ -52,8 +49,18 @@ fun TransactionDetailScreen(
             .background(LendlyColors.Background.Screen)
             .verticalScroll(rememberScrollState()),
     ) {
-        HeroSection(title = title, amount = amount, company = company)
-        DetailsSection()
+        HeroSection(
+            title = transaction.title,
+            amount = transaction.amount,
+            company = transaction.subtitleCompany,
+            status = transaction.status,
+            icon = transaction.icon,
+        )
+        DetailsSection(
+            description = transaction.description,
+            dateTime = transaction.dateTime,
+            referenceNumber = transaction.referenceNumber,
+        )
         Spacer(modifier = Modifier.height(24.dp))
         HelpFooter(onHelpClick = onHelpClick)
         Spacer(modifier = Modifier.height(24.dp))
@@ -61,7 +68,13 @@ fun TransactionDetailScreen(
 }
 
 @Composable
-private fun HeroSection(title: String, amount: String, company: String) {
+private fun HeroSection(
+    title: String,
+    amount: String,
+    company: String,
+    status: String,
+    icon: ImageVector,
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -76,7 +89,7 @@ private fun HeroSection(title: String, amount: String, company: String) {
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = Icons.Outlined.ArrowUpward,
+                imageVector = icon,
                 contentDescription = null,
                 tint = LendlyColors.Content.Primary,
                 modifier = Modifier.size(HeroIconSize),
@@ -101,33 +114,35 @@ private fun HeroSection(title: String, amount: String, company: String) {
             textAlign = TextAlign.Center,
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(R.string.transaction_detail_to_format, company),
-            style = MaterialTheme.typography.bodyMedium,
-            color = LendlyColors.Content.Tertiary,
-            textAlign = TextAlign.Center,
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Box(
-            modifier = Modifier
-                .border(width = 1.dp, color = LendlyColors.Content.Tertiary, shape = ChipShape)
-                .padding(horizontal = 16.dp, vertical = 6.dp),
-        ) {
+        if (company.isNotBlank()) {
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = stringResource(R.string.transaction_detail_badge),
-                style = MaterialTheme.typography.labelLarge,
-                color = LendlyColors.Content.Strong,
+                text = stringResource(R.string.transaction_detail_to_format, company),
+                style = MaterialTheme.typography.bodyMedium,
+                color = LendlyColors.Content.Tertiary,
+                textAlign = TextAlign.Center,
             )
+        }
+
+        if (status.isNotBlank()) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .border(width = 1.dp, color = LendlyColors.Content.Tertiary, shape = ChipShape)
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
+            ) {
+                Text(
+                    text = status,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = LendlyColors.Content.Strong,
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun DetailsSection() {
+private fun DetailsSection(description: String, dateTime: String, referenceNumber: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,16 +155,16 @@ private fun DetailsSection() {
             color = LendlyColors.Content.Strong,
         )
         DetailRow(
-            label = stringResource(R.string.transaction_detail_fee_label),
-            value = stringResource(R.string.transaction_detail_fee_value),
+            label = stringResource(R.string.transaction_detail_description_label),
+            value = description,
         )
         DetailRow(
             label = stringResource(R.string.transaction_detail_date_label),
-            value = stringResource(R.string.transaction_detail_date_value),
+            value = dateTime,
         )
         DetailRow(
             label = stringResource(R.string.transaction_detail_number_label),
-            value = stringResource(R.string.transaction_detail_number_value),
+            value = referenceNumber,
             valueIsLink = true,
         )
     }

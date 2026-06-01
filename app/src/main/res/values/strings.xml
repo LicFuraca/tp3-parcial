@@ -18,22 +18,26 @@
     <string name="history_filter_added">Added</string>
     <string name="history_section_today">Today</string>
     <string name="history_section_recent_loans">Recent Loans</string>
-    <string name="history_search_icon">Buscar</string>
-    <string name="history_transaction_icon">Transacción</string>
+    <string name="history_search_icon">Search</string>
+    <string name="history_transaction_icon">Transaction</string>
+    <string name="history_no_results">No transactions found</string>
+    <string name="history_retry">Retry</string>
 
-    <string name="back">Volver</string>
-    <string name="more_options">Más opciones</string>
-    <string name="info">Información</string>
+    <string name="back">Back</string>
+    <string name="more_options">More options</string>
+    <string name="info">Information</string>
 
     <string name="transaction_detail_title">Transaction Details</string>
     <string name="transaction_detail_to_format">To %1$s</string>
-    <string name="transaction_detail_badge">Paid Bills</string>
-    <string name="transaction_detail_fee_label">Fee</string>
-    <string name="transaction_detail_fee_value">₱100.00</string>
+    <string name="transaction_detail_description_label">Description</string>
     <string name="transaction_detail_date_label">Date &amp; Time</string>
-    <string name="transaction_detail_date_value">Jul 15, 2024 9:12 AM</string>
     <string name="transaction_detail_number_label">Transaction Number</string>
-    <string name="transaction_detail_number_value">#200412312551</string>
     <string name="transaction_detail_help_question">Didn\'t find what you were looking for?</string>
     <string name="transaction_detail_help_link">Go to Help Center</string>
+
+    <string name="error_no_connection">No internet connection. Please check your network.</string>
+    <string name="error_unauthorized">Your session expired. Please sign in again.</string>
+    <string name="error_not_found">We couldn\'t find what you were looking for.</string>
+    <string name="error_server">The service is unavailable right now. Try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
 </resources>

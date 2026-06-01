@@ -35,6 +35,14 @@ data class TransactionUiModel(
     val time: String,
     val amount: String,
     val icon: ImageVector = Icons.Outlined.ArrowUpward,
+    // Campos que se muestran en el detalle / se usan para agrupar.
+    val description: String = "",
+    val dateTime: String = "",
+    val referenceNumber: String = "",
+    val status: String = "",
+    val monthLabel: String = "",
+    // type crudo de la API ("LOAN_PAYMENT", "CASH_IN"...), usado para filtrar.
+    val type: String = "",
 )
 
 @Composable

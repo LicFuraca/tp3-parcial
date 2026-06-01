@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,6 +29,8 @@ import com.example.parcial_grupo_4.ui.common.LendlyDetailTopBar
 import com.example.parcial_grupo_4.ui.common.LendlyTopBar
 import com.example.parcial_grupo_4.ui.history.HistoryScreen
 import com.example.parcial_grupo_4.ui.history.TransactionDetailScreen
+import com.example.parcial_grupo_4.ui.history.TransactionDetailState
+import com.example.parcial_grupo_4.ui.history.TransactionDetailViewModel
 import com.example.parcial_grupo_4.ui.home.HomeScreen
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
@@ -40,18 +45,10 @@ private object LendlyRoutes {
 
     private const val TransactionDetail = "transaction_detail"
     const val ArgTransactionId = "transactionId"
-    const val ArgTitle = "title"
-    const val ArgAmount = "amount"
-    const val ArgCompany = "company"
 
-    val TransactionDetailRoute = "$TransactionDetail/{$ArgTransactionId}" +
-        "?$ArgTitle={$ArgTitle}&$ArgAmount={$ArgAmount}&$ArgCompany={$ArgCompany}"
+    val TransactionDetailRoute = "$TransactionDetail/{$ArgTransactionId}"
 
-    fun transactionDetail(id: String, title: String, amount: String, company: String): String =
-        "$TransactionDetail/${Uri.encode(id)}" +
-            "?$ArgTitle=${Uri.encode(title)}" +
-            "&$ArgAmount=${Uri.encode(amount)}" +
-            "&$ArgCompany=${Uri.encode(company)}"
+    fun transactionDetail(id: String): String = "$TransactionDetail/${Uri.encode(id)}"
 }
 
 private val BottomBarItems = listOf(
@@ -62,36 +59,53 @@ private val BottomBarItems = listOf(
     LendlyBottomBarItem(LendlyRoutes.Manage, R.string.tab_manage, R.drawable.ic_nav_manage),
 )
 
-private val RoutesWithoutBottomBar = setOf(LendlyRoutes.TransactionDetailRoute)
+private enum class TopBarStyle { Main, Detail }
 
-private const val ChromeFadeMillis = 700
+/**
+ * Define qué "chrome" (top bar + bottom bar) corresponde a cada ruta. Centralizarlo
+ * acá lo hace escalable: para una pantalla nueva sólo se agrega un caso, y la
+ * animación de las barras se dispara únicamente cuando cambia el *tipo* de chrome
+ * —no en cada navegación entre tabs que comparten el mismo layout—.
+ */
+private data class ScreenChrome(
+    val topBar: TopBarStyle,
+    val showBottomBar: Boolean,
+)
+
+private fun chromeFor(route: String?): ScreenChrome = when (route) {
+    LendlyRoutes.TransactionDetailRoute -> ScreenChrome(TopBarStyle.Detail, showBottomBar = false)
+    else -> ScreenChrome(TopBarStyle.Main, showBottomBar = true)
+}
+
+private const val TransitionMillis = 300
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
-    val chromeTransition = fadeIn(animationSpec = tween(ChromeFadeMillis)) togetherWith
-        fadeOut(animationSpec = tween(ChromeFadeMillis))
+    val chrome = chromeFor(currentRoute)
+    val chromeTransition = fadeIn(animationSpec = tween(TransitionMillis)) togetherWith
+        fadeOut(animationSpec = tween(TransitionMillis))
 
     Scaffold(
         topBar = {
             AnimatedContent(
-                targetState = currentRoute,
+                targetState = chrome.topBar,
                 transitionSpec = { chromeTransition },
                 label = "topBar",
-            ) { route ->
-                when (route) {
-                    LendlyRoutes.TransactionDetailRoute -> LendlyDetailTopBar(
+            ) { style ->
+                when (style) {
+                    TopBarStyle.Detail -> LendlyDetailTopBar(
                         onBackClick = { navController.popBackStack() },
                     )
-                    else -> LendlyTopBar()
+                    TopBarStyle.Main -> LendlyTopBar()
                 }
             }
         },
         bottomBar = {
             AnimatedContent(
-                targetState = currentRoute !in RoutesWithoutBottomBar,
+                targetState = chrome.showBottomBar,
                 transitionSpec = { chromeTransition },
                 label = "bottomBar",
             ) { showBottomBar ->
@@ -119,6 +133,10 @@ fun MainScreen() {
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
+            enterTransition = { fadeIn(animationSpec = tween(TransitionMillis)) },
+            exitTransition = { fadeOut(animationSpec = tween(TransitionMillis)) },
+            popEnterTransition = { fadeIn(animationSpec = tween(TransitionMillis)) },
+            popExitTransition = { fadeOut(animationSpec = tween(TransitionMillis)) },
         ) {
             composable(LendlyRoutes.Home) { HomeScreen() }
             composable(LendlyRoutes.Loan) { LoansScreen() }
@@ -126,14 +144,9 @@ fun MainScreen() {
             composable(LendlyRoutes.History) {
                 HistoryScreen(
                     onTransactionClick = { transaction ->
-                        navController.navigate(
-                            LendlyRoutes.transactionDetail(
-                                id = transaction.id,
-                                title = transaction.title,
-                                amount = transaction.amount,
-                                company = transaction.subtitleCompany,
-                            ),
-                        )
+                        navController.navigate(LendlyRoutes.transactionDetail(transaction.id)) {
+                            launchSingleTop = true
+                        }
                     },
                 )
             }
@@ -142,25 +155,17 @@ fun MainScreen() {
                 route = LendlyRoutes.TransactionDetailRoute,
                 arguments = listOf(
                     navArgument(LendlyRoutes.ArgTransactionId) { type = NavType.StringType },
-                    navArgument(LendlyRoutes.ArgTitle) {
-                        type = NavType.StringType
-                        defaultValue = ""
-                    },
-                    navArgument(LendlyRoutes.ArgAmount) {
-                        type = NavType.StringType
-                        defaultValue = ""
-                    },
-                    navArgument(LendlyRoutes.ArgCompany) {
-                        type = NavType.StringType
-                        defaultValue = ""
-                    },
                 ),
-            ) { entry ->
-                TransactionDetailScreen(
-                    title = entry.arguments?.getString(LendlyRoutes.ArgTitle).orEmpty(),
-                    amount = entry.arguments?.getString(LendlyRoutes.ArgAmount).orEmpty(),
-                    company = entry.arguments?.getString(LendlyRoutes.ArgCompany).orEmpty(),
-                )
+            ) {
+                val detailViewModel: TransactionDetailViewModel = hiltViewModel()
+                val state by detailViewModel.state.observeAsState(TransactionDetailState.Loading)
+                when (val current = state) {
+                    is TransactionDetailState.Found ->
+                        TransactionDetailScreen(transaction = current.transaction)
+                    TransactionDetailState.NotFound ->
+                        LaunchedEffect(Unit) { navController.popBackStack() }
+                    TransactionDetailState.Loading -> Unit
+                }
             }
         }
     }

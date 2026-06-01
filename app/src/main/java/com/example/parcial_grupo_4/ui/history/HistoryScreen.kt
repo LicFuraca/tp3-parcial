@@ -3,6 +3,7 @@ package com.example.parcial_grupo_4.ui.history
 import androidx.annotation.StringRes
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -11,21 +12,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ArrowUpward
-import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.common.LendlyFilterChip
 import com.example.parcial_grupo_4.ui.common.LendlySearchBar
@@ -39,20 +42,22 @@ private enum class HistoryFilter(@param:StringRes val labelRes: Int) {
     Added(R.string.history_filter_added),
 }
 
-private data class TransactionSection(
-    @param:StringRes val titleRes: Int,
-    val items: List<TransactionUiModel>,
-)
-
 @Composable
 fun HistoryScreen(
     modifier: Modifier = Modifier,
     onTransactionClick: (TransactionUiModel) -> Unit = {},
+    viewModel: HistoryViewModel = hiltViewModel(),
 ) {
+    val sections by viewModel.sections.observeAsState(emptyList())
+    val isLoading by viewModel.isLoading.observeAsState(false)
+    val errorMessageRes by viewModel.errorMessageRes.observeAsState()
+
     var query by rememberSaveable { mutableStateOf("") }
     var selectedFilter by rememberSaveable { mutableStateOf(HistoryFilter.All) }
 
-    val sections = remember { sampleHistorySections() }
+    val visibleSections = remember(sections, query, selectedFilter) {
+        sections.applyFilters(query = query, filter = selectedFilter)
+    }
 
     Column(
         modifier = modifier
@@ -82,47 +87,92 @@ fun HistoryScreen(
             }
         }
 
-        LazyColumn(
-            contentPadding = PaddingValues(bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            sections.forEach { section ->
-                item(key = "section-${section.titleRes}") {
+        val errorRes = errorMessageRes
+        when {
+            sections.isEmpty() && isLoading -> CenteredState {
+                CircularProgressIndicator(color = LendlyColors.Interactive.Primary)
+            }
+
+            sections.isEmpty() && errorRes != null -> CenteredState {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = stringResource(section.titleRes),
-                        style = MaterialTheme.typography.labelLarge,
+                        text = stringResource(errorRes),
+                        style = MaterialTheme.typography.bodyMedium,
                         color = LendlyColors.Content.Tertiary,
-                        modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
+                        textAlign = TextAlign.Center,
                     )
+                    TextButton(onClick = { viewModel.refresh() }) {
+                        Text(text = stringResource(R.string.history_retry))
+                    }
                 }
-                items(items = section.items, key = { it.id }) { transaction ->
-                    TransactionItem(
-                        transaction = transaction,
-                        onClick = { onTransactionClick(transaction) },
-                    )
+            }
+
+            visibleSections.isEmpty() -> CenteredState {
+                Text(
+                    text = stringResource(R.string.history_no_results),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = LendlyColors.Content.Tertiary,
+                    textAlign = TextAlign.Center,
+                )
+            }
+
+            else -> LazyColumn(
+                contentPadding = PaddingValues(bottom = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                visibleSections.forEach { section ->
+                    item(key = "section-${section.title}") {
+                        Text(
+                            text = section.title,
+                            style = MaterialTheme.typography.labelLarge,
+                            color = LendlyColors.Content.Tertiary,
+                            modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
+                        )
+                    }
+                    items(items = section.items, key = { it.id }) { transaction ->
+                        TransactionItem(
+                            transaction = transaction,
+                            onClick = { onTransactionClick(transaction) },
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-private fun sampleHistorySections(): List<TransactionSection> = listOf(
-    TransactionSection(
-        titleRes = R.string.history_section_today,
-        items = listOf(
-            TransactionUiModel("t1", "Paid this month", "Apple Inc.", "9:07 AM", "1,2555 PHP", Icons.Outlined.ArrowUpward),
-            TransactionUiModel("t2", "Paid this month", "Apple Inc.", "9:07 AM", "1,2555 PHP", Icons.Outlined.ArrowUpward),
-            TransactionUiModel("t3", "Paid this month", "Apple Inc.", "9:07 AM", "1,2555 PHP", Icons.Outlined.ArrowUpward),
-            TransactionUiModel("t4", "Added", "Apple Inc.", "9:07 AM", "1,200 PHP", Icons.Outlined.Add),
-            TransactionUiModel("t5", "Paid this month", "Apple Inc.", "9:07 AM", "1,200 PHP", Icons.Outlined.Add),
-        ),
-    ),
-    TransactionSection(
-        titleRes = R.string.history_section_recent_loans,
-        items = listOf(
-            TransactionUiModel("r1", "iPhone 15 Pro Max", "Apple Inc.", "02/08/2024", "Paid", Icons.Outlined.Check),
-            TransactionUiModel("r2", "iPhone 15 Pro Max", "Apple Inc.", "02/08/2024", "Paid", Icons.Outlined.Check),
-            TransactionUiModel("r3", "iPhone 15 Pro Max", "Apple Inc.", "02/08/2024", "Paid", Icons.Outlined.Check),
-        ),
-    ),
-)
+@Composable
+private fun CenteredState(content: @Composable () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 48.dp),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        content()
+    }
+}
+
+private fun List<TransactionSection>.applyFilters(
+    query: String,
+    filter: HistoryFilter,
+): List<TransactionSection> {
+    val term = query.trim()
+    return mapNotNull { section ->
+        val items = section.items.filter { it.matchesQuery(term) && it.matchesFilter(filter) }
+        if (items.isEmpty()) null else section.copy(items = items)
+    }
+}
+
+private fun TransactionUiModel.matchesQuery(term: String): Boolean {
+    if (term.isBlank()) return true
+    return listOf(title, subtitleCompany, amount, time).any { it.contains(term, ignoreCase = true) }
+}
+
+private fun TransactionUiModel.matchesFilter(filter: HistoryFilter): Boolean = when (filter) {
+    HistoryFilter.All -> true
+    HistoryFilter.PaidBills -> type == "LOAN_PAYMENT"
+    HistoryFilter.Added -> type == "CASH_IN" || type == "LOAN_DISBURSEMENT"
+    // Sin criterio definido aún con los datos disponibles: se comportan como "All".
+    HistoryFilter.Type, HistoryFilter.Balance -> true
+}

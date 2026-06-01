@@ -27,6 +27,7 @@ object LendlyColors {
         val Neutral = Color(0xFFE5F5EA)
         val Overlay = Color(0xFFE5F5EA)
         val Icon = Color(0xFFFCF8F8)
+        val Subtle = Color(0xFFE7E7E7)
     }
 
     object Border {
