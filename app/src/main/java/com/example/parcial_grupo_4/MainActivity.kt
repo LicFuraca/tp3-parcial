@@ -15,7 +15,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.parcial_grupo_4.ui.MainScreen
 import com.example.parcial_grupo_4.ui.theme.Parcialgrupo4Theme
+<<<<<<< feature/ShopUi
 import com.example.parcial_grupo_4.ui.shop.shopNavGraph
+=======
+>>>>>>> main
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
