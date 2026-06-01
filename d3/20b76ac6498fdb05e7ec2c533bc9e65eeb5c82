@@ -1,0 +1,88 @@
+app/src/main/java/com/example/parcial_grupo_4/di/ApiModule.kt
+  s_9df7d089b418ee::t_b462cc88720416 1-19
+app/src/main/java/com/example/parcial_grupo_4/ui/history/HistoryViewModel.kt
+  s_9df7d089b418ee::t_e9e7f425fa9de5 1-54
+app/src/main/java/com/example/parcial_grupo_4/data/model/TransactionMappers.kt
+  s_9df7d089b418ee::t_6421b474d621c1 44
+  s_9df7d089b418ee::t_7b498c45c430f2 39
+  s_9df7d089b418ee::t_acfbe0c2a7cdf9 1-38,40-43,45-85
+app/build.gradle.kts
+  s_9df7d089b418ee::t_478f56fca5813d 59
+app/src/main/java/com/example/parcial_grupo_4/di/DatabaseModule.kt
+  s_9df7d089b418ee::t_a5c7695bf2e0eb 1-26
+app/src/main/java/com/example/parcial_grupo_4/di/NetworkModule.kt
+  s_9df7d089b418ee::t_ea5b710dd5d00a 1-68
+app/src/main/java/com/example/parcial_grupo_4/data/api/TransactionApi.kt
+  s_9df7d089b418ee::t_a6a8f8752b966e 1-9
+app/src/main/java/com/example/parcial_grupo_4/data/local/TransactionDao.kt
+  s_9df7d089b418ee::t_f66faa5d58c2a9 1-31
+app/src/main/res/values/strings.xml
+  s_9df7d089b418ee::t_7fb6374ee8040e 24
+  s_9df7d089b418ee::t_dffda6c04dedba 37-42
+  s_9df7d089b418ee::t_8afc53929b82c1 32
+  s_9df7d089b418ee::t_34b3cd085ac1af 21-23,26-28
+app/src/main/java/com/example/parcial_grupo_4/ui/history/TransactionDetailViewModel.kt
+  s_9df7d089b418ee::t_6b49b5a8625be9 1-42
+app/src/main/java/com/example/parcial_grupo_4/ui/history/TransactionDetailScreen.kt
+  s_9df7d089b418ee::t_3f1392438b4598 27,42,52-55,57-59,61,63,92,163
+  s_9df7d089b418ee::t_1e38caf7c0e650 56,60,62,71-77,117-118,120-123,126-140,145,158-159,167
+app/src/main/java/com/example/parcial_grupo_4/ui/common/LendlySearchBar.kt
+  s_9df7d089b418ee::t_fa331ab693596e 45
+  s_9df7d089b418ee::t_8af3c70a28a9c6 25
+  s_9df7d089b418ee::t_3ab7cf34550ddc 13
+  s_9df7d089b418ee::t_cab601541d9903 82
+app/src/main/java/com/example/parcial_grupo_4/ui/history/HistoryScreen.kt
+  s_9df7d089b418ee::t_a0089d6b8d75cf 6,26,29,60,111-117,120-123,125,127-137,156-173,177-178
+  s_9df7d089b418ee::t_d039069f9bec71 15,18,21,31,49,51-54,58-59,90-97,99-100,102,104-106,108-110,118-119,124,126,144-152,174-176
+app/src/main/java/com/example/parcial_grupo_4/data/local/TransactionEntity.kt
+  s_9df7d089b418ee::t_095a8a8860c6f6 1-20
+app/src/main/java/com/example/parcial_grupo_4/data/local/LendlyDatabase.kt
+  s_9df7d089b418ee::t_a17031f14397c8 1-9
+gradle/libs.versions.toml
+  s_9df7d089b418ee::t_c0df2c5a1caa45 42
+app/src/main/java/com/example/parcial_grupo_4/data/api/ApiConstants.kt
+  s_9df7d089b418ee::t_18689e0a26c6b8 1-9
+app/src/main/java/com/example/parcial_grupo_4/data/api/dto/TransactionDtos.kt
+  s_9df7d089b418ee::t_94c94ce11d6b78 1-32
+app/src/main/java/com/example/parcial_grupo_4/data/api/SafeApiCall.kt
+  s_9df7d089b418ee::t_92f71dcaf71133 1-31
+app/src/main/java/com/example/parcial_grupo_4/MainActivity.kt
+  s_9df7d089b418ee::t_b980f3a8bd3b33 9,11
+app/src/main/java/com/example/parcial_grupo_4/data/repository/TransactionRepository.kt
+  s_9df7d089b418ee::t_755663d1239cdf 1-37
+app/src/main/java/com/example/parcial_grupo_4/util/NetworkErrorMessages.kt
+  s_9df7d089b418ee::t_e8125276ff99ee 1-15
+app/src/main/java/com/example/parcial_grupo_4/ui/theme/Color.kt
+  s_9df7d089b418ee::t_5686452f13a162 30
+app/src/main/java/com/example/parcial_grupo_4/ui/MainScreen.kt
+  s_9df7d089b418ee::t_8924701e62aeb5 15,17,32-33,159-167
+  s_9df7d089b418ee::t_ffd54dd73a1752 13,49,51,62,64-80,87-89,94,97-99,102,108,136-139,147-149,168
+app/src/main/AndroidManifest.xml
+  s_9df7d089b418ee::t_498c3ff64aef2a 5-6,8
+app/src/main/java/com/example/parcial_grupo_4/data/api/NetworkResult.kt
+  s_9df7d089b418ee::t_48fe8db6d232b7 1-23
+app/src/main/java/com/example/parcial_grupo_4/LendlyApp.kt
+  s_9df7d089b418ee::t_670980c042d556 1-7
+app/src/main/java/com/example/parcial_grupo_4/ui/history/TransactionItem.kt
+  s_9df7d089b418ee::t_4773723c5f8d75 38,40-43
+  s_9df7d089b418ee::t_99ab04e40f3921 44-45
+  s_9df7d089b418ee::t_68333fadb3944c 39
+app/src/main/java/com/example/parcial_grupo_4/ui/common/LendlyBackButton.kt
+  s_9df7d089b418ee::t_2e416f34e47a58 27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "d320b76ac6498fdb05e7ec2c533bc9e65eeb5c82",
+  "prompts": {},
+  "sessions": {
+    "s_9df7d089b418ee": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "40d55bfc-a18b-4b17-8759-f9024480b0b3",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "LicFuraca <martinexequield@gmail.com>"
+    }
+  }
+}
