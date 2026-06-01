@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +56,7 @@ fun FilterScreen(
                     onClick = onApplyFilters,
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7BF179), contentColor = Color(0xFF122300))
+                    colors = ButtonDefaults.buttonColors(containerColor = LendlyColors.Interactive.Accent, contentColor = LendlyColors.Content.Primary)
                 ) {
                     Text("Apply")
                 }
@@ -130,8 +131,8 @@ fun FilterChips(
                 label = { Text(item) },
                 shape = RoundedCornerShape(12.dp),
                 colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = Color(0xFF7BF179),
-                    selectedLabelColor = Color(0xFF122300)
+                    selectedContainerColor = LendlyColors.Interactive.Accent,
+                    selectedLabelColor = LendlyColors.Content.Primary
                 )
             )
         }

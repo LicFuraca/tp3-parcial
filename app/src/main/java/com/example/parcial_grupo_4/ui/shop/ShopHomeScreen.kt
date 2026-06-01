@@ -122,7 +122,7 @@ fun SearchBar(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(24.dp),
-        color = Color(0xFFF5F5F5),
+        color = LendlyColors.Background.Neutral,
         modifier = modifier.height(48.dp)
     ) {
         Row(

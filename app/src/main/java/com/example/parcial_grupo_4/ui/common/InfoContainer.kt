@@ -14,13 +14,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 @Composable
 fun InfoContainer(
     title: String,
     description: String,
     icon: ImageVector = Icons.Default.Info,
-    backgroundColor: Color = Color(0xFFE5F5EA),
+    backgroundColor: Color = LendlyColors.Background.Neutral,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -41,7 +42,7 @@ fun InfoContainer(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = Color(0xFF2F5711)
+                    tint = LendlyColors.Sentiment.Positive
                 )
             }
             
@@ -52,7 +53,7 @@ fun InfoContainer(
                     text = title,
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF122300)
+                    color = LendlyColors.Content.Primary
                 )
                 Text(
                     text = description,

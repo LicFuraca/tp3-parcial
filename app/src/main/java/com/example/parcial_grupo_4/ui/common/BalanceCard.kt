@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 @Composable
 fun BalanceCard(
@@ -24,7 +25,7 @@ fun BalanceCard(
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5FDF7)), // Background Neutral
+        colors = CardDefaults.cardColors(containerColor = LendlyColors.Background.Neutral), // Background Neutral
         modifier = modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -43,15 +44,15 @@ fun BalanceCard(
                         text = balance,
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF122300)
+                        color = LendlyColors.Content.Primary
                     )
                 }
                 
                 Button(
                     onClick = onCashInClick,
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF7BF179),
-                        contentColor = Color(0xFF122300)
+                        containerColor = LendlyColors.Interactive.Accent,
+                        contentColor = LendlyColors.Interactive.Contrast
                     ),
                     shape = RoundedCornerShape(24.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),

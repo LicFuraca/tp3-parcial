@@ -15,8 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.parcial_grupo_4.data.model.Product
 import com.example.parcial_grupo_4.data.model.ShopResponse
-import com.example.parcial_grupo_4.ui.shop.ShopHomeScreen
-import com.example.parcial_grupo_4.ui.shop.ShopViewModel
+
 
 sealed class ShopRoute(val route: String) {
     object Home : ShopRoute("shop_home")

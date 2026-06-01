@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 @Composable
 fun CreditScoreCard(
@@ -45,14 +46,14 @@ fun CreditScoreCard(
                 // Simple Gauge Representation
                 Canvas(modifier = Modifier.size(150.dp)) {
                     drawArc(
-                        color = Color(0xFFE5F5EA),
+                        color = LendlyColors.Background.Neutral,
                         startAngle = 180f,
                         sweepAngle = 180f,
                         useCenter = false,
                         style = Stroke(width = 12.dp.toPx(), cap = StrokeCap.Round)
                     )
                     drawArc(
-                        color = Color(0xFF7BF179),
+                        color = LendlyColors.Interactive.Accent,
                         startAngle = 180f,
                         sweepAngle = (score.toFloat() / maxScore.toFloat()) * 180f,
                         useCenter = false,
@@ -65,12 +66,12 @@ fun CreditScoreCard(
                         text = score.toString(),
                         style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.ExtraBold,
-                        color = Color(0xFF122300)
+                        color = LendlyColors.Content.Primary
                     )
                     Text(
                         text = "Your Score is $status",
                         style = MaterialTheme.typography.labelMedium,
-                        color = Color(0xFF2F5711) // Sentiment Positive
+                        color = LendlyColors.Sentiment.Positive // Sentiment Positive
                     )
                 }
             }
