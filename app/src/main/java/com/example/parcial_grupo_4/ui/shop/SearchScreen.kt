@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import com.example.parcial_grupo_4.ui.theme.LendlySpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,25 +30,48 @@ fun SearchScreen(
     }
 
     Scaffold(
+        containerColor = LendlyColors.Background.Screen,
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = LendlyColors.Background.Screen
+                ),
                 title = {
                     TextField(
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
-                        placeholder = { Text("Search for product") },
+                        placeholder = { 
+                            Text(
+                                "Search for product",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = LendlyColors.Content.Tertiary
+                            ) 
+                        },
                         modifier = Modifier.fillMaxWidth(),
+                        textStyle = MaterialTheme.typography.bodyMedium,
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
                             unfocusedContainerColor = Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
+                            unfocusedIndicatorColor = Color.Transparent,
+                            focusedTextColor = LendlyColors.Content.Primary,
+                            unfocusedTextColor = LendlyColors.Content.Primary
                         ),
-                        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                        leadingIcon = { 
+                            Icon(
+                                Icons.Default.Search, 
+                                contentDescription = null,
+                                tint = LendlyColors.Content.Tertiary
+                            ) 
+                        },
                         trailingIcon = {
                             if (searchQuery.isNotEmpty()) {
                                 IconButton(onClick = { searchQuery = "" }) {
-                                    Icon(Icons.Default.Close, contentDescription = null)
+                                    Icon(
+                                        Icons.Default.Close, 
+                                        contentDescription = null,
+                                        tint = LendlyColors.Content.Tertiary
+                                    )
                                 }
                             }
                         },
@@ -55,7 +80,11 @@ fun SearchScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack, 
+                            contentDescription = "Back",
+                            tint = LendlyColors.Content.Primary
+                        )
                     }
                 }
             )
@@ -65,7 +94,7 @@ fun SearchScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp)
+                .padding(LendlySpacing.Spacing3)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -75,10 +104,15 @@ fun SearchScreen(
                 Text(
                     text = "Recent",
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = LendlyColors.Content.Primary
                 )
                 TextButton(onClick = { recentSearches = emptyList() }) {
-                    Text(text = "Clear All", color = MaterialTheme.colorScheme.primary)
+                    Text(
+                        text = "Clear All", 
+                        style = MaterialTheme.typography.labelLarge,
+                        color = LendlyColors.Interactive.Primary
+                    )
                 }
             }
             
@@ -88,19 +122,27 @@ fun SearchScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { onSearchSubmit(search) }
-                            .padding(vertical = 12.dp),
+                            .padding(vertical = LendlySpacing.Spacing2),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = search, color = Color.Gray)
+                        Text(
+                            text = search, 
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = LendlyColors.Content.Secondary
+                        )
                         IconButton(
                             onClick = { recentSearches = recentSearches.filter { it != search } },
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(LendlySpacing.Spacing4)
                         ) {
-                            Icon(Icons.Default.Close, contentDescription = null, tint = Color.LightGray)
+                            Icon(
+                                Icons.Default.Close, 
+                                contentDescription = null, 
+                                tint = LendlyColors.Border.Neutral
+                            )
                         }
                     }
-                    HorizontalDivider(color = Color(0xFFF0F0F0))
+                    HorizontalDivider(color = LendlyColors.Border.Neutral)
                 }
             }
         }

@@ -19,15 +19,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.parcial_grupo_4.data.model.Category
 import com.example.parcial_grupo_4.data.model.Product
 import com.example.parcial_grupo_4.data.model.ShopResponse
-import com.example.parcial_grupo_4.ui.theme.LendlyColors
 import com.example.parcial_grupo_4.ui.common.ProductCard
 import com.example.parcial_grupo_4.ui.common.PromotionalBanner
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import com.example.parcial_grupo_4.ui.theme.LendlySpacing
 
 @Composable
 fun ShopHomeScreen(
@@ -40,25 +40,31 @@ fun ShopHomeScreen(
     val isLoading: Boolean by viewModel.isLoading.observeAsState(false)
     val error: String? by viewModel.error.observeAsState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().background(LendlyColors.Background.Screen)) {
         if (isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else if (error != null) {
-            Text(text = error!!, modifier = Modifier.align(Alignment.Center), color = MaterialTheme.colorScheme.error)
+            Text(
+                text = error!!,
+                modifier = Modifier.align(Alignment.Center),
+                color = LendlyColors.Sentiment.Negative,
+                style = MaterialTheme.typography.bodyMedium
+            )
         } else {
             shopData?.let { data ->
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp)
+                    contentPadding = PaddingValues(LendlySpacing.Spacing3)
                 ) {
-                    // Search Bar and Filter
                     item {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             SearchBar(onClick = onSearchClick, modifier = Modifier.weight(1f))
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Spacer(modifier = Modifier.width(LendlySpacing.Spacing1))
                             IconButton(
                                 onClick = onFilterClick,
-                                colors = IconButtonDefaults.iconButtonColors(containerColor = LendlyColors.Interactive.Accent)
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = LendlyColors.Interactive.Accent
+                                )
                             ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.List,
@@ -67,10 +73,9 @@ fun ShopHomeScreen(
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing3))
                     }
 
-                    // Featured Banner
                     item {
                         data.featured.firstOrNull()?.let { featured ->
                             PromotionalBanner(
@@ -81,35 +86,31 @@ fun ShopHomeScreen(
                                 onClick = { onProductClick(featured.id) }
                             )
                         }
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
-                    // Shop By Category
                     item {
                         SectionHeader(title = "Shop By Category", onSeeAllClick = {})
                         CategoryList(data.categories)
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
-                    // Popular Brands
                     item {
                         SectionHeader(title = "Popular Brands", onSeeAllClick = {})
                         BrandList(data.brands.map { it.name })
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
-                    // Recommended For You
                     item {
                         SectionHeader(title = "Recommended For You", onSeeAllClick = {})
                         ProductRow(data.products.take(5), onProductClick)
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
-                    // Best Sellers
                     item {
                         SectionHeader(title = "Best Sellers", onSeeAllClick = {})
                         ProductRow(data.products.reversed().take(5), onProductClick)
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
                 }
             }
@@ -121,17 +122,21 @@ fun ShopHomeScreen(
 fun SearchBar(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Surface(
         onClick = onClick,
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(LendlySpacing.Spacing4),
         color = LendlyColors.Background.Neutral,
         modifier = modifier.height(48.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = LendlySpacing.Spacing3)
         ) {
-            Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray)
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Search for product", color = Color.Gray, fontSize = 14.sp)
+            Icon(Icons.Default.Search, contentDescription = null, tint = LendlyColors.Content.Tertiary)
+            Spacer(modifier = Modifier.width(LendlySpacing.Spacing1))
+            Text(
+                text = "Search for product",
+                color = LendlyColors.Content.Tertiary,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }
@@ -139,17 +144,22 @@ fun SearchBar(onClick: () -> Unit, modifier: Modifier = Modifier) {
 @Composable
 fun SectionHeader(title: String, onSeeAllClick: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+        modifier = Modifier.fillMaxWidth().padding(bottom = LendlySpacing.Spacing2),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = LendlyColors.Content.Primary
         )
         TextButton(onClick = onSeeAllClick) {
-            Text(text = "See All ->", fontSize = 12.sp, color = Color.Gray)
+            Text(
+                text = "See All ->",
+                style = MaterialTheme.typography.labelMedium,
+                color = LendlyColors.Content.Tertiary
+            )
         }
     }
 }
@@ -157,24 +167,28 @@ fun SectionHeader(title: String, onSeeAllClick: () -> Unit) {
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun CategoryList(categories: List<Category>) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing3)) {
         items(categories) { category ->
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(
                     modifier = Modifier
                         .size(64.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(LendlyColors.Background.Neutral), // Background Neutral
+                        .clip(RoundedCornerShape(LendlySpacing.Spacing3))
+                        .background(LendlyColors.Background.Neutral),
                     contentAlignment = Alignment.Center
                 ) {
                    GlideImage(
                        model = category.icon,
                        contentDescription = category.name,
-                       modifier = Modifier.size(32.dp)
+                       modifier = Modifier.size(LendlySpacing.Spacing5)
                    )
                 }
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = category.name, style = MaterialTheme.typography.labelMedium, fontSize = 10.sp)
+                Spacer(modifier = Modifier.height(LendlySpacing.Spacing1))
+                Text(
+                    text = category.name,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = LendlyColors.Content.Secondary
+                )
             }
         }
     }
@@ -182,13 +196,20 @@ fun CategoryList(categories: List<Category>) {
 
 @Composable
 fun BrandList(brands: List<String>) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing1)) {
         items(brands) { brand ->
             AssistChip(
                 onClick = {},
                 label = { Text(brand) },
-                shape = RoundedCornerShape(16.dp),
-                colors = AssistChipDefaults.assistChipColors(containerColor = Color.White)
+                shape = RoundedCornerShape(LendlySpacing.Spacing3),
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = LendlyColors.Background.Screen,
+                    labelColor = LendlyColors.Content.Primary
+                ),
+                border = AssistChipDefaults.assistChipBorder(
+                    enabled = true,
+                    borderColor = LendlyColors.Border.Neutral
+                )
             )
         }
     }
@@ -196,7 +217,7 @@ fun BrandList(brands: List<String>) {
 
 @Composable
 fun ProductRow(products: List<Product>, onProductClick: (String) -> Unit) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing1)) {
         items(products) { product ->
             ProductCard(product = product, onClick = onProductClick)
         }

@@ -6,6 +6,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -64,22 +65,20 @@ fun NavGraphBuilder.shopNavGraph(navController: NavHostController) {
             )
         }
         composable(ShopRoute.ProductDetail.route) { backStackEntry ->
-            val productId = backStackEntry.arguments?.getString("productId") ?: ""
-            val viewModel: ShopViewModel = hiltViewModel()
+            val productId = backStackEntry.arguments?.getString("productId").orEmpty()
+            val parentEntry = remember(backStackEntry) { navController.getBackStackEntry("shop_graph")}
+            val viewModel: ShopViewModel = hiltViewModel(parentEntry)
             val shopData: ShopResponse? by viewModel.shopData.observeAsState()
-            val product = shopData?.products?.find { it.id == productId } 
+            val product = shopData?.products?.find { it.id == productId }
                 ?: shopData?.featured?.find { it.id == productId }
-            
-            if (product != null) {
-                ProductDetailScreen(
-                    product = product,
-                    onBackClick = { navController.popBackStack() }
-                )
-            } else {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator()
-                }
+            val error by viewModel.error.observeAsState()
+
+            when {
+                product != null -> ProductDetailScreen(product, onBackClick = { navController.popBackStack() })
+                error != null   -> ErrorState(error!!, onRetry = viewModel::fetchProducts)
+                shopData != null -> NotFoundState(onBack = { navController.popBackStack() }) // id no existe
+                else            -> CircularProgressIndicator()
+            }
             }
         }
     }
-}
