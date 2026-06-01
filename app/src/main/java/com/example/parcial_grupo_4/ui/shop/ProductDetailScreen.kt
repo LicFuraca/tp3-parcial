@@ -26,6 +26,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.parcial_grupo_4.data.model.Product
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
 import com.example.parcial_grupo_4.ui.theme.LendlySpacing
+import com.example.parcial_grupo_4.util.FormatUtils.formatCurrencyAmount
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
@@ -95,14 +96,14 @@ fun ProductDetailScreen(
                             color = LendlyColors.Content.Tertiary
                         )
                         Text(
-                            text = "${product.currency} ${product.price}",
-                            style = MaterialTheme.typography.headlineSmall,
-                            fontWeight = FontWeight.ExtraBold,
+                            text = "${product.currency} ${formatCurrencyAmount(product.monthlyInstallment)} / per month for ${product.installmentMonths} mos",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
                             color = LendlyColors.Content.Primary
                         )
                         Text(
-                            text = "per month", 
-                            style = MaterialTheme.typography.labelSmall,
+                            text = product.name,
+                            style = MaterialTheme.typography.bodyMedium,
                             color = LendlyColors.Content.Tertiary
                         )
                     }
@@ -231,6 +232,17 @@ fun ProductDetailScreen(
                         FeatureRow(Icons.Default.Info, "Disclaimer", "Estimated calculation only. Down Payment and other loan terms may vary.")
                     }
                 }
+
+                if (!product.description.isNullOrEmpty()) {
+                    ExpandableSection(title = "PRODUCT DESCRIPTION") {
+                        Text(
+                            text = product.description,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = LendlyColors.Content.Tertiary
+                        )
+                    }
+                }
+
                 
                 ExpandableSection(title = "PRODUCT SPECIFICATIONS") {
                     Column(verticalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing2)) {
@@ -238,9 +250,15 @@ fun ProductDetailScreen(
                         SpecItem("Camera", "12MP camera\nf/1.8 aperture\nAutofocus with Focus Pixels\nRetina Flash")
                     }
                 }
+
+
+
             }
+
         }
+
     }
+
 }
 
 @Composable
