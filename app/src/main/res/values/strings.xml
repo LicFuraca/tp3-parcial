@@ -18,4 +18,14 @@
     <string name="home_recommended_for_you">Recommended For You</string>
     <string name="home_see_all">See All</string>
     <!--HomeScreen Strings-->
+    <!--CashInScreen Strings-->
+    <string name="cash_in_title">Cash-In</string>
+    <string name="cash_in_options_title">Cash-In Options</string>
+    <string name="cash_in_online_title">Online Banking</string>
+    <string name="cash_in_online_description">Pay via other banks or e-wallet</string>
+    <string name="cash_in_counter_title">Over-the-counter</string>
+    <string name="cash_in_counter_description">Pay in cash</string>
+    <string name="cash_in_back">Volver</string>
+    <string name="cash_in_info">Información</string>
+    <!--CashInScreen Strings-->
 </resources>
