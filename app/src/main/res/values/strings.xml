@@ -8,4 +8,14 @@
     <string name="topbar_profile">Perfil</string>
     <string name="topbar_app_logo">Lendly</string>
     <string name="topbar_notifications">Notificaciones</string>
+
+    <!--HomeScreen Strings-->
+    <string name="home_account_title">Account</string>
+    <string name="home_available_balance">AVAILABLE BALANCE</string>
+    <string name="home_balance_amount">₱ 2,500.00</string>
+    <string name="home_cash_in">Cash In</string>
+    <string name="home_unpaid_loans">Unpaid Loans</string>
+    <string name="home_recommended_for_you">Recommended For You</string>
+    <string name="home_see_all">See All</string>
+    <!--HomeScreen Strings-->
 </resources>
