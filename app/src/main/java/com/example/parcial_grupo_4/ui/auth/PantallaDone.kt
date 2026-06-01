@@ -1,13 +1,16 @@
 package com.example.parcial_grupo_4.ui.auth
+
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.theme.*
+import com.example.parcial_grupo_4.ui.common.LendlyBottomAction
 
 @Composable
 fun PantallaDone(onGetStarted: () -> Unit) {
@@ -15,29 +18,72 @@ fun PantallaDone(onGetStarted: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(LendlyColors.Background.Screen)
-            .padding(24.dp),
+            .padding(vertical = LendlySpacing.Spacing4),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "🎉", fontSize = 64.sp, modifier = Modifier.padding(bottom = 16.dp))
-            Text(text = "All done!", fontSize = 28.sp, color = LendlyColors.Content.Primary, modifier = Modifier.padding(bottom = 8.dp))
-            Text(text = "Your account is ready to use. Thank you for completing the setup.", fontSize = 14.sp, color = LendlyColors.Content.Secondary)
-        }
-
-        Button(
-            onClick = onGetStarted,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = LendlyColors.Interactive.Accent,
-                contentColor = LendlyColors.Content.Primary
-            )
+                .padding(top = 40.dp, start = 12.dp, end = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Get Started", fontSize = 16.sp)
+            Image(
+                painter = painterResource(id = R.drawable.ic_close_cross),
+                contentDescription = "Close",
+                modifier = Modifier.size(48.dp)
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_logo_layers),
+                contentDescription = "Logo",
+                modifier = Modifier.size(width = 116.dp, height = 40.dp)
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.size(48.dp))
         }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_done_check),
+                contentDescription = null,
+                modifier = Modifier.size(width = 165.dp, height = 300.dp)
+            )
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+
+            Image(
+                painter = painterResource(id = R.drawable.img_all_done_text),
+                contentDescription = "All done",
+                modifier = Modifier.size(width = 230.dp, height = 36.dp)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+
+            Image(
+                painter = painterResource(id = R.drawable.img_ready_text),
+                contentDescription = "Ready to start",
+                modifier = Modifier.size(width = 257.dp, height = 25.dp)
+            )
+        }
+
+
+        LendlyBottomAction(
+            text = "Done",
+            onClick = onGetStarted,
+            showDivider = false
+        )
     }
 }

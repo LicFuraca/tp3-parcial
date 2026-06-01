@@ -1,17 +1,20 @@
 package com.example.parcial_grupo_4.ui.auth
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.theme.*
+import com.example.parcial_grupo_4.ui.common.LendlyBottomAction
 
 @Composable
 fun PantallaIdVerification(onNext: () -> Unit, onBack: () -> Unit) {
@@ -19,60 +22,79 @@ fun PantallaIdVerification(onNext: () -> Unit, onBack: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(LendlyColors.Background.Screen)
-            .padding(24.dp),
+            .padding(vertical = LendlySpacing.Spacing4),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        // --- PARTE SUPERIOR: Volver y Textos ---
-        Column(modifier = Modifier.fillMaxWidth()) {
-            TextButton(onClick = onBack, modifier = Modifier.align(Alignment.Start)) {
-                Text("< Back", color = LendlyColors.Content.Primary)
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp, top = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier.minimumInteractiveComponentSize()
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_back),
+                        contentDescription = "Back",
+                        tint = LendlyColors.Content.Primary
+                    )
+                }
+                IconButton(
+                    onClick = { },
+                    modifier = Modifier.minimumInteractiveComponentSize()
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_info),
+                        contentDescription = "Information",
+                        tint = LendlyColors.Content.Primary
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-            Text(
-                text = "Take a photo of your ID",
-                fontSize = 24.sp,
-                color = LendlyColors.Content.Primary,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Text(
-                text = "Make sure your ID is clearly visible and within the frame.",
-                fontSize = 14.sp,
-                color = LendlyColors.Content.Secondary
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = LendlySpacing.Spacing4)
+            ) {
+                Text(
+                    text = "Let’s scan your ID",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 36.sp,
+                    color = LendlyColors.Content.Primary,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Text(
+                    text = "Always keep your phone in portrait mode,\nand here are some more tips.",
+                    fontSize = 15.sp,
+                    lineHeight = 22.sp,
+                    color = LendlyColors.Content.Secondary
+                )
+            }
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.img_id_frame),
+                contentDescription = "ID Scan Frame",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = LendlySpacing.Spacing4)
+                    .aspectRatio(1.2f),
+                contentScale = ContentScale.Crop
             )
         }
 
-        // --- PARTE CENTRAL: El marco horizontal para el documento ---
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp) // Formato rectangular tipo tarjeta/DNI
-                .clip(RoundedCornerShape(12.dp))
-                .background(LendlyColors.Background.Neutral)
-                .border(2.dp, LendlyColors.Interactive.Accent, RoundedCornerShape(12.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "[ Frente de tu DNI ]",
-                color = LendlyColors.Content.Secondary,
-                fontSize = 14.sp
-            )
-        }
-
-        // --- PARTE INFERIOR: Botón Next ---
-        Button(
-            onClick = onNext,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = LendlyColors.Interactive.Accent,
-                contentColor = LendlyColors.Content.Primary
-            )
-        ) {
-            Text(text = "Next", fontSize = 16.sp)
-        }
+        LendlyBottomAction(text = "Next", onClick = onNext)
     }
 }

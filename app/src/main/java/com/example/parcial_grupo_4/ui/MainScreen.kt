@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.parcial_grupo_4.R
+import com.example.parcial_grupo_4.ui.auth.*
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBar
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBarItem
 import com.example.parcial_grupo_4.ui.common.LendlyTopBar
@@ -22,12 +23,15 @@ import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
 
-private object LendlyRoutes {
+object LendlyRoutes {
     const val Home = "home"
     const val Loan = "loan"
     const val Shop = "shop"
     const val History = "history"
     const val Manage = "manage"
+    const val Login = "login"
+    const val VerifyPhone = "verify_phone"
+    const val SmsVerification = "sms_verification"
 }
 
 private val BottomBarItems = listOf(
@@ -43,32 +47,34 @@ fun MainScreen() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
+    val rutasConNavbar = setOf(LendlyRoutes.Home, LendlyRoutes.Loan, LendlyRoutes.Shop, LendlyRoutes.History, LendlyRoutes.Manage)
 
     Scaffold(
         topBar = { LendlyTopBar() },
         bottomBar = {
-            LendlyBottomBar(
-                items = BottomBarItems,
-                currentRoute = currentRoute,
-                onItemSelected = { item ->
-                    navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+            if (currentRoute in rutasConNavbar) {
+                LendlyBottomBar(
+                    items = BottomBarItems,
+                    currentRoute = currentRoute,
+                    onItemSelected = { item ->
+                        navController.navigate(item.route) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                },
-            )
+                    },
+                )
+            }
         },
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = LendlyRoutes.Home,
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize(),
+            startDestination = LendlyRoutes.Login,
+            modifier = Modifier.padding(innerPadding).fillMaxSize(),
         ) {
+            composable(LendlyRoutes.Login) { PantallaLogin(onNext = { navController.navigate(LendlyRoutes.VerifyPhone) }) }
+            composable(LendlyRoutes.VerifyPhone) { PantallaVerifyPhone(onNext = { navController.navigate(LendlyRoutes.SmsVerification) }, onBack = { navController.popBackStack() }) }
+            composable(LendlyRoutes.SmsVerification) { PantallaSmsVerification(onNext = { navController.navigate(LendlyRoutes.Home) }, onBack = { navController.popBackStack() }) }
             composable(LendlyRoutes.Home) { HomeScreen() }
             composable(LendlyRoutes.Loan) { LoansScreen() }
             composable(LendlyRoutes.Shop) { ShopScreen() }
