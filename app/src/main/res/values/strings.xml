@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">parcial-grupo-4</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_loan">Loan</string>
+    <string name="tab_shop">Shop</string>
+    <string name="tab_history">History</string>
+    <string name="tab_manage">Manage</string>
+    <string name="topbar_profile">Perfil</string>
+    <string name="topbar_app_logo">Lendly</string>
+    <string name="topbar_notifications">Notificaciones</string>
 </resources>

@@ -89,3 +89,6 @@ $RECYCLE.BIN/
 # ---------- Claude Code ----------
 .claude/
 CLAUDE.local.md
+
+# ---------- Temp / Figma refs ----------
+_figma/
