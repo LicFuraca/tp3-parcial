@@ -8,4 +8,32 @@
     <string name="topbar_profile">Perfil</string>
     <string name="topbar_app_logo">Lendly</string>
     <string name="topbar_notifications">Notificaciones</string>
+
+    <string name="history_title">History</string>
+    <string name="history_search_placeholder">Search</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_filter_type">Type</string>
+    <string name="history_filter_balance">Balance</string>
+    <string name="history_filter_paid_bills">Paid Bills</string>
+    <string name="history_filter_added">Added</string>
+    <string name="history_section_today">Today</string>
+    <string name="history_section_recent_loans">Recent Loans</string>
+    <string name="history_search_icon">Buscar</string>
+    <string name="history_transaction_icon">Transacción</string>
+
+    <string name="back">Volver</string>
+    <string name="more_options">Más opciones</string>
+    <string name="info">Información</string>
+
+    <string name="transaction_detail_title">Transaction Details</string>
+    <string name="transaction_detail_to_format">To %1$s</string>
+    <string name="transaction_detail_badge">Paid Bills</string>
+    <string name="transaction_detail_fee_label">Fee</string>
+    <string name="transaction_detail_fee_value">₱100.00</string>
+    <string name="transaction_detail_date_label">Date &amp; Time</string>
+    <string name="transaction_detail_date_value">Jul 15, 2024 9:12 AM</string>
+    <string name="transaction_detail_number_label">Transaction Number</string>
+    <string name="transaction_detail_number_value">#200412312551</string>
+    <string name="transaction_detail_help_question">Didn\'t find what you were looking for?</string>
+    <string name="transaction_detail_help_link">Go to Help Center</string>
 </resources>
