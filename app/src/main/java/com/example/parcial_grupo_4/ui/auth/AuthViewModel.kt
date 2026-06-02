@@ -10,12 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 sealed class LoginState {
     object Idle : LoginState()
     object Loading : LoginState()
     object Success : LoginState()
-    data class Error(val messageRes: Int) : LoginState() // Guardamos el ID del recurso
+    data class Error(val messageRes: Int) : LoginState()
 }
 
 @HiltViewModel

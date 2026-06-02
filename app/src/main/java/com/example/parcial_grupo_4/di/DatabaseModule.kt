@@ -2,8 +2,9 @@ package com.example.parcial_grupo_4.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.parcial_grupo_4.data.local.AuthDao
 import com.example.parcial_grupo_4.data.local.LendlyDatabase
-import com.example.parcial_grupo_4.data.local.TransactionDao
+import com.example.parcial_grupo_4.data.local.TransactionDao // Asegúrate de tener este import
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,10 +18,23 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): LendlyDatabase =
-        Room.databaseBuilder(context, LendlyDatabase::class.java, "lendly.db").build()
+    fun provideDatabase(@ApplicationContext context: Context): LendlyDatabase {
+        return Room.databaseBuilder(
+            context,
+            LendlyDatabase::class.java,
+            "lendly_db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
     @Provides
-    fun provideTransactionDao(database: LendlyDatabase): TransactionDao =
-        database.transactionDao()
+    fun provideAuthDao(database: LendlyDatabase): AuthDao {
+        return database.authDao()
+    }
+
+    @Provides
+    fun provideTransactionDao(database: LendlyDatabase): TransactionDao {
+        return database.transactionDao()
+    }
 }

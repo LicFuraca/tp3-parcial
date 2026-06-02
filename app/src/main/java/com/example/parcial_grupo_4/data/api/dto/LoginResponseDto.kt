@@ -6,4 +6,3 @@ import com.squareup.moshi.JsonClass
 data class LoginResponseDto(
     val token: String
 )
-
