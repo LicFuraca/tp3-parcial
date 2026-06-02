@@ -138,6 +138,7 @@ fun MainScreen() {
             popEnterTransition = { fadeIn(animationSpec = tween(TransitionMillis)) },
             popExitTransition = { fadeOut(animationSpec = tween(TransitionMillis)) },
         ) {
+
             composable(LendlyRoutes.Home) { HomeScreen() }
             composable(LendlyRoutes.Loan) { LoansScreen() }
             composable(LendlyRoutes.Shop) { ShopScreen() }
