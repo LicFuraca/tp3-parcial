@@ -1,11 +1,5 @@
 package com.example.parcial_grupo_4.ui.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -39,37 +33,28 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         }
 
         composable(HomeRoute.OnlineCashIn.route) {
-            PlaceholderHomeScreen(title = "Online Cash-In")
+            OnlineCashInScreen()
         }
 
         composable(HomeRoute.OverTheCounterCashIn.route) {
-            PlaceholderHomeScreen(title = "Over-the-counter Cash-In")
+            OverTheCounterCashInScreen()
         }
 
         composable(HomeRoute.CashInAmount.route) {
-            PlaceholderHomeScreen(title = "Cash-In Amount")
+            CashInAmountScreen()
         }
 
         composable(HomeRoute.SuccessfulTransaction.route) {
-            PlaceholderHomeScreen(title = "Successful Transaction")
+            SuccessfulTransactionScreen()
         }
 
         composable(HomeRoute.Notifications.route) {
-            PlaceholderHomeScreen(title = "Notifications")
+            NotificationScreen()
         }
 
         composable(HomeRoute.NotificationCalendar.route) {
-            PlaceholderHomeScreen(title = "Notification Calendar")
+            NotificationCalendarScreen()
         }
     }
 }
 
-@Composable
-private fun PlaceholderHomeScreen(title: String) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(text = title)
-    }
-}

@@ -17,6 +17,7 @@ import com.example.parcial_grupo_4.ui.common.LendlyBottomBarItem
 import com.example.parcial_grupo_4.ui.common.LendlyTopBar
 import com.example.parcial_grupo_4.ui.common.LendlyTopBar
 import com.example.parcial_grupo_4.ui.history.HistoryScreen
+import com.example.parcial_grupo_4.ui.home.HomeRoute
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
@@ -51,12 +52,21 @@ fun MainScreen() {
                 items = BottomBarItems,
                 currentRoute = currentRoute,
                 onItemSelected = { item ->
-                    navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    if (item.route == LendlyRoutes.Home) {
+                        navController.navigate(HomeRoute.Home.route) {
+                            popUpTo(LendlyRoutes.Home) {
+                                inclusive = false
+                            }
+                            launchSingleTop = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
+                    } else {
+                        navController.navigate(item.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 },
             )
