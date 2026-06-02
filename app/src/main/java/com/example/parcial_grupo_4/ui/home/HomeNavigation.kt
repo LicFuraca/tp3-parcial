@@ -33,7 +33,11 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         }
 
         composable(HomeRoute.OnlineCashIn.route) {
-            OnlineCashInScreen()
+            OnlineCashInScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable(HomeRoute.OverTheCounterCashIn.route) {

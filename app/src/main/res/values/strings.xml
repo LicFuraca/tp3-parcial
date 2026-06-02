@@ -28,4 +28,17 @@
     <string name="cash_in_back">Volver</string>
     <string name="cash_in_info">Información</string>
     <!--CashInScreen Strings-->
+    <!--OnlineCashInScreen Strings-->
+    <string name="online_cash_in_title">Online Cash-In Options</string>
+    <string name="online_cash_in_search_placeholder">Search...</string>
+    <string name="online_cash_in_banks_section">BANKS</string>
+    <string name="online_cash_in_wallets_section">E-WALLETS</string>
+    <string name="online_cash_in_bank_bpi">BPI</string>
+    <string name="online_cash_in_bank_chinabank">Chinabank</string>
+    <string name="online_cash_in_bank_rcbc">RCBC</string>
+    <string name="online_cash_in_bank_unionbank">Unionbank</string>
+    <string name="online_cash_in_wallet_gcash">GCash</string>
+    <string name="online_cash_in_wallet_paymaya">Pay Maya</string>
+    <string name="online_cash_in_wallet_paypal">PayPal</string>
+    <!--OnlineCashInScreen Strings-->
 </resources>
