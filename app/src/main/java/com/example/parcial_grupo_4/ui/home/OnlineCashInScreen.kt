@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.Search
@@ -27,6 +26,7 @@ import com.example.parcial_grupo_4.ui.home.components.HomeOptionItem
 import androidx.compose.ui.res.stringResource
 import com.example.parcial_grupo_4.R
 import androidx.compose.material3.HorizontalDivider
+import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
 
 
 private val ScreenBackground = Color(0xFFFCF8F8)
@@ -46,7 +46,7 @@ fun OnlineCashInScreen(
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        HomeOptionTopBar(onBackClick = onBackClick)
+        HomeTopBar(onBackClick = onBackClick)
 
         Text(
             text = stringResource(R.string.online_cash_in_title),
@@ -75,30 +75,6 @@ fun OnlineCashInScreen(
             )
 
             OnlineWalletSection()
-        }
-    }
-}
-
-@Composable
-private fun HomeOptionTopBar(
-    modifier: Modifier = Modifier,
-    onBackClick: () -> Unit,
-) {
-    androidx.compose.foundation.layout.Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(64.dp)
-            .padding(start = 4.dp, top = 8.dp, end = 4.dp, bottom = 8.dp),
-        contentAlignment = androidx.compose.ui.Alignment.CenterStart,
-    ) {
-        androidx.compose.material3.IconButton(
-            onClick = onBackClick
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                contentDescription = stringResource(R.string.cash_in_back),
-                tint = Color.Black,
-            )
         }
     }
 }
