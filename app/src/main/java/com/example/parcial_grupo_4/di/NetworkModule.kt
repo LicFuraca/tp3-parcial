@@ -2,6 +2,8 @@ package com.example.parcial_grupo_4.di
 
 import com.example.parcial_grupo_4.BuildConfig
 import com.example.parcial_grupo_4.data.api.ApiConstants
+import com.example.parcial_grupo_4.data.api.AuthApi
+import com.example.parcial_grupo_4.data.api.LoanApiService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -13,7 +15,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import com.example.parcial_grupo_4.data.api.AuthApi
 
 /**
  * Provee la infraestructura de red compartida (OkHttp + Moshi + Retrofit) como
@@ -70,4 +71,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLoanApiService(retrofit: Retrofit): LoanApiService =
+        retrofit.create(LoanApiService::class.java)
 }
