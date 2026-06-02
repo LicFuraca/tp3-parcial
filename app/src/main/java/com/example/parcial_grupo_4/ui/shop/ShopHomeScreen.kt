@@ -16,7 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -24,6 +24,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.parcial_grupo_4.data.model.Category
 import com.example.parcial_grupo_4.data.model.Product
 import com.example.parcial_grupo_4.data.model.ShopResponse
+import com.example.parcial_grupo_4.ui.common.LendlySearchBar
 import com.example.parcial_grupo_4.ui.common.ProductCard
 import com.example.parcial_grupo_4.ui.common.PromotionalBanner
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
@@ -57,25 +58,36 @@ fun ShopHomeScreen(
                     contentPadding = PaddingValues(LendlySpacing.Spacing3)
                 ) {
                     item {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            SearchBar(onClick = onSearchClick, modifier = Modifier.weight(1f))
-                            Spacer(modifier = Modifier.width(LendlySpacing.Spacing1))
-                            IconButton(
-                                onClick = onFilterClick,
-                                colors = IconButtonDefaults.iconButtonColors(
-                                    containerColor = LendlyColors.Interactive.Accent
-                                )
-                            ) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.List,
-                                    contentDescription = "Filter",
-                                    tint = LendlyColors.Interactive.Primary
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(LendlySpacing.Spacing3))
-                    }
 
+
+                            LendlySearchBar(
+                                value = "",
+                                onValueChange = {},
+                                placeholder = "Search for product",
+                                readOnly = true,
+                                onClick = onSearchClick,
+                                modifier = Modifier.fillMaxWidth(),
+                                trailingContent = {
+
+                                    Surface(
+                                        onClick = onFilterClick,
+                                        shape = RoundedCornerShape(8.dp),
+                                        color = LendlyColors.Interactive.Primary,
+                                        modifier = Modifier.size(40.dp)
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center) {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Filled.List,
+                                                contentDescription = "Filter",
+                                                tint = LendlyColors.Background.Screen
+                                            )
+                                        }
+                                    }
+                                }
+                            )
+                            Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
+
+                    }
                     item {
                         data.featured.firstOrNull()?.let { featured ->
                             PromotionalBanner(
@@ -91,7 +103,7 @@ fun ShopHomeScreen(
 
                     item {
                         SectionHeader(title = "Shop By Category", onSeeAllClick = {})
-                        CategoryList(data.categories)
+                        CategoryList(categories = data.categories, products = data.products)
                         Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
@@ -166,9 +178,12 @@ fun SectionHeader(title: String, onSeeAllClick: () -> Unit) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun CategoryList(categories: List<Category>) {
+fun CategoryList(categories: List<Category>, products: List<Product>) {
     LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing3)) {
         items(categories) { category ->
+
+            val productImage = products.firstOrNull { it.category == category.id }?.image
+
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(
                     modifier = Modifier
@@ -177,11 +192,21 @@ fun CategoryList(categories: List<Category>) {
                         .background(LendlyColors.Background.Neutral),
                     contentAlignment = Alignment.Center
                 ) {
+                    if (productImage != null) {
                    GlideImage(
-                       model = category.icon,
+                       model = productImage,
                        contentDescription = category.name,
-                       modifier = Modifier.size(LendlySpacing.Spacing5)
+                       modifier = Modifier.fillMaxSize(),
+                       contentScale = ContentScale.Crop
                    )
+                } else {
+                        Text(
+                            text = category.icon,
+
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                }
+
                 }
                 Spacer(modifier = Modifier.height(LendlySpacing.Spacing1))
                 Text(

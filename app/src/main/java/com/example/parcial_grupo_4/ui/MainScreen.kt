@@ -178,7 +178,7 @@ fun MainScreen() {
                 }
             }
 
-              shopNavGraph(navController)
+            shopNavGraph(navController)
             composable(Routes.HISTORY) {
                 HistoryScreen(
                     onTransactionClick = { transaction ->

@@ -1,6 +1,7 @@
 package com.example.parcial_grupo_4.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -30,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
-private val SearchBarHeight = 56.dp
+private val SearchBarHeight = 48.dp
 private val SearchBarHorizontalPadding = 16.dp
 private val SearchBarGap = 10.dp
 private val SearchIconSize = 17.19.dp
@@ -41,6 +43,9 @@ fun LendlySearchBar(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = stringResource(R.string.history_search_placeholder),
+    readOnly: Boolean = false,
+    onClick: (() -> Unit)? = null,
+    trailingContent: @Composable (() -> Unit)? = null
 ) {
     val focusManager = LocalFocusManager.current
     val textStyle = LocalTextStyle.current.copy(
@@ -54,11 +59,16 @@ fun LendlySearchBar(
         modifier = modifier
             .fillMaxWidth()
             .height(SearchBarHeight)
+            .clip(RoundedCornerShape(8.dp))
             .background(
-                color = LendlyColors.Background.Icon,
-                shape = RoundedCornerShape(percent = 50),
+                color = LendlyColors.Background.Neutral
+            ).then(
+            if (onClick != null) Modifier.clickable { onClick() } else Modifier
             )
-            .padding(horizontal = SearchBarHorizontalPadding),
+            .padding(
+                start = SearchBarHorizontalPadding,
+                end = if (trailingContent != null) 4.dp else SearchBarHorizontalPadding
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(SearchBarGap),
     ) {
@@ -73,6 +83,8 @@ fun LendlySearchBar(
                 value = value,
                 onValueChange = onValueChange,
                 singleLine = true,
+                readOnly = readOnly,
+                enabled = !readOnly,
                 textStyle = textStyle,
                 cursorBrush = SolidColor(LendlyColors.Content.Primary),
                 keyboardOptions = KeyboardOptions(
@@ -80,7 +92,7 @@ fun LendlySearchBar(
                     imeAction = ImeAction.Search,
                 ),
                 keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().then(if (readOnly && onClick != null) Modifier.clickable(enabled = false) {} else Modifier),
             )
             if (value.isEmpty()) {
                 Text(
@@ -89,5 +101,7 @@ fun LendlySearchBar(
                 )
             }
         }
+
+        trailingContent?.invoke()
     }
 }
