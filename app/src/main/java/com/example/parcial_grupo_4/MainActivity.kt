@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.parcial_grupo_4.ui.MainScreen
 import com.example.parcial_grupo_4.ui.theme.Parcialgrupo4Theme
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,7 +15,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             Parcialgrupo4Theme {
                 MainScreen()
             }

@@ -44,6 +44,7 @@ import com.example.parcial_grupo_4.ui.loans.LoansViewModel
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
 import com.example.parcial_grupo_4.ui.navigation.Routes
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
+import com.example.parcial_grupo_4.ui.shop.shopNavGraph
 
 private object TransactionDetailRoutes {
     private const val TransactionDetail = "transaction_detail"
@@ -177,7 +178,7 @@ fun MainScreen() {
                 }
             }
 
-            composable(Routes.SHOP) { ShopScreen() }
+            shopNavGraph(navController)
             composable(Routes.HISTORY) {
                 HistoryScreen(
                     onTransactionClick = { transaction ->

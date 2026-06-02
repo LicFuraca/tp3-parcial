@@ -1,9 +1,12 @@
 package com.example.parcial_grupo_4.di
 
+import com.example.parcial_grupo_4.data.api.ShopService
 import com.example.parcial_grupo_4.BuildConfig
 import com.example.parcial_grupo_4.data.api.ApiConstants
+
 import com.example.parcial_grupo_4.data.api.AuthApi
 import com.example.parcial_grupo_4.data.api.LoanApiService
+
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -30,6 +33,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+
+    @Provides
+    @Singleton
+    fun provideShopService(retrofit: Retrofit): ShopService {
+        return retrofit.create(ShopService::class.java)
+    }
     private const val TIMEOUT_SECONDS = 30L
 
     @Provides
@@ -68,6 +77,7 @@ object NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
+
     @Provides
     @Singleton
     fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
@@ -77,3 +87,4 @@ object NetworkModule {
     fun provideLoanApiService(retrofit: Retrofit): LoanApiService =
         retrofit.create(LoanApiService::class.java)
 }
+
