@@ -56,7 +56,7 @@ class LoansViewModel @Inject constructor(
             _loansState.value = try {
                 LoansUiState.Success(repository.getLoans())
             } catch (e: Exception) {
-                LoansUiState.Error(e.message ?: "Error al cargar préstamos")
+                LoansUiState.Error("Error loading loans")
             }
         }
     }
@@ -77,7 +77,7 @@ class LoansViewModel @Inject constructor(
             _applyState.value = try {
                 ApplyUiState.Success(repository.applyLoan(amount, plan.months, purpose))
             } catch (e: Exception) {
-                ApplyUiState.Error(e.message ?: "Error al solicitar préstamo")
+                ApplyUiState.Error("Error applying for loan")
             }
         }
     }

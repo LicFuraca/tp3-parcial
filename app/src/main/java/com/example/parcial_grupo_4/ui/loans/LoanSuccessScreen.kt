@@ -6,6 +6,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.res.stringResource
+import com.example.parcial_grupo_4.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
@@ -69,7 +71,7 @@ fun LoanSuccessScreen(
                     modifier = Modifier.size(36.dp).clip(CircleShape).background(LendlyColors.Background.Neutral),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(Icons.Filled.Close, "Cerrar", tint = LendlyColors.Content.Primary, modifier = Modifier.size(20.dp))
+                    Icon(Icons.Filled.Close, stringResource(R.string.cd_close), tint = LendlyColors.Content.Primary, modifier = Modifier.size(20.dp))
                 }
             }
             Row {
@@ -92,13 +94,13 @@ fun LoanSuccessScreen(
                 modifier = Modifier.size(72.dp).clip(CircleShape).background(LendlyColors.Interactive.Accent),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(Icons.Filled.Add, null, tint = LendlyColors.Content.Primary, modifier = Modifier.size(36.dp))
+                Icon(Icons.Filled.Add, stringResource(R.string.cd_add), tint = LendlyColors.Content.Primary, modifier = Modifier.size(36.dp))
             }
 
             Spacer(Modifier.height(LendlySpacing.Spacing2))
 
             Text(
-                "Added to your account",
+                stringResource(R.string.success_added_to_account),
                 style = MaterialTheme.typography.bodyMedium,
                 color = LendlyColors.Content.Tertiary,
             )
@@ -139,13 +141,13 @@ fun LoanSuccessScreen(
             Spacer(Modifier.height(LendlySpacing.Spacing4))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Need help?", style = MaterialTheme.typography.bodySmall, color = LendlyColors.Content.Tertiary)
-                Text("Go to Help Center", style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold, color = LendlyColors.Content.Link)
+                Text(stringResource(R.string.success_need_help), style = MaterialTheme.typography.bodySmall, color = LendlyColors.Content.Tertiary)
+                Text(stringResource(R.string.success_help_center), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.SemiBold, color = LendlyColors.Content.Link)
             }
         }
 
         PrimaryButton(
-            text = "Done",
+            text = stringResource(R.string.success_done),
             onClick = {
                 viewModel.resetForm()
                 navController.navigate(Routes.LOANS) {

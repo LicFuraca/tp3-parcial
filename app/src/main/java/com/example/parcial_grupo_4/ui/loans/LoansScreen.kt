@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.res.stringResource
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.common.PrimaryButton
 import com.example.parcial_grupo_4.ui.navigation.Routes
@@ -36,6 +38,9 @@ fun LoansScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
 ) {
+    // Observamos el estado para triggear el load inicial y exponer el ViewModel
+    val loansState by viewModel.loansState.observeAsState(LoansUiState.Idle)
+
     Box(modifier = modifier.fillMaxSize()) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

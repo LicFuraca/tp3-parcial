@@ -12,6 +12,8 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.res.stringResource
+import com.example.parcial_grupo_4.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,12 +47,12 @@ fun ActiveLoansScreen(
             title = {},
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "Volver", tint = LendlyColors.Content.Primary)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.cd_back), tint = LendlyColors.Content.Primary)
                 }
             },
             actions = {
                 IconButton(onClick = {}) {
-                    Icon(Icons.Filled.DateRange, "Calendario", tint = LendlyColors.Content.Primary)
+                    Icon(Icons.Filled.DateRange, stringResource(R.string.cd_calendar), tint = LendlyColors.Content.Primary)
                 }
             },
         )
@@ -66,7 +68,7 @@ fun ActiveLoansScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(state.message, style = MaterialTheme.typography.bodyMedium, color = LendlyColors.Sentiment.Negative)
                         Spacer(Modifier.height(LendlySpacing.Spacing2))
-                        OutlinedButton(onClick = { viewModel.loadLoans() }) { Text("Reintentar") }
+                        OutlinedButton(onClick = { viewModel.loadLoans() }) { Text(stringResource(R.string.active_loans_retry)) }
                     }
                 }
             }
@@ -195,7 +197,7 @@ private fun RecentLoanRow(loan: LoanItem) {
         ) {
             Icon(
                 Icons.Filled.CheckCircle,
-                contentDescription = "Pagado",
+                contentDescription = stringResource(R.string.cd_paid),
                 tint = LendlyColors.Sentiment.Positive,
                 modifier = Modifier.size(24.dp),
             )
@@ -205,7 +207,7 @@ private fun RecentLoanRow(loan: LoanItem) {
                 Text(loan.name.ifBlank { loan.lender }, style = MaterialTheme.typography.labelSmall, color = LendlyColors.Content.Tertiary)
             }
         }
-        Text("Paid", style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.SemiBold, color = LendlyColors.Sentiment.Positive)
+        Text(stringResource(R.string.active_loans_paid), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.SemiBold, color = LendlyColors.Sentiment.Positive)
     }
 }
 
