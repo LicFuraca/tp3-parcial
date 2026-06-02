@@ -15,7 +15,6 @@ import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBar
 import com.example.parcial_grupo_4.ui.common.LendlyBottomBarItem
 import com.example.parcial_grupo_4.ui.common.LendlyTopBar
-import com.example.parcial_grupo_4.ui.common.LendlyTopBar
 import com.example.parcial_grupo_4.ui.history.HistoryScreen
 import com.example.parcial_grupo_4.ui.home.HomeRoute
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
@@ -39,14 +38,29 @@ private val BottomBarItems = listOf(
     LendlyBottomBarItem(LendlyRoutes.Manage, R.string.tab_manage, R.drawable.ic_nav_manage),
 )
 
+private val RoutesWithoutTopBar = setOf(
+    HomeRoute.CashIn.route,
+    HomeRoute.OnlineCashIn.route,
+    HomeRoute.OverTheCounterCashIn.route,
+    HomeRoute.CashInAmount.route,
+    HomeRoute.SuccessfulTransaction.route,
+    HomeRoute.Notifications.route,
+    HomeRoute.NotificationCalendar.route,
+)
+
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
+    val shouldShowTopBar = currentRoute !in RoutesWithoutTopBar
 
     Scaffold(
-        topBar = { LendlyTopBar() },
+        topBar = {
+            if (shouldShowTopBar) {
+                LendlyTopBar()
+            }
+        },
         bottomBar = {
             LendlyBottomBar(
                 items = BottomBarItems,

@@ -41,4 +41,12 @@
     <string name="online_cash_in_wallet_paymaya">Pay Maya</string>
     <string name="online_cash_in_wallet_paypal">PayPal</string>
     <!--OnlineCashInScreen Strings-->
+    <!--OverTheCounterCashInScreen Strings-->
+    <string name="over_counter_title">Over-The-Counter Partners</string>
+    <string name="over_counter_partner_7_eleven">7-Eleven</string>
+    <string name="over_counter_partner_cebuana">Cebuana Lhuillier</string>
+    <string name="over_counter_partner_lbc">LBC</string>
+    <string name="over_counter_partner_m_lhuillier">M Lhuillier</string>
+    <string name="over_counter_max_transaction">Max. Transaction amount $5,000</string>
+    <!--OverTheCounterCashInScreen Strings-->
 </resources>
