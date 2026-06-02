@@ -20,6 +20,14 @@ import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
 import com.example.parcial_grupo_4.ui.home.components.NotificationItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import com.example.parcial_grupo_4.ui.home.components.NotificationCalendar
+import androidx.compose.foundation.layout.Box
+
 
 private val ScreenBackground = Color.White
 private val DividerColor = Color(0xFFE5E2E1)
@@ -28,8 +36,10 @@ private val DividerColor = Color(0xFFE5E2E1)
 fun NotificationScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
-    onCalendarClick: () -> Unit = {},
 ) {
+    var showCalendar by remember {
+        mutableStateOf(false)
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -39,7 +49,9 @@ fun NotificationScreen(
         HomeTopBar(
             onBackClick = onBackClick,
             trailingIcon = Icons.Outlined.CalendarToday,
-            onTrailingClick = onCalendarClick,
+            onTrailingClick = {
+                showCalendar = true
+            },
         )
 
         Column(
@@ -64,6 +76,25 @@ fun NotificationScreen(
             )
         }
     }
+
+    if (showCalendar) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.10f))
+                .padding(horizontal = 16.dp)
+                .padding(top = 68.dp),
+            contentAlignment = Alignment.TopCenter,
+        ) {
+            NotificationCalendar(
+                onOkClick = {
+                    showCalendar = false
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+    }
+
 }
 
 @Composable

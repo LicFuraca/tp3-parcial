@@ -45,7 +45,6 @@ private val RoutesWithoutTopBar = setOf(
     HomeRoute.CashInAmount.route,
     HomeRoute.SuccessfulTransaction.route,
     HomeRoute.Notifications.route,
-    HomeRoute.NotificationCalendar.route,
 )
 
 @Composable

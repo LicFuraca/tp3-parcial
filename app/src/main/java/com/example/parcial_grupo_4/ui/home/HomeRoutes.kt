@@ -8,5 +8,4 @@ sealed class HomeRoute(val route: String) {
     data object CashInAmount : HomeRoute("home_cash_in_amount")
     data object SuccessfulTransaction : HomeRoute("home_successful_transaction")
     data object Notifications : HomeRoute("home_notifications")
-    data object NotificationCalendar : HomeRoute("home_notification_calendar")
 }
