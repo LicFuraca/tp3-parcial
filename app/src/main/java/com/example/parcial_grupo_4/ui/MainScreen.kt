@@ -6,8 +6,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -87,17 +89,19 @@ fun MainScreen() {
 
     Scaffold(
         topBar = {
-            AnimatedContent(
-                targetState = chrome.topBar,
-                transitionSpec = { chromeTransition },
-                label = "topBar",
-            ) { style ->
-                when (style) {
-                    TopBarStyle.None -> Unit
-                    TopBarStyle.Detail -> LendlyDetailTopBar(
-                        onBackClick = { navController.popBackStack() },
-                    )
-                    TopBarStyle.Main -> LendlyTopBar()
+            Box(modifier = Modifier.statusBarsPadding()) {
+                AnimatedContent(
+                    targetState = chrome.topBar,
+                    transitionSpec = { chromeTransition },
+                    label = "topBar",
+                ) { style ->
+                    when (style) {
+                        TopBarStyle.None -> Unit
+                        TopBarStyle.Detail -> LendlyDetailTopBar(
+                            onBackClick = { navController.popBackStack() },
+                        )
+                        TopBarStyle.Main -> LendlyTopBar()
+                    }
                 }
             }
         },
