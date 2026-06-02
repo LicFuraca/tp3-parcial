@@ -36,6 +36,9 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
             OnlineCashInScreen(
                 onBackClick = {
                     navController.popBackStack()
+                },
+                onOptionClick = {
+                    navController.navigate(HomeRoute.CashInAmount.route)
                 }
             )
         }
@@ -44,12 +47,22 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
             OverTheCounterCashInScreen(
                 onBackClick = {
                     navController.popBackStack()
+                },
+                onPartnerClick = {
+                    navController.navigate(HomeRoute.CashInAmount.route)
                 }
             )
         }
 
         composable(HomeRoute.CashInAmount.route) {
-            CashInAmountScreen()
+            CashInAmountScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onNextClick = {
+                    navController.navigate(HomeRoute.SuccessfulTransaction.route)
+                }
+            )
         }
 
         composable(HomeRoute.SuccessfulTransaction.route) {

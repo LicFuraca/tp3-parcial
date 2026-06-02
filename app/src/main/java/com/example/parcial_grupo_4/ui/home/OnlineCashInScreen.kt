@@ -36,6 +36,7 @@ private val CardShape = RoundedCornerShape(12.dp)
 fun OnlineCashInScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
+    onOptionClick: () -> Unit = {},
 ) {
     val searchText = remember { mutableStateOf("") }
 
@@ -66,7 +67,7 @@ fun OnlineCashInScreen(
                 .background(Color.White, CardShape)
                 .padding(vertical = 16.dp),
         ) {
-            OnlineBankSection()
+            OnlineBankSection(onOptionClick = onOptionClick)
 
             HorizontalDivider(
                 thickness = 1.dp,
@@ -74,7 +75,7 @@ fun OnlineCashInScreen(
                 modifier = Modifier.padding(vertical = 16.dp)
             )
 
-            OnlineWalletSection()
+            OnlineWalletSection(onOptionClick = onOptionClick)
         }
     }
 }
@@ -106,7 +107,9 @@ private fun OnlineSearchBar(
 }
 
 @Composable
-private fun OnlineBankSection() {
+private fun OnlineBankSection(
+    onOptionClick: () -> Unit,
+) {
     OnlineOptionSection(
         title = stringResource(R.string.online_cash_in_banks_section),
         items = listOf(
@@ -116,11 +119,14 @@ private fun OnlineBankSection() {
             stringResource(R.string.online_cash_in_bank_unionbank),
         ),
         icon = Icons.Outlined.AccountBalance,
+        onOptionClick = onOptionClick,
     )
 }
 
 @Composable
-private fun OnlineWalletSection() {
+private fun OnlineWalletSection(
+    onOptionClick: () -> Unit,
+) {
     OnlineOptionSection(
         title = stringResource(R.string.online_cash_in_wallets_section),
         items = listOf(
@@ -129,6 +135,7 @@ private fun OnlineWalletSection() {
             stringResource(R.string.online_cash_in_wallet_paypal),
         ),
         icon = Icons.Outlined.AccountBalanceWallet,
+        onOptionClick = onOptionClick,
     )
 }
 
@@ -137,6 +144,7 @@ private fun OnlineOptionSection(
     title: String,
     items: List<String>,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onOptionClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp),
@@ -153,6 +161,7 @@ private fun OnlineOptionSection(
             HomeOptionItem(
                 title = item,
                 leadingIcon = icon,
+                onClick = onOptionClick,
             )
         }
     }

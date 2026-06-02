@@ -28,6 +28,7 @@ private val CardShape = RoundedCornerShape(12.dp)
 fun OverTheCounterCashInScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
+    onPartnerClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -49,13 +50,14 @@ fun OverTheCounterCashInScreen(
                 fontWeight = FontWeight.SemiBold,
             )
 
-            OverCounterPartnersCard()
+            OverCounterPartnersCard(onPartnerClick = onPartnerClick)
         }
     }
 }
 
 @Composable
 private fun OverCounterPartnersCard(
+    onPartnerClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -65,16 +67,29 @@ private fun OverCounterPartnersCard(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        OverCounterPartnerItem(title = stringResource(R.string.over_counter_partner_7_eleven))
-        OverCounterPartnerItem(title = stringResource(R.string.over_counter_partner_cebuana))
-        OverCounterPartnerItem(title = stringResource(R.string.over_counter_partner_lbc))
-        OverCounterPartnerItem(title = stringResource(R.string.over_counter_partner_m_lhuillier))
+        OverCounterPartnerItem(
+            title = stringResource(R.string.over_counter_partner_7_eleven),
+            onClick = onPartnerClick,
+        )
+        OverCounterPartnerItem(
+            title = stringResource(R.string.over_counter_partner_cebuana),
+            onClick = onPartnerClick,
+        )
+        OverCounterPartnerItem(
+            title = stringResource(R.string.over_counter_partner_lbc),
+            onClick = onPartnerClick,
+        )
+        OverCounterPartnerItem(
+            title = stringResource(R.string.over_counter_partner_m_lhuillier),
+            onClick = onPartnerClick,
+        )
     }
 }
 
 @Composable
 private fun OverCounterPartnerItem(
     title: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     HomeOptionItem(
@@ -82,5 +97,6 @@ private fun OverCounterPartnerItem(
         description = stringResource(R.string.over_counter_max_transaction),
         leadingIcon = Icons.Outlined.Store,
         modifier = modifier,
+        onClick = onClick,
     )
 }
