@@ -58,7 +58,11 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             if (shouldShowTopBar) {
-                LendlyTopBar()
+                LendlyTopBar(
+                    onNotificationsClick = {
+                        navController.navigate(HomeRoute.Notifications.route)
+                    }
+                )
             }
         },
         bottomBar = {

@@ -70,7 +70,14 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         }
 
         composable(HomeRoute.Notifications.route) {
-            NotificationScreen()
+            NotificationScreen(
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onCalendarClick = {
+                    navController.navigate(HomeRoute.NotificationCalendar.route)
+                }
+            )
         }
 
         composable(HomeRoute.NotificationCalendar.route) {

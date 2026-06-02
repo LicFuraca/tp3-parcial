@@ -56,4 +56,13 @@
     <string name="cash_in_amount_limit">BPI’s max limit is ₱10,000.00 per day</string>
     <string name="cash_in_amount_next">Next</string>
     <!--CashInAmountScreen Strings-->
+    <!--NotificationScreen Strings-->
+    <string name="notification_title">Notification</string>
+    <string name="notification_today">Today</string>
+    <string name="notification_announcement">Announcement</string>
+    <string name="notification_due_title">Your due date is almost here!</string>
+    <string name="notification_help_title">Got a minute to help us out?</string>
+    <string name="notification_body">We’d like to remind you about your due date this month. Please pay this balance within the date to keep your credit score. Tap to pay.</string>
+    <string name="notification_date">Mar 8</string>
+    <!--NotificationScreen Strings-->
 </resources>
