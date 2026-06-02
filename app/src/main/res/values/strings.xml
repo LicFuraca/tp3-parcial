@@ -91,6 +91,37 @@
     <string name="active_loans_empty">No active loans</string>
     <string name="active_loans_retry">Retry</string>
 
+    <!-- History screen -->
+    <string name="history_title">History</string>
+    <string name="history_search_placeholder">Search</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_filter_type">Type</string>
+    <string name="history_filter_balance">Balance</string>
+    <string name="history_filter_paid_bills">Paid Bills</string>
+    <string name="history_filter_added">Added</string>
+    <string name="history_section_today">Today</string>
+    <string name="history_section_recent_loans">Recent Loans</string>
+    <string name="history_search_icon">Search</string>
+    <string name="history_transaction_icon">Transaction</string>
+    <string name="history_no_results">No transactions found</string>
+    <string name="history_retry">Retry</string>
+
+    <!-- Transaction detail screen -->
+    <string name="transaction_detail_title">Transaction Details</string>
+    <string name="transaction_detail_to_format">To %1$s</string>
+    <string name="transaction_detail_description_label">Description</string>
+    <string name="transaction_detail_date_label">Date &amp; Time</string>
+    <string name="transaction_detail_number_label">Transaction Number</string>
+    <string name="transaction_detail_help_question">Didn\'t find what you were looking for?</string>
+    <string name="transaction_detail_help_link">Go to Help Center</string>
+
+    <!-- Network errors -->
+    <string name="error_no_connection">No internet connection. Please check your network.</string>
+    <string name="error_unauthorized">Your session expired. Please sign in again.</string>
+    <string name="error_not_found">We couldn\'t find what you were looking for.</string>
+    <string name="error_server">The service is unavailable right now. Try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+
     <!-- Content descriptions -->
     <string name="cd_back">Back</string>
     <string name="cd_close">Close</string>
@@ -99,4 +130,7 @@
     <string name="cd_calendar">Calendar</string>
     <string name="cd_paid">Paid</string>
     <string name="cd_add">Add to account</string>
+    <string name="back">Back</string>
+    <string name="more_options">More options</string>
+    <string name="info">Information</string>
 </resources>
