@@ -1,6 +1,7 @@
 package com.example.parcial_grupo_4.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,9 +60,14 @@ fun LendlySearchBar(
         modifier = modifier
             .fillMaxWidth()
             .height(SearchBarHeight)
+            .border(
+                width = 1.dp,
+                color = LendlyColors.Background.Subtle,
+                shape = RoundedCornerShape(8.dp)
+            )
             .clip(RoundedCornerShape(8.dp))
             .background(
-                color = LendlyColors.Background.Neutral
+                color = LendlyColors.Background.Screen
             ).then(
             if (onClick != null) Modifier.clickable { onClick() } else Modifier
             )
@@ -92,7 +98,7 @@ fun LendlySearchBar(
                     imeAction = ImeAction.Search,
                 ),
                 keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
-                modifier = Modifier.fillMaxWidth().then(if (readOnly && onClick != null) Modifier.clickable(enabled = false) {} else Modifier),
+                modifier = Modifier.fillMaxWidth()
             )
             if (value.isEmpty()) {
                 Text(

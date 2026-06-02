@@ -1,6 +1,8 @@
 package com.example.parcial_grupo_4.ui.shop
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -26,9 +28,12 @@ import com.example.parcial_grupo_4.data.model.Product
 import com.example.parcial_grupo_4.data.model.ShopResponse
 import com.example.parcial_grupo_4.ui.common.LendlySearchBar
 import com.example.parcial_grupo_4.ui.common.ProductCard
-import com.example.parcial_grupo_4.ui.common.PromotionalBanner
+
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
 import com.example.parcial_grupo_4.ui.theme.LendlySpacing
+import androidx.compose.ui.res.painterResource
+import com.example.parcial_grupo_4.data.model.Brand
+import com.example.parcial_grupo_4.R
 
 @Composable
 fun ShopHomeScreen(
@@ -90,12 +95,17 @@ fun ShopHomeScreen(
                     }
                     item {
                         data.featured.firstOrNull()?.let { featured ->
-                            PromotionalBanner(
-                                title = "The New Shoes",
-                                subtitle = "Shop this season's Top Silhouette",
-                                buttonText = "Shop Now",
-                                imageUrl = featured.image,
-                                onClick = { onProductClick(featured.id) }
+                            Image(
+                                painter = painterResource(id = R.drawable.promotional_card),
+                                contentDescription = "Promotional Banner",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    // Le damos la forma redondeada del diseño
+                                    .clip(RoundedCornerShape(16.dp))
+                                    // Hacemos que toda la imagen sea clickeable
+                                    .clickable { onProductClick(featured.id) },
+                                // Ajusta la imagen para que llene el ancho sin deformarse
+                                contentScale = ContentScale.FillWidth
                             )
                         }
                         Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
@@ -109,7 +119,7 @@ fun ShopHomeScreen(
 
                     item {
                         SectionHeader(title = "Popular Brands", onSeeAllClick = {})
-                        BrandList(data.brands.map { it.name })
+                        BrandList(data.brands)
                         Spacer(modifier = Modifier.height(LendlySpacing.Spacing4))
                     }
 
@@ -130,28 +140,7 @@ fun ShopHomeScreen(
     }
 }
 
-@Composable
-fun SearchBar(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(LendlySpacing.Spacing4),
-        color = LendlyColors.Background.Neutral,
-        modifier = modifier.height(48.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = LendlySpacing.Spacing3)
-        ) {
-            Icon(Icons.Default.Search, contentDescription = null, tint = LendlyColors.Content.Tertiary)
-            Spacer(modifier = Modifier.width(LendlySpacing.Spacing1))
-            Text(
-                text = "Search for product",
-                color = LendlyColors.Content.Tertiary,
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    }
-}
+
 
 @Composable
 fun SectionHeader(title: String, onSeeAllClick: () -> Unit) {
@@ -182,21 +171,26 @@ fun CategoryList(categories: List<Category>, products: List<Product>) {
     LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing3)) {
         items(categories) { category ->
 
-            val productImage = products.firstOrNull { it.category == category.id }?.image
+            val productImage = when (category.id) {
+                "electronics" -> products.find { it.id == "PROD-001" }?.image
+                "fashion" -> products.find { it.id == "PROD-004" }?.image
+                "appliances" -> products.find { it.id == "PROD-005" }?.image
+                else -> null
+            }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Box(
                     modifier = Modifier
-                        .size(64.dp)
-                        .clip(RoundedCornerShape(LendlySpacing.Spacing3))
-                        .background(LendlyColors.Background.Neutral),
+                        .size(92.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(LendlyColors.Background.Screen),
                     contentAlignment = Alignment.Center
                 ) {
                     if (productImage != null) {
                    GlideImage(
                        model = productImage,
                        contentDescription = category.name,
-                       modifier = Modifier.fillMaxSize(),
+                       modifier = Modifier.fillMaxSize().padding(4.dp),
                        contentScale = ContentScale.Crop
                    )
                 } else {
@@ -219,32 +213,88 @@ fun CategoryList(categories: List<Category>, products: List<Product>) {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun BrandList(brands: List<String>) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing1)) {
+fun BrandList(brands: List<Brand>) {
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing3)) {
         items(brands) { brand ->
-            AssistChip(
-                onClick = {},
-                label = { Text(brand) },
-                shape = RoundedCornerShape(LendlySpacing.Spacing3),
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = LendlyColors.Background.Screen,
-                    labelColor = LendlyColors.Content.Primary
-                ),
-                border = AssistChipDefaults.assistChipBorder(
-                    enabled = true,
-                    borderColor = LendlyColors.Border.Neutral
-                )
-            )
+
+            val displayName = if (brand.id == "samsung") "Jordan" else brand.name
+            Card(
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = LendlyColors.Background.Neutral),
+                // Eliminamos el borde gris para que sea igual al diseño limpio de Figma
+                modifier = Modifier
+                    .width(140.dp)
+                    .height(110.dp) // Tamaño rectangular
+            ) {
+                Column(modifier = Modifier.fillMaxSize()) {
+
+                    // Mitad superior: Imagen de fondo hardcodeada desde res/drawable
+                    Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+
+
+                        val bgDrawableRes = when (brand.id) {
+                            "apple" -> R.drawable.appleimage
+                            "nike" -> R.drawable.adidasimage
+                            "samsung" -> R.drawable.jordanimage
+                            else -> R.drawable.ic_launcher_background
+                        }
+
+                        Image(
+                            painter = painterResource(id = bgDrawableRes),
+                            contentDescription = brand.name,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop // Crop recorta la imagen para llenar el espacio sin deformarla
+                        )
+                    }
+
+                    // Mitad inferior: Franja blanca con nombre y loguito
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(LendlyColors.Background.Subtle)
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = displayName,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = LendlyColors.Content.Primary,
+                            fontWeight = FontWeight.SemiBold
+                        )
+
+                        // 👇 Loguito pequeño de la API
+                        if (brand.id == "samsung") {
+                            // Como Samsung ahora es Jordan, usamos tu logo local de Jordan
+                            Image(
+                                painter = painterResource(id = R.drawable.vector), // Asegúrate de tener este archivo
+                                contentDescription = "Jordan logo",
+                                modifier = Modifier.size(16.dp),
+                                contentScale = ContentScale.Fit
+                            )
+                        } else { GlideImage(
+                            model = brand.logo,
+                            contentDescription = "${brand.name} logo",
+                            modifier = Modifier.size(16.dp), // Tamaño pequeñito como en el diseño
+                            contentScale = ContentScale.Fit
+                        )
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
-@Composable
-fun ProductRow(products: List<Product>, onProductClick: (String) -> Unit) {
-    LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing1)) {
-        items(products) { product ->
-            ProductCard(product = product, onClick = onProductClick)
+    @Composable
+    fun ProductRow(products: List<Product>, onProductClick: (String) -> Unit) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing1)) {
+            items(products) { product ->
+                ProductCard(product = product, onClick = onProductClick)
+            }
         }
     }
-}
+
+
