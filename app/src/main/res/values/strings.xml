@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">parcial-grupo-4</string>
+
+    <!-- Bottom nav tabs -->
     <string name="tab_home">Home</string>
     <string name="tab_loan">Loan</string>
     <string name="tab_shop">Shop</string>
     <string name="tab_history">History</string>
     <string name="tab_manage">Manage</string>
-    <string name="topbar_profile">Perfil</string>
+
+    <!-- Top bar -->
+    <string name="topbar_profile">Profile</string>
     <string name="topbar_app_logo">Lendly</string>
-    <string name="topbar_notifications">Notificaciones</string>
+    <string name="topbar_notifications">Notifications</string>
 
     <!--HomeScreen Strings-->
     <string name="home_account_title">Account</string>
@@ -74,4 +78,125 @@
     <string name="calendar_day_w">W</string>
     <string name="calendar_day_f">F</string>
     <!--NotificationScreen Strings-->
+
+    <!-- Loans screen - info -->
+    <string name="loans_limited_time_offer">Limited Time Offer</string>
+    <string name="loans_banner_title">Safe and\nsecure loans</string>
+    <string name="loans_banner_subtitle">All here in Rayland</string>
+    <string name="loans_borrow_up_to">You can borrow up to</string>
+    <string name="loans_borrow_amount">₱30,000.00</string>
+    <string name="loans_subject_to_evaluation">*Subject to evaluation</string>
+    <string name="loans_details_title">Loan Details</string>
+    <string name="loans_what_is_this">What is this?</string>
+    <string name="loans_payable_in">Payable in</string>
+    <string name="loans_payable_months">months</string>
+    <string name="loans_interest_rate">Interest Rate</string>
+    <string name="loans_interest_ave">ave per mo.</string>
+    <string name="loans_process_fee">Process Fee</string>
+    <string name="loans_process_fee_sub">as low as</string>
+    <string name="loans_how_it_works">How it works</string>
+    <string name="loans_view_active">View Active Loans →</string>
+    <string name="loans_get_this_loan">Get This Loan</string>
+
+    <!-- How it works cards -->
+    <string name="how_it_works_credit_title">Keep your credit score high</string>
+    <string name="how_it_works_credit_desc">The offered loan amount is based on your credit score</string>
+    <string name="how_it_works_approval_title">Get instant approval</string>
+    <string name="how_it_works_approval_desc">Everything we need to process is already in the application</string>
+    <string name="how_it_works_payments_title">Easy payments option available</string>
+    <string name="how_it_works_payments_desc">Skip the queue and pay your due on the application</string>
+    <string name="how_it_works_secure_title">Safe and secure</string>
+    <string name="how_it_works_secure_desc">Rayland is working with trusted partners to provide this service</string>
+
+    <!-- Loan form screen -->
+    <string name="loan_form_title">Loan</string>
+    <string name="loan_form_header">Please provide your details\nfor your loan</string>
+    <string name="loan_form_subtitle">Please provide your details for your loan</string>
+    <string name="loan_form_step1">Step 1</string>
+    <string name="loan_form_step1_label">Enter loan amount</string>
+    <string name="loan_form_step2">Step 2</string>
+    <string name="loan_form_step2_label">Select an installment plan</string>
+    <string name="loan_form_step3">Step 3</string>
+    <string name="loan_form_step3_label">Select your loan purpose</string>
+    <string name="loan_form_select_purpose">Select purpose</string>
+    <string name="loan_form_months">Months</string>
+    <string name="loan_form_interest">%% Interest</string>
+    <string name="loan_form_monthly">₱%.2f/mo</string>
+    <string name="loan_form_summary_title">Summary</string>
+    <string name="loan_form_loan_amount">Loan Amount</string>
+    <string name="loan_form_processing_fee">3%% Processing Fee</string>
+    <string name="loan_form_total">Total amount to Receive</string>
+    <string name="loan_form_lender">Lender</string>
+    <string name="loan_form_processing">Processing…</string>
+
+    <!-- Validation errors -->
+    <string name="error_amount_required">Please enter a valid amount</string>
+    <string name="error_amount_invalid">Enter a number greater than 0</string>
+    <string name="error_plan_required">Please select an installment plan</string>
+    <string name="error_purpose_required">Please select a loan purpose</string>
+
+    <!-- Loan success screen -->
+    <string name="success_added_to_account">Added to your account</string>
+    <string name="success_from">From %s</string>
+    <string name="success_loan_amount_chip">Loan Amount</string>
+    <string name="success_transaction_details">Transaction Details</string>
+    <string name="success_monthly_fee">Monthly Fee</string>
+    <string name="success_interest">Interest</string>
+    <string name="success_installment_plan">Installment plan</string>
+    <string name="success_date_time">Date &amp; Time</string>
+    <string name="success_transaction_number">Transaction Number</string>
+    <string name="success_need_help">Need help?</string>
+    <string name="success_help_center">Go to Help Center</string>
+    <string name="success_done">Done</string>
+
+    <!-- Active loans screen -->
+    <string name="active_loans_title">Active loans</string>
+    <string name="active_loans_present">Present</string>
+    <string name="active_loans_recent">Recent Loans</string>
+    <string name="active_loans_paid">Paid</string>
+    <string name="active_loans_empty">No active loans</string>
+    <string name="active_loans_retry">Retry</string>
+
+    <!-- History screen -->
+    <string name="history_title">History</string>
+    <string name="history_search_placeholder">Search</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_filter_type">Type</string>
+    <string name="history_filter_balance">Balance</string>
+    <string name="history_filter_paid_bills">Paid Bills</string>
+    <string name="history_filter_added">Added</string>
+    <string name="history_section_today">Today</string>
+    <string name="history_section_recent_loans">Recent Loans</string>
+    <string name="history_search_icon">Search</string>
+    <string name="history_transaction_icon">Transaction</string>
+    <string name="history_no_results">No transactions found</string>
+    <string name="history_retry">Retry</string>
+
+    <!-- Transaction detail screen -->
+    <string name="transaction_detail_title">Transaction Details</string>
+    <string name="transaction_detail_to_format">To %1$s</string>
+    <string name="transaction_detail_description_label">Description</string>
+    <string name="transaction_detail_date_label">Date &amp; Time</string>
+    <string name="transaction_detail_number_label">Transaction Number</string>
+    <string name="transaction_detail_help_question">Didn\'t find what you were looking for?</string>
+    <string name="transaction_detail_help_link">Go to Help Center</string>
+
+    <!-- Network errors -->
+    <string name="error_no_connection">No internet connection. Please check your network.</string>
+    <string name="error_unauthorized">Your session expired. Please sign in again.</string>
+    <string name="error_not_found">We couldn\'t find what you were looking for.</string>
+    <string name="error_server">The service is unavailable right now. Try again later.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_back">Back</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_info">Info</string>
+    <string name="cd_more">More options</string>
+    <string name="cd_calendar">Calendar</string>
+    <string name="cd_paid">Paid</string>
+    <string name="cd_add">Add to account</string>
+    <string name="back">Back</string>
+    <string name="more_options">More options</string>
+    <string name="info">Information</string>
 </resources>
