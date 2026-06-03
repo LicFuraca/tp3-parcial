@@ -64,7 +64,6 @@ fun LoanSuccessScreen(
         ) {
             IconButton(
                 onClick = {
-                    viewModel.resetForm()
                     navController.navigate(Routes.LOANS) {
                         popUpTo(Routes.LOANS_GRAPH) { inclusive = false }
                     }
@@ -156,7 +155,6 @@ fun LoanSuccessScreen(
         PrimaryButton(
             text = stringResource(R.string.success_done),
             onClick = {
-                viewModel.resetForm()
                 navController.navigate(Routes.LOANS) {
                     popUpTo(Routes.LOANS_GRAPH) { inclusive = false }
                 }

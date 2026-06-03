@@ -45,10 +45,12 @@ fun LoanFormScreen(
     val selectedPurpose by viewModel.selectedPurpose.observeAsState("")
     val applyState      by viewModel.applyState.observeAsState(ApplyUiState.Idle)
 
-    // Fix: limpiar estado al entrar al form para evitar que un Success previo
-    // redirija al usuario apenas abre el formulario de nuevo
+    // Limpiar el formulario al entrar: arranca vacío y evita que un Success previo
+    // redirija al usuario apenas abre el formulario de nuevo. El reset NO se hace al
+    // salir de la pantalla de éxito porque pondría applyState=Idle mientras esa pantalla
+    // todavía se anima, disparando un popBackStack extra que rompe el back stack.
     LaunchedEffect(Unit) {
-        viewModel.resetApplyState()
+        viewModel.resetForm()
     }
 
     LaunchedEffect(applyState) {

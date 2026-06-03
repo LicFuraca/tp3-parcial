@@ -82,8 +82,6 @@ class LoansViewModel @Inject constructor(
         }
     }
 
-    fun resetApplyState() { _applyState.value = ApplyUiState.Idle }
-
     fun resetForm() {
         _amountInput.value  = ""
         _selectedPlan.value = null
