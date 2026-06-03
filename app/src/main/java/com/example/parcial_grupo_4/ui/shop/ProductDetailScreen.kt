@@ -135,8 +135,9 @@ fun ProductDetailScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp)
-                    .background(LendlyColors.Background.Screen)
+                    .height(200.dp)
+                    .background(LendlyColors.Background.Screen),
+                contentAlignment = Alignment.Center
             ) {
                 GlideImage(
                     model = product.image,
