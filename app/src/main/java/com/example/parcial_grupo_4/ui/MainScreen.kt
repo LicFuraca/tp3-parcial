@@ -38,10 +38,10 @@ import com.example.parcial_grupo_4.ui.history.HistoryScreen
 import com.example.parcial_grupo_4.ui.history.TransactionDetailScreen
 import com.example.parcial_grupo_4.ui.history.TransactionDetailState
 import com.example.parcial_grupo_4.ui.history.TransactionDetailViewModel
-import com.example.parcial_grupo_4.ui.home.HomeScreen
 import com.example.parcial_grupo_4.ui.loans.ActiveLoansScreen
 import com.example.parcial_grupo_4.ui.loans.LoanFormScreen
 import com.example.parcial_grupo_4.ui.loans.LoanSuccessScreen
+import com.example.parcial_grupo_4.ui.home.HomeRoute
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.loans.LoansViewModel
 
@@ -54,6 +54,7 @@ import com.example.parcial_grupo_4.ui.manage.ProfileDetailViewModel
 import com.example.parcial_grupo_4.ui.navigation.Routes
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
 import com.example.parcial_grupo_4.ui.shop.shopNavGraph
+import com.example.parcial_grupo_4.ui.home.homeNavGraph
 
 private object ManageRoutes {
     const val ProfileDetail = "profile_detail"
@@ -86,9 +87,17 @@ private data class ScreenChrome(
 private fun chromeFor(route: String?): ScreenChrome = when (route) {
     TransactionDetailRoutes.Route ->
         ScreenChrome(TopBarStyle.Detail, showBottomBar = false)
+
     Routes.LOAN_FORM, Routes.LOAN_SUCCESS, Routes.ACTIVE_LOANS,
-    ManageRoutes.ProfileDetail, ManageRoutes.Done, ManageRoutes.CreditScore ->
+   ManageRoutes.ProfileDetail, ManageRoutes.Done, ManageRoutes.CreditScore
+    HomeRoute.CashIn.route,
+    HomeRoute.OnlineCashIn.route,
+    HomeRoute.OverTheCounterCashIn.route,
+    HomeRoute.CashInAmount.route,
+    HomeRoute.SuccessfulTransaction.route,
+    HomeRoute.Notifications.route ->
         ScreenChrome(TopBarStyle.None, showBottomBar = false)
+
     else ->
         ScreenChrome(TopBarStyle.Main, showBottomBar = true)
 }
@@ -117,7 +126,11 @@ fun MainScreen() {
                         TopBarStyle.Detail -> LendlyDetailTopBar(
                             onBackClick = { navController.popBackStack() },
                         )
-                        TopBarStyle.Main -> LendlyTopBar()
+                        TopBarStyle.Main -> LendlyTopBar(
+                            onNotificationsClick = {
+                                navController.navigate(HomeRoute.Notifications.route)
+                            },
+                        )
                     }
                 }
             }
