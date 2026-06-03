@@ -11,6 +11,8 @@ object LendlyColors {
         val Link = Color(0xFF163300)
         val Strong = Color(0xFF102000)
         val Icon = Color(0xFF1C1B1F)
+        val OnSurface = Color(0xFF1D1B20)
+        val ButtonText = Color(0xFF1F3701)
     }
 
     object Interactive {
@@ -28,11 +30,13 @@ object LendlyColors {
         val Overlay = Color(0xFFE5F5EA)
         val Icon = Color(0xFFFCF8F8)
         val Subtle = Color(0xFFE7E7E7)
+        val Soft = Color(0xFFFCF8F8)
     }
 
     object Border {
         val Neutral = Color(0x1F0E0F0C)
         val Overlay = Color(0x1F0E0F0C)
+        val Subtle = Color(0xFFE5E2E1)
     }
 
     object Sentiment {

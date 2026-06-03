@@ -13,6 +13,81 @@
     <string name="topbar_app_logo">Lendly</string>
     <string name="topbar_notifications">Notifications</string>
 
+    <!--HomeScreen Strings-->
+    <string name="home_account_title">Account</string>
+    <string name="home_available_balance">AVAILABLE BALANCE</string>
+    <string name="home_balance_amount">₱ 2,500.00</string>
+    <string name="home_cash_in">Cash In</string>
+    <string name="home_unpaid_loans">Unpaid Loans</string>
+    <string name="home_recommended_for_you">Recommended For You</string>
+    <string name="home_see_all">See All</string>
+    <!--HomeScreen Strings-->
+    <!--CashInScreen Strings-->
+    <string name="cash_in_title">Cash-In</string>
+    <string name="cash_in_options_title">Cash-In Options</string>
+    <string name="cash_in_online_title">Online Banking</string>
+    <string name="cash_in_online_description">Pay via other banks or e-wallet</string>
+    <string name="cash_in_counter_title">Over-the-counter</string>
+    <string name="cash_in_counter_description">Pay in cash</string>
+    <string name="cash_in_back">Volver</string>
+    <string name="cash_in_info">Información</string>
+    <!--CashInScreen Strings-->
+    <!--OnlineCashInScreen Strings-->
+    <string name="online_cash_in_title">Online Cash-In Options</string>
+    <string name="online_cash_in_search_placeholder">Search...</string>
+    <string name="online_cash_in_banks_section">BANKS</string>
+    <string name="online_cash_in_wallets_section">E-WALLETS</string>
+    <string name="online_cash_in_bank_bpi">BPI</string>
+    <string name="online_cash_in_bank_chinabank">Chinabank</string>
+    <string name="online_cash_in_bank_rcbc">RCBC</string>
+    <string name="online_cash_in_bank_unionbank">Unionbank</string>
+    <string name="online_cash_in_wallet_gcash">GCash</string>
+    <string name="online_cash_in_wallet_paymaya">Pay Maya</string>
+    <string name="online_cash_in_wallet_paypal">PayPal</string>
+    <!--OnlineCashInScreen Strings-->
+    <!--OverTheCounterCashInScreen Strings-->
+    <string name="over_counter_title">Over-The-Counter Partners</string>
+    <string name="over_counter_partner_7_eleven">7-Eleven</string>
+    <string name="over_counter_partner_cebuana">Cebuana Lhuillier</string>
+    <string name="over_counter_partner_lbc">LBC</string>
+    <string name="over_counter_partner_m_lhuillier">M Lhuillier</string>
+    <string name="over_counter_max_transaction">Max. Transaction amount $5,000</string>
+    <!--OverTheCounterCashInScreen Strings-->
+    <!--CashInAmountScreen Strings-->
+    <string name="cash_in_amount_title">Cash-In Amount</string>
+    <string name="cash_in_amount_balance">Balance: ₱0.00</string>
+    <string name="cash_in_amount_value">₱2,500.00</string>
+    <string name="cash_in_amount_limit">BPI’s max limit is ₱10,000.00 per day</string>
+    <string name="cash_in_amount_next">Next</string>
+    <!--CashInAmountScreen Strings-->
+    <!--NotificationScreen Strings-->
+    <string name="notification_title">Notification</string>
+    <string name="notification_today">Today</string>
+    <string name="notification_announcement">Announcement</string>
+    <string name="notification_due_title">Your due date is almost here!</string>
+    <string name="notification_help_title">Got a minute to help us out?</string>
+    <string name="notification_body">We’d like to remind you about your due date this month. Please pay this balance within the date to keep your credit score. Tap to pay.</string>
+    <string name="notification_date">Mar 8</string>
+    <string name="calendar_due_dates">Due dates</string>
+    <string name="calendar_selected_date">Mon, Aug 17</string>
+    <string name="calendar_month_year">August 2023</string>
+    <string name="calendar_ok">OK</string>
+    <string name="calendar_day_s">S</string>
+    <string name="calendar_day_m">M</string>
+    <string name="calendar_day_t">T</string>
+    <string name="calendar_day_w">W</string>
+    <string name="calendar_day_f">F</string>
+    <!--NotificationScreen Strings-->
+    <!--SuccessfulTransactionScreen Strings-->
+    <string name="cash_in_success_amount">2,500.00 PHP</string>
+    <string name="cash_in_success_source">GCash</string>
+    <string name="cash_in_success_chip">Cash-In</string>
+    <string name="cash_in_success_transfer_fee">Transfer Fee</string>
+    <string name="cash_in_success_transfer_fee_value">-₱15.00</string>
+    <string name="cash_in_success_date_time_value">Jul 15, 2024 9:12 AM</string>
+    <string name="cash_in_success_transaction_number_value">#200412312551</string>
+    <!--SuccessfulTransactionScreen Strings-->
+
     <!-- Loans screen - info -->
     <string name="loans_limited_time_offer">Limited Time Offer</string>
     <string name="loans_banner_title">Safe and\nsecure loans</string>
