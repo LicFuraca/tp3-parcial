@@ -10,8 +10,21 @@
     <string name="topbar_notifications">Notificaciones</string>
     <string name="title_onboarding_1">Quick Loans</string>
     <string name="title_onboarding_2">Loan product in-app</string>
-    <string name="title_onboarding_3">Track &amp; pay easily</string>
+    <string name="title_onboarding_3">Track &amp; pay\neasily</string>
     <string name="subtitle_onboarding_1">Trusted for easy, fast loan approvals.</string>
     <string name="subtitle_onboarding_2">Many products to loan.</string>
     <string name="onboarding_btn_get_started">Get Started</string>
+    <string name="loan_successful">Loan Successful</string>
+    <string name="loan_amount">+ ₱ 2000.00</string>
+    <string name="transaction_amount">+ ₱ 400.00</string>
+    <string name="onboarding_btn_next">Next</string>
+    <string name="btn_log_in">Log In</string>
+    <string name="btn_sign_up_free">Sign up for free</string>
+    <string name="product_iphone_title">iPhone 12 Pro…</string>
+    <string name="transaction_nike_title">Nike Inc.</string>
+    <string name="transaction_nike_subtitle">Fees of Febuary</string>
+    <string name="desc_lendly_logo">Lendly Logo</string>
+    <string name="desc_applause_emoji">Applause Emoji</string>
+    <string name="desc_smile_emoji">Smile Emoji</string>
+    <string name="desc_nike_logo">Nike Logo</string>
 </resources>
