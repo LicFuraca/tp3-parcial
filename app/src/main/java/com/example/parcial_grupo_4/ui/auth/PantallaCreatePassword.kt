@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -18,9 +20,22 @@ import com.example.parcial_grupo_4.ui.theme.*
 import com.example.parcial_grupo_4.ui.common.LendlyBottomAction
 
 @Composable
-fun PantallaCreatePassword(onNext: () -> Unit, onBack: () -> Unit) {
+fun PantallaCreatePassword(
+    onSuccess: () -> Unit,
+    onBack: () -> Unit,
+    viewModel: RegisterViewModel
+) {
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var localError by remember { mutableStateOf<String?>(null) }
+    val registerState by viewModel.registerState.observeAsState(RegisterState.Idle)
+
+    // Cuando el registro termina OK (token ya guardado), avanzamos al Done
+    LaunchedEffect(registerState) {
+        if (registerState is RegisterState.Success) {
+            onSuccess()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -80,13 +95,38 @@ fun PantallaCreatePassword(onNext: () -> Unit, onBack: () -> Unit) {
                         unfocusedContainerColor = LendlyColors.Background.Screen
                     )
                 )
+
+                val state = registerState
+                if (state is RegisterState.Error) {
+                    Text(
+                        text = stringResource(id = state.messageRes),
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+                localError?.let { error ->
+                    Text(
+                        text = error,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
             }
         }
 
 
         Column(modifier = Modifier.fillMaxWidth()) {
-
-            LendlyBottomAction(text = "Next", onClick = onNext)
-            }
+            LendlyBottomAction(
+                text = if (registerState is RegisterState.Loading) "Cargando..." else "Next",
+                onClick = {
+                    if (password.isBlank()) {
+                        localError = "Ingresá una contraseña"
+                    } else {
+                        localError = null
+                        viewModel.register(password)
+                    }
+                }
+            )
         }
     }
+}

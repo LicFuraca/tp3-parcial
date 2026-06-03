@@ -15,7 +15,7 @@ import com.example.parcial_grupo_4.ui.theme.*
 import com.example.parcial_grupo_4.ui.common.LendlyBottomAction
 
 @Composable
-fun PantallaVerifyPhone(onNext: () -> Unit, onBack: () -> Unit) {
+fun PantallaVerifyPhone(onNext: (String) -> Unit, onBack: () -> Unit) {
     var phoneNumber by remember { mutableStateOf("") }
 
     Column(
@@ -122,6 +122,6 @@ fun PantallaVerifyPhone(onNext: () -> Unit, onBack: () -> Unit) {
             }
         }
 
-        LendlyBottomAction(text = "Next", onClick = onNext)
+        LendlyBottomAction(text = "Next", onClick = { onNext("+65$phoneNumber") })
     }
 }
