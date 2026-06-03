@@ -12,5 +12,8 @@ interface AuthDao {
 
     @Query("SELECT token FROM user_session WHERE id = 1")
     suspend fun getToken(): String?
+
+    @Query("DELETE FROM user_session")
+    suspend fun clearSession()
 }
 

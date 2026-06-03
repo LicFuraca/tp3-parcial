@@ -52,6 +52,7 @@ val interFamily = FontFamily(
 @Composable
 fun OnboardingScreen(
     viewModel: OnboardingViewModel,
+    onNavigateToLogin: () -> Unit,
     onFinishOnboarding: () -> Unit
 ) {
     val currentPage by viewModel.currentPage.observeAsState(initial = 0)
@@ -314,7 +315,7 @@ fun OnboardingScreen(
         // LÓGICA DE BOTONES PARA LA ÚLTIMA PANTALLA
         if (isLastPage) {
             OutlinedButton(
-                onClick = { /* Lógica de Log In */ },
+                onClick = onNavigateToLogin,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),

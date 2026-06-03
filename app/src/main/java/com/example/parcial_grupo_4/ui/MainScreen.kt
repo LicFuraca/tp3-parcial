@@ -104,7 +104,7 @@ private fun chromeFor(route: String?): ScreenChrome = when (route) {
 private const val TransitionMillis = 300
 
 @Composable
-fun MainScreen() {
+fun MainScreen(onLogout: () -> Unit) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
@@ -176,8 +176,8 @@ fun MainScreen() {
             // Manage Base y Sub-rutas
             composable(Routes.MANAGE) {
                 ManageScreen(
-                    // Conectamos el botón para que viaje a la ruta correcta
-                    onNavigateToProfile = { navController.navigate(ManageRoutes.ProfileDetail) }
+                    onNavigateToProfile = { navController.navigate(ManageRoutes.ProfileDetail) },
+                    onLogout = onLogout
                 )
             }
 

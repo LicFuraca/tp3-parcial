@@ -27,5 +27,9 @@ class AuthRepository @Inject constructor(
         // Si falló, devolvemos el error
         return result as NetworkResult.Error
     }
+
+    suspend fun logout() {
+        authDao.clearSession()
+    }
 }
 
