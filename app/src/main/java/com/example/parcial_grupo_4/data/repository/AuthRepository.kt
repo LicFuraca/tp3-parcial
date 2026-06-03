@@ -2,6 +2,7 @@ package com.example.parcial_grupo_4.data.repository
 
 import com.example.parcial_grupo_4.data.api.AuthApi
 import com.example.parcial_grupo_4.data.api.NetworkResult
+import com.example.parcial_grupo_4.data.api.dto.CreateRequestDto
 import com.example.parcial_grupo_4.data.api.dto.LoginRequestDto
 import com.example.parcial_grupo_4.data.api.safeApiCall
 import com.example.parcial_grupo_4.data.local.SessionManager
@@ -26,6 +27,18 @@ class AuthRepository @Inject constructor(
         }
 
         // Si falló, devolvemos el error
+        return result as NetworkResult.Error
+    }
+
+    suspend fun register(phone: String, password: String): NetworkResult<String> {
+        val result = safeApiCall { api.create(CreateRequestDto(phone, password)) }
+
+        if (result is NetworkResult.Success) {
+            val token = result.data.token
+            withContext(Dispatchers.IO) { sessionManager.saveToken(token) }
+            return NetworkResult.Success(token)
+        }
+
         return result as NetworkResult.Error
     }
 
