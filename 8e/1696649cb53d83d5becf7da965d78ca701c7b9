@@ -1,0 +1,36 @@
+app/src/main/java/com/example/parcial_grupo_4/data/repository/AuthRepository.kt
+  s_dee6e401e40079::t_d6dd42d4de6d8e 33-44
+  s_dee6e401e40079::t_54be48ed4fd40c 5
+app/src/main/java/com/example/parcial_grupo_4/ui/auth/PantallaVerifyPhone.kt
+  s_dee6e401e40079::t_21a7408d04096e 18
+  s_dee6e401e40079::t_362b7885bf2b0c 125
+app/src/main/java/com/example/parcial_grupo_4/data/api/dto/CreateResponseDto.kt
+  s_dee6e401e40079::t_92e3902e44a6fa 1-9
+app/src/main/java/com/example/parcial_grupo_4/ui/auth/PantallaCreatePassword.kt
+  s_dee6e401e40079::t_11725a59105929 8,12,23-27,30-38,98-113,119-129,132
+app/src/main/java/com/example/parcial_grupo_4/ui/auth/RegisterViewModel.kt
+  s_dee6e401e40079::t_6341a82d7082f9 1-45
+app/src/main/java/com/example/parcial_grupo_4/ui/navigation/NavGrapgh.kt
+  s_dee6e401e40079::t_812c526ba5afc1 14-17,19-24,29-42,77,100,103-143,147,151-155,157,159-165
+app/src/main/java/com/example/parcial_grupo_4/data/api/AuthApi.kt
+  s_dee6e401e40079::t_4566e0bd6cdd83 3-4
+  s_dee6e401e40079::t_bbd1804adf744d 15-18
+app/src/main/java/com/example/parcial_grupo_4/data/api/dto/CreateRequestDto.kt
+  s_dee6e401e40079::t_d43a5766318591 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "8e1696649cb53d83d5becf7da965d78ca701c7b9",
+  "prompts": {},
+  "sessions": {
+    "s_dee6e401e40079": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "21ecff1a-837c-4bb9-9b2e-f7e2506384f4",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "LicFuraca <martinexequield@gmail.com>"
+    }
+  }
+}
