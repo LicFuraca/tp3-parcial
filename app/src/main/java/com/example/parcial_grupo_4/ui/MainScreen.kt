@@ -164,10 +164,28 @@ fun MainScreen() {
             // Manage Base y Sub-rutas
             composable(Routes.MANAGE) {
                 ManageScreen(
-                    onEditProfileClick = { navController.navigate(ManageRoutes.ProfileDetail) },
-                    onCreditScoreClick = { navController.navigate(ManageRoutes.CreditScore) },
-                    onLogoutClick = { /* Logout */ }
+                    // Conectamos el botón para que viaje a la ruta correcta
+                    onNavigateToProfile = { navController.navigate(ManageRoutes.ProfileDetail) }
                 )
+            }
+
+            composable(ManageRoutes.ProfileDetail) {
+                val viewModel: ProfileDetailViewModel = hiltViewModel()
+                ProfileDetailScreen(
+                    viewModel = viewModel,
+                    onBackClick = { navController.popBackStack() },
+                    onSaveClick = { navController.navigate(ManageRoutes.Done) }
+                )
+            }
+
+            composable(ManageRoutes.Done) {
+                DoneScreen(
+                    onDoneClick = { navController.popBackStack(Routes.MANAGE, inclusive = false) }
+                )
+            }
+
+            composable(ManageRoutes.CreditScore) {
+                CreditScoreScreen(onBackClick = { navController.popBackStack() })
             }
 
             composable(ManageRoutes.ProfileDetail) {
@@ -189,7 +207,7 @@ fun MainScreen() {
                 CreditScoreScreen(onBackClick = { navController.popBackStack() })
             }
 
-            // Loans (nested graph)
+            // Loans
             navigation(
                 startDestination = Routes.LOANS,
                 route = Routes.LOANS_GRAPH,

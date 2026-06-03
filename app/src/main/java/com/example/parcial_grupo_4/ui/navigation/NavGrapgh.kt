@@ -44,7 +44,7 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
             )
         }
 
-        // 3. PANTALLA PRINCIPAL (Contiene el Bottom Navigation y tu ManageScreen)
+        // 3. PANTALLA PRINCIPAL
         composable("main") {
             MainScreen()
         }

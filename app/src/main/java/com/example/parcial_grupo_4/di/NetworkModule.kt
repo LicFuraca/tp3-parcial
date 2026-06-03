@@ -1,5 +1,6 @@
 package com.example.parcial_grupo_4.di
 
+import com.example.parcial_grupo_4.data.api.UserApiService
 import com.example.parcial_grupo_4.data.api.ShopService
 import com.example.parcial_grupo_4.BuildConfig
 import com.example.parcial_grupo_4.data.api.ApiConstants
@@ -86,5 +87,10 @@ object NetworkModule {
     @Singleton
     fun provideLoanApiService(retrofit: Retrofit): LoanApiService =
         retrofit.create(LoanApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserApiService(retrofit: Retrofit): UserApiService =
+        retrofit.create(UserApiService::class.java)
 }
 
