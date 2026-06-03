@@ -27,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
 import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material3.ButtonDefaults
 
 
 private val CalendarShape = RoundedCornerShape(16.dp)
@@ -178,7 +180,7 @@ private fun CalendarGrid() {
 }
 
 @Composable
-private fun androidx.compose.foundation.layout.RowScope.CalendarCell(
+private fun RowScope.CalendarCell(
     content: @Composable () -> Unit,
 ) {
     Box(
@@ -244,7 +246,7 @@ private fun CalendarFooter(
         TextButton(
             onClick = onOkClick,
             shape = RoundedCornerShape(8.dp),
-            colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+            colors = ButtonDefaults.textButtonColors(
                 containerColor = LendlyColors.Background.Soft,
                 contentColor = LendlyColors.Content.ButtonText,
             ),

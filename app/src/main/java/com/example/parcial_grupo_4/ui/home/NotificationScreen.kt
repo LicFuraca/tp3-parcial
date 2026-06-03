@@ -26,11 +26,60 @@ import androidx.compose.ui.Alignment
 import com.example.parcial_grupo_4.ui.home.components.NotificationCalendar
 import androidx.compose.foundation.layout.Box
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import androidx.annotation.StringRes
 
 
-private val ScreenBackground = Color.White
+private val ScreenBackground = LendlyColors.Background.Screen
 private val DividerColor = LendlyColors.Border.Subtle
 
+private data class NotificationUi(
+    @StringRes val titleRes: Int,
+    @StringRes val bodyRes: Int,
+    @StringRes val dateRes: Int,
+    val active: Boolean,
+)
+
+private val TodayNotifications = listOf(
+    NotificationUi(
+        titleRes = R.string.notification_due_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = true,
+    ),
+    NotificationUi(
+        titleRes = R.string.notification_due_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = true,
+    ),
+    NotificationUi(
+        titleRes = R.string.notification_help_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = false,
+    ),
+    NotificationUi(
+        titleRes = R.string.notification_help_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = false,
+    ),
+)
+
+private val AnnouncementNotifications = listOf(
+    NotificationUi(
+        titleRes = R.string.notification_due_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = true,
+    ),
+    NotificationUi(
+        titleRes = R.string.notification_help_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = false,
+    ),
+)
 @Composable
 fun NotificationScreen(
     modifier: Modifier = Modifier,
@@ -61,19 +110,21 @@ fun NotificationScreen(
             Text(
                 text = stringResource(R.string.notification_title),
                 style = MaterialTheme.typography.headlineSmall,
-                color = Color.Black,
+                color = LendlyColors.Content.Primary,
                 fontWeight = FontWeight.SemiBold,
             )
 
             NotificationSection(
                 title = stringResource(R.string.notification_today),
-                items = listOf(true, true, false, false),
+                items = TodayNotifications,
             )
 
             NotificationSection(
                 title = stringResource(R.string.notification_announcement),
-                items = listOf(true, false),
+                items = AnnouncementNotifications,
             )
+
+
         }
     }
 
@@ -100,7 +151,7 @@ fun NotificationScreen(
 @Composable
 private fun NotificationSection(
     title: String,
-    items: List<Boolean>,
+    items: List<NotificationUi>,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -121,18 +172,12 @@ private fun NotificationSection(
             )
         }
 
-        items.forEachIndexed { index, active ->
+        items.forEach { item ->
             NotificationItem(
-                title = stringResource(
-                    if (index % 2 == 0) {
-                        R.string.notification_due_title
-                    } else {
-                        R.string.notification_help_title
-                    }
-                ),
-                body = stringResource(R.string.notification_body),
-                date = stringResource(R.string.notification_date),
-                active = active,
+                title = stringResource(item.titleRes),
+                body = stringResource(item.bodyRes),
+                date = stringResource(item.dateRes),
+                active = item.active,
             )
         }
     }

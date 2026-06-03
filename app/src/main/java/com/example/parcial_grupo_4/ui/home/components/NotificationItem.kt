@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
@@ -50,7 +49,7 @@ fun NotificationItem(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.labelLarge,
-                    color = Color(0xFF454745),
+                    color = LendlyColors.Content.Secondary,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f),
                 )
@@ -58,14 +57,14 @@ fun NotificationItem(
                 Text(
                     text = date,
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color(0xFF6A6C6A),
+                    color = LendlyColors.Content.Tertiary,
                 )
             }
 
             Text(
                 text = body,
                 style = MaterialTheme.typography.bodySmall,
-                color = Color(0xFF6A6C6A),
+                color = LendlyColors.Content.Tertiary,
             )
         }
     }

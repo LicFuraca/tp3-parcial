@@ -26,10 +26,29 @@ import com.example.parcial_grupo_4.R
 import androidx.compose.material3.HorizontalDivider
 import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import androidx.compose.material3.OutlinedTextField
 
 
 private val ScreenBackground = LendlyColors.Background.Soft
 private val CardShape = RoundedCornerShape(12.dp)
+
+private data class OnlineCashInOption(
+    val titleRes: Int,
+    val imageRes: Int,
+)
+
+private val BankOptions = listOf(
+    OnlineCashInOption(R.string.online_cash_in_bank_bpi, R.drawable.img_bank_bpi),
+    OnlineCashInOption(R.string.online_cash_in_bank_chinabank, R.drawable.img_bank_china),
+    OnlineCashInOption(R.string.online_cash_in_bank_rcbc, R.drawable.img_bank_rcbc),
+    OnlineCashInOption(R.string.online_cash_in_bank_unionbank, R.drawable.img_bank_union),
+)
+
+private val WalletOptions = listOf(
+    OnlineCashInOption(R.string.online_cash_in_wallet_gcash, R.drawable.img_ewallet_gcash),
+    OnlineCashInOption(R.string.online_cash_in_wallet_paymaya, R.drawable.img_ewallet_paymaya),
+    OnlineCashInOption(R.string.online_cash_in_wallet_paypal, R.drawable.img_ewallet_paypal),
+)
 
 @Composable
 fun OnlineCashInScreen(
@@ -38,6 +57,7 @@ fun OnlineCashInScreen(
     onOptionClick: () -> Unit = {},
 ) {
     val searchText = remember { mutableStateOf("") }
+    val query = searchText.value.trim()
 
     Column(
         modifier = modifier
@@ -66,7 +86,11 @@ fun OnlineCashInScreen(
                 .background(Color.White, CardShape)
                 .padding(vertical = 16.dp),
         ) {
-            OnlineBankSection(onOptionClick = onOptionClick)
+            OnlineOptionSection(
+                title = stringResource(R.string.online_cash_in_banks_section),
+                options = BankOptions.filterByQuery(query),
+                onOptionClick = onOptionClick,
+            )
 
             HorizontalDivider(
                 thickness = 1.dp,
@@ -74,7 +98,11 @@ fun OnlineCashInScreen(
                 modifier = Modifier.padding(vertical = 16.dp)
             )
 
-            OnlineWalletSection(onOptionClick = onOptionClick)
+            OnlineOptionSection(
+                title = stringResource(R.string.online_cash_in_wallets_section),
+                options = WalletOptions.filterByQuery(query),
+                onOptionClick = onOptionClick,
+            )
         }
     }
 }
@@ -85,7 +113,7 @@ private fun OnlineSearchBar(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    androidx.compose.material3.OutlinedTextField(
+    OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         modifier = modifier
@@ -106,7 +134,9 @@ private fun OnlineSearchBar(
 }
 
 @Composable
-private fun OnlineBankSection(
+private fun OnlineOptionSection(
+    title: String,
+    options: List<OnlineCashInOption>,
     onOptionClick: () -> Unit,
 ) {
     Column(
@@ -114,69 +144,27 @@ private fun OnlineBankSection(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = stringResource(R.string.online_cash_in_banks_section),
+            text = title,
             style = MaterialTheme.typography.labelMedium,
-            color = Color.Black,
+            color = LendlyColors.Content.Primary,
             fontWeight = FontWeight.Medium,
         )
 
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_bank_bpi),
-            leadingImageRes = R.drawable.img_bank_bpi,
-            onClick = onOptionClick,
-        )
-
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_bank_chinabank),
-            leadingImageRes = R.drawable.img_bank_china,
-            onClick = onOptionClick,
-        )
-
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_bank_rcbc),
-            leadingImageRes = R.drawable.img_bank_rcbc,
-            onClick = onOptionClick,
-        )
-
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_bank_unionbank),
-            leadingImageRes = R.drawable.img_bank_union,
-            onClick = onOptionClick,
-        )
+        options.forEach { option ->
+            HomeOptionItem(
+                title = stringResource(option.titleRes),
+                leadingImageRes = option.imageRes,
+                onClick = onOptionClick,
+            )
+        }
     }
 }
 
 @Composable
-private fun OnlineWalletSection(
-    onOptionClick: () -> Unit,
-) {
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        Text(
-            text = stringResource(R.string.online_cash_in_wallets_section),
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Black,
-            fontWeight = FontWeight.Medium,
-        )
+private fun List<OnlineCashInOption>.filterByQuery(query: String): List<OnlineCashInOption> {
+    if (query.isBlank()) return this
 
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_wallet_gcash),
-            leadingImageRes = R.drawable.img_ewallet_gcash,
-            onClick = onOptionClick,
-        )
-
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_wallet_paymaya),
-            leadingImageRes = R.drawable.img_ewallet_paymaya,
-            onClick = onOptionClick,
-        )
-
-        HomeOptionItem(
-            title = stringResource(R.string.online_cash_in_wallet_paypal),
-            leadingImageRes = R.drawable.img_ewallet_paypal,
-            onClick = onOptionClick,
-        )
+    return filter { option ->
+        stringResource(option.titleRes).contains(query, ignoreCase = true)
     }
 }

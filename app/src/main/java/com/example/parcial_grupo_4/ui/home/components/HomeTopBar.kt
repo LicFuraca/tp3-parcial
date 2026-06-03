@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 private val TopBarHeight = 64.dp
 private val ActionSize = 48.dp
@@ -61,7 +62,7 @@ fun HomeTopBar(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
-                    color = Color(0xFF1D1B20),
+                    color = LendlyColors.Content.OnSurface,
                     textAlign = TextAlign.Center,
                 )
             }
