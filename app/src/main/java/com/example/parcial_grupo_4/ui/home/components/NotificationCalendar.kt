@@ -102,7 +102,7 @@ private fun CalendarMonthRow() {
             )
 
             Icon(
-                painter = painterResource(R.drawable.ic_arrow_down),
+                painter = painterResource(R.drawable.ic_mini_arrow_down),
                 contentDescription = null,
                 tint = Color.Unspecified,
             )
@@ -110,6 +110,7 @@ private fun CalendarMonthRow() {
 
         Row(
             modifier = Modifier.height(48.dp),
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(

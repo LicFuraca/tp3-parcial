@@ -31,6 +31,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.collectAsState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.example.parcial_grupo_4.data.model.LoanItem
+import com.example.parcial_grupo_4.data.model.Product
+import com.example.parcial_grupo_4.util.FormatUtils.formatCurrencyAmount
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 
 private val ScreenHorizontalPadding = 16.dp
 private val AccountCardHeight = 136.dp
@@ -43,9 +57,14 @@ private val SkeletonColor = Color(0xFFEDE7E7)
 
 @Composable
 fun HomeScreen(
+    viewModel: HomeViewModel,
     modifier: Modifier = Modifier,
     onCashInClick: () -> Unit = {},
+    onProductClick: (String) -> Unit = {},
+    onSeeAllProductsClick: () -> Unit = {},
+    onSeeAllLoansClick: () -> Unit = {},
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -59,9 +78,34 @@ fun HomeScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(32.dp),
         ) {
-            UnpaidLoansPlaceholderSection()
+            when {
+                uiState.isLoading -> {
+                    UnpaidLoansPlaceholderSection()
+                    RecommendedForYouPlaceholderSection()
+                }
 
-            RecommendedForYouPlaceholderSection()
+                uiState.error != null -> {
+                    Text(
+                        text = uiState.error.orEmpty(),
+                        modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
+                        color = LendlyColors.Sentiment.Negative,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
+                else -> {
+                    UnpaidLoansSection(
+                        loans = uiState.unpaidLoans,
+                        onSeeAllClick = onSeeAllLoansClick,
+                    )
+
+                    RecommendedForYouSection(
+                        products = uiState.recommendedProducts,
+                        onProductClick = onProductClick,
+                        onSeeAllClick = onSeeAllProductsClick,
+                    )
+                }
+            }
         }
     }
 }
@@ -156,6 +200,7 @@ private fun UnpaidLoansPlaceholderSection(
     ) {
         HomeSectionHeader(
             title = stringResource(R.string.home_unpaid_loans),
+            onSeeAllClick = {},
             modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
         )
 
@@ -232,6 +277,7 @@ private fun RecommendedForYouPlaceholderSection(
     ) {
         HomeSectionHeader(
             title = stringResource(R.string.home_recommended_for_you),
+            onSeeAllClick = {},
             modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
         )
 
@@ -289,6 +335,7 @@ private fun ProductItemPlaceholder(
 @Composable
 private fun HomeSectionHeader(
     title: String,
+    onSeeAllClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -305,7 +352,10 @@ private fun HomeSectionHeader(
             fontWeight = FontWeight.SemiBold,
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { onSeeAllClick() },
+        ) {
             Text(
                 text = stringResource(R.string.home_see_all),
                 style = MaterialTheme.typography.labelLarge,
@@ -320,5 +370,169 @@ private fun HomeSectionHeader(
                 modifier = Modifier.size(14.dp),
             )
         }
+    }
+}
+
+@Composable
+private fun UnpaidLoansSection(
+    loans: List<LoanItem>,
+    onSeeAllClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        HomeSectionHeader(
+            title = stringResource(R.string.home_unpaid_loans),
+            onSeeAllClick = onSeeAllClick,
+            modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
+        )
+
+        Column(
+            modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            loans.forEach { loan ->
+                LoanItemCard(loan = loan)
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+private fun LoanItemCard(
+    loan: LoanItem,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(LoanItemHeight)
+            .background(CardColor, CardShape)
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        GlideImage(
+            model = loan.imageUrl,
+            contentDescription = loan.lender,
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(Color.White),
+            contentScale = ContentScale.Fit,
+        )
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Text(
+            text = loan.lender,
+            style = MaterialTheme.typography.bodyLarge,
+            color = LendlyColors.Content.Primary,
+            fontWeight = FontWeight.SemiBold,
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            horizontalAlignment = Alignment.End,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Text(
+                text = "₱${formatCurrencyAmount(loan.monthlyFee)}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = LendlyColors.Content.Primary,
+                fontWeight = FontWeight.SemiBold,
+            )
+
+            Text(
+                text = loan.fees.orEmpty(),
+                style = MaterialTheme.typography.labelSmall,
+                color = LendlyColors.Content.Secondary,
+            )
+        }
+    }
+}
+
+@Composable
+private fun RecommendedForYouSection(
+    products: List<Product>,
+    onProductClick: (String) -> Unit,
+    onSeeAllClick: () -> Unit,
+    modifier: Modifier = Modifier,
+){
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        HomeSectionHeader(
+            title = stringResource(R.string.home_recommended_for_you),
+            onSeeAllClick = onSeeAllClick,
+            modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
+        )
+
+        LazyRow(
+            modifier = Modifier.padding(horizontal = ScreenHorizontalPadding),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(products) { product ->
+                HomeProductCard(
+                    product = product,
+                    onClick = onProductClick,
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+private fun HomeProductCard(
+    product: Product,
+    onClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .width(132.dp)
+            .height(145.dp)
+            .background(CardColor, RoundedCornerShape(12.dp))
+            .clickable { onClick(product.id) }
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        GlideImage(
+            model = product.image,
+            contentDescription = product.name,
+            modifier = Modifier
+                .size(width = 90.dp, height = 70.dp),
+            contentScale = ContentScale.Fit,
+        )
+
+        Text(
+            text = product.name,
+            modifier = Modifier.fillMaxWidth(),
+            style = MaterialTheme.typography.bodySmall,
+            fontSize = 12.sp,
+            lineHeight = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color(0xFF454745),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+
+        Text(
+            text = "${product.currency} ${formatCurrencyAmount(product.monthlyInstallment)} × ${product.installmentMonths} mo",
+            modifier = Modifier.fillMaxWidth(),
+            style = MaterialTheme.typography.labelSmall,
+            fontSize = 11.sp,
+            lineHeight = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color(0xFF3C6839),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
