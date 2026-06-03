@@ -1,0 +1,33 @@
+app/src/main/java/com/example/parcial_grupo_4/data/local/AuthDao.kt
+  s_dee6e401e40079::t_7320b73661d5a7 15-17
+app/src/main/java/com/example/parcial_grupo_4/ui/navigation/NavGrapgh.kt
+  s_dee6e401e40079::t_a624bb9f7c1e59 4,11-12,19-22,32,45,47-59,67,69-76,79
+app/src/main/java/com/example/parcial_grupo_4/data/repository/AuthRepository.kt
+  s_dee6e401e40079::t_c92928cc89d596 30-33
+app/src/main/java/com/example/parcial_grupo_4/ui/auth/AuthViewModel.kt
+  s_dee6e401e40079::t_078343d406d326 45-50
+app/src/main/java/com/example/parcial_grupo_4/ui/onboarding/OnboardingScreen.kt
+  s_dee6e401e40079::t_ea7be0183e3b10 55
+  s_dee6e401e40079::t_d790afd1bc4860 318
+app/src/main/java/com/example/parcial_grupo_4/ui/MainScreen.kt
+  s_dee6e401e40079::t_f429ae65731ad2 107
+app/src/main/java/com/example/parcial_grupo_4/ui/manage/ManageScreen.kt
+  s_dee6e401e40079::t_4d5f97d2c5bd3b 33-34
+  s_dee6e401e40079::t_41449d04b245f8 174
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "c1d4f8ee63892be57a58e98bd1a06866bceecc79",
+  "prompts": {},
+  "sessions": {
+    "s_dee6e401e40079": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "21ecff1a-837c-4bb9-9b2e-f7e2506384f4",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "LicFuraca <martinexequield@gmail.com>"
+    }
+  }
+}
