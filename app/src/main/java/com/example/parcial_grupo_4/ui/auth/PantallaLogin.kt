@@ -3,6 +3,7 @@ package com.example.parcial_grupo_4.ui.auth
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -12,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -28,7 +30,9 @@ fun PantallaLogin(
     onNext: () -> Unit,
     viewModel: AuthViewModel = hiltViewModel() // Inyectamos el ViewModel
 ) {
+    var phone by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var localError by remember { mutableStateOf<String?>(null) }
     val loginState by viewModel.loginState.collectAsStateWithLifecycle()
 
     // Manejo del estado para navegar
@@ -65,6 +69,35 @@ fun PantallaLogin(
 
             // ... (Resto de tu diseño de perfil)
 
+            // Sección de Teléfono
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Phone Number",
+                    color = LendlyColors.Content.Primary,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(bottom = LendlySpacing.Spacing1)
+                )
+
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("+63-923456790", color = LendlyColors.Content.Tertiary) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = LendlyColors.Interactive.Secondary,
+                        unfocusedBorderColor = LendlyColors.Interactive.Secondary,
+                        focusedContainerColor = LendlyColors.Background.Screen,
+                        unfocusedContainerColor = LendlyColors.Background.Screen
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Sección de Password
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -97,6 +130,14 @@ fun PantallaLogin(
                         modifier = Modifier.padding(top = 8.dp)
                     )
                 }
+
+                localError?.let { error ->
+                    Text(
+                        text = error,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
             }
         }
 
@@ -104,8 +145,12 @@ fun PantallaLogin(
         LendlyBottomAction(
             text = if (loginState is LoginState.Loading) "Cargando..." else "Log In",
             onClick = {
-                // Usamos un teléfono hardcodeado por ahora ya que el diseño es estático
-                viewModel.login("+63-923456790", password)
+                if (phone.isBlank() || password.isBlank()) {
+                    localError = "Completá teléfono y contraseña"
+                } else {
+                    localError = null
+                    viewModel.login(phone, password)
+                }
             },
             showDivider = true
         )

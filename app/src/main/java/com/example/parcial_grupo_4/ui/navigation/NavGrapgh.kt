@@ -25,11 +25,15 @@ fun AppNavGraph(navController: NavHostController = rememberNavController()) {
         startDestination = "splash" // La app arranca por el Splash Screen
     ) {
 
-        // 1. PANTALLA SPLASH
+        // 1. PANTALLA SPLASH — decide destino según haya o no sesión persistida
         composable("splash") {
             SplashScreen(
-                onSplashFinished = {
-                    // Cuando termina el delay, navega al onboarding y saca el splash del historial
+                onNavigateToHome = {
+                    navController.navigate("main") {
+                        popUpTo("splash") { inclusive = true }
+                    }
+                },
+                onNavigateToOnboarding = {
                     navController.navigate("onboarding") {
                         popUpTo("splash") { inclusive = true }
                     }

@@ -2,9 +2,8 @@ package com.example.parcial_grupo_4.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.parcial_grupo_4.data.local.AuthDao
 import com.example.parcial_grupo_4.data.local.LendlyDatabase
-import com.example.parcial_grupo_4.data.local.TransactionDao // Asegúrate de tener este import
+import com.example.parcial_grupo_4.data.local.TransactionDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +25,6 @@ object DatabaseModule {
         )
             .fallbackToDestructiveMigration()
             .build()
-    }
-
-    @Provides
-    fun provideAuthDao(database: LendlyDatabase): AuthDao {
-        return database.authDao()
     }
 
     @Provides
