@@ -97,7 +97,18 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         }
 
         composable(HomeRoute.SuccessfulTransaction.route) {
-            SuccessfulTransactionScreen()
+            SuccessfulTransactionScreen(
+                onCloseClick = {
+                    navController.popBackStack()
+                },
+                onDoneClick = {
+                    navController.navigate(HomeRoute.Home.route) {
+                        popUpTo(Routes.HOME) {
+                            inclusive = false
+                        }
+                    }
+                },
+            )
         }
 
         composable(HomeRoute.Notifications.route) {

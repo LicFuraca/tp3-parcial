@@ -78,6 +78,15 @@
     <string name="calendar_day_w">W</string>
     <string name="calendar_day_f">F</string>
     <!--NotificationScreen Strings-->
+    <!--SuccessfulTransactionScreen Strings-->
+    <string name="cash_in_success_amount">2,500.00 PHP</string>
+    <string name="cash_in_success_source">GCash</string>
+    <string name="cash_in_success_chip">Cash-In</string>
+    <string name="cash_in_success_transfer_fee">Transfer Fee</string>
+    <string name="cash_in_success_transfer_fee_value">-₱15.00</string>
+    <string name="cash_in_success_date_time_value">Jul 15, 2024 9:12 AM</string>
+    <string name="cash_in_success_transaction_number_value">#200412312551</string>
+    <!--SuccessfulTransactionScreen Strings-->
 
     <!-- Loans screen - info -->
     <string name="loans_limited_time_offer">Limited Time Offer</string>
