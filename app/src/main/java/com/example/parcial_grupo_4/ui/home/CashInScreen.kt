@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountBalanceWallet
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +40,7 @@ fun CashInScreen(
     ) {
         HomeTopBar(
             title = stringResource(R.string.cash_in_title),
-            trailingIcon = Icons.Outlined.Info,
+            trailingIconRes = R.drawable.ic_info,
             onBackClick = onBackClick,
             onTrailingClick = onInfoClick,
         )
@@ -84,14 +80,14 @@ private fun CashInOptionsCard(
         HomeOptionItem(
             title = stringResource(R.string.cash_in_online_title),
             description = stringResource(R.string.cash_in_online_description),
-            leadingIcon = Icons.Outlined.AccountBalanceWallet,
+            leadingIconRes = R.drawable.ic_wallet,
             onClick = onOnlineBankingClick,
         )
 
         HomeOptionItem(
             title = stringResource(R.string.cash_in_counter_title),
             description = stringResource(R.string.cash_in_counter_description),
-            leadingIcon = Icons.Outlined.LocationOn,
+            leadingIconRes = R.drawable.ic_location,
             onClick = onOverTheCounterClick,
         )
     }

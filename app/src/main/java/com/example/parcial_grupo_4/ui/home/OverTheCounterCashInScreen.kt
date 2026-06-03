@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Store
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -67,36 +65,34 @@ private fun OverCounterPartnersCard(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        OverCounterPartnerItem(
+
+        HomeOptionItem(
             title = stringResource(R.string.over_counter_partner_7_eleven),
+            description = stringResource(R.string.over_counter_max_transaction),
+            leadingImageRes = R.drawable.img_partner_7eleven,
             onClick = onPartnerClick,
         )
-        OverCounterPartnerItem(
+
+        HomeOptionItem(
             title = stringResource(R.string.over_counter_partner_cebuana),
+            description = stringResource(R.string.over_counter_max_transaction),
+            leadingImageRes = R.drawable.img_partner_cebuana,
             onClick = onPartnerClick,
         )
-        OverCounterPartnerItem(
+
+        HomeOptionItem(
             title = stringResource(R.string.over_counter_partner_lbc),
+            description = stringResource(R.string.over_counter_max_transaction),
+            leadingImageRes = R.drawable.img_partner_lbc,
             onClick = onPartnerClick,
         )
-        OverCounterPartnerItem(
+
+        HomeOptionItem(
             title = stringResource(R.string.over_counter_partner_m_lhuillier),
+            description = stringResource(R.string.over_counter_max_transaction),
+            leadingImageRes = R.drawable.img_partner_lhuillier,
             onClick = onPartnerClick,
         )
     }
 }
 
-@Composable
-private fun OverCounterPartnerItem(
-    title: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    HomeOptionItem(
-        title = title,
-        description = stringResource(R.string.over_counter_max_transaction),
-        leadingIcon = Icons.Outlined.Store,
-        modifier = modifier,
-        onClick = onClick,
-    )
-}

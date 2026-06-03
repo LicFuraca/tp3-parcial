@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,11 +25,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import com.example.parcial_grupo_4.R
 
 private val OptionItemMinHeight = 52.dp
 private val LeadingContainerSize = 40.dp
-private val LeadingIconSize = 20.dp
+private val LeadingIconSize = 18.dp
 private val LeadingImageSize = 40.dp
+private val TrailingArrowWidth = 12.dp
+private val TrailingArrowHeight = 12.dp
 private val LeadingContainerColor = Color(0xFFE5F5EA)
 
 @Composable
@@ -40,6 +41,7 @@ fun HomeOptionItem(
     modifier: Modifier = Modifier,
     description: String? = null,
     leadingIcon: ImageVector? = null,
+    @DrawableRes leadingIconRes: Int? = null,
     @DrawableRes leadingImageRes: Int? = null,
     onClick: () -> Unit = {},
 ) {
@@ -54,6 +56,7 @@ fun HomeOptionItem(
     ) {
         LeadingOptionVisual(
             leadingIcon = leadingIcon,
+            leadingIconRes = leadingIconRes,
             leadingImageRes = leadingImageRes,
         )
 
@@ -78,10 +81,13 @@ fun HomeOptionItem(
         }
 
         Icon(
-            imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+            painter = painterResource(R.drawable.ic_mini_arrow_right),
             contentDescription = null,
-            tint = LendlyColors.Content.Primary,
-            modifier = Modifier.size(24.dp),
+            tint = Color.Unspecified,
+            modifier = Modifier.size(
+                width = TrailingArrowWidth,
+                height = TrailingArrowHeight,
+            ),
         )
     }
 }
@@ -89,6 +95,7 @@ fun HomeOptionItem(
 @Composable
 private fun LeadingOptionVisual(
     leadingIcon: ImageVector?,
+    @DrawableRes leadingIconRes: Int?,
     @DrawableRes leadingImageRes: Int?,
     modifier: Modifier = Modifier,
 ) {
@@ -103,6 +110,22 @@ private fun LeadingOptionVisual(
                     contentDescription = null,
                     modifier = Modifier.size(LeadingImageSize),
                 )
+            }
+
+            leadingIconRes != null -> {
+                Box(
+                    modifier = Modifier
+                        .size(LeadingContainerSize)
+                        .background(LeadingContainerColor, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        painter = painterResource(leadingIconRes),
+                        contentDescription = null,
+                        tint = LendlyColors.Content.Primary,
+                        modifier = Modifier.size(LeadingIconSize),
+                    )
+                }
             }
 
             leadingIcon != null -> {

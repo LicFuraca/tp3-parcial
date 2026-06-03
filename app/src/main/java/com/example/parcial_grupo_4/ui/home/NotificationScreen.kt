@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,11 +42,12 @@ fun NotificationScreen(
         modifier = modifier
             .fillMaxSize()
             .background(ScreenBackground)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 48.dp),
     ) {
         HomeTopBar(
             onBackClick = onBackClick,
-            trailingIcon = Icons.Outlined.CalendarToday,
+            trailingIconRes = R.drawable.ic_calendar,
             onTrailingClick = {
                 showCalendar = true
             },
@@ -83,7 +82,7 @@ fun NotificationScreen(
                 .fillMaxSize()
                 .background(Color.Black.copy(alpha = 0.10f))
                 .padding(horizontal = 16.dp)
-                .padding(top = 68.dp),
+                .padding(top = 56.dp),
             contentAlignment = Alignment.TopCenter,
         ) {
             NotificationCalendar(

@@ -28,6 +28,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.res.painterResource
+import com.example.parcial_grupo_4.R
 
 
 private val CalendarShape = RoundedCornerShape(16.dp)
@@ -103,9 +105,9 @@ private fun CalendarMonthRow() {
             )
 
             Icon(
-                imageVector = Icons.Outlined.ArrowDropDown,
+                painter = painterResource(R.drawable.ic_arrow_down),
                 contentDescription = null,
-                tint = Color(0xFF454745),
+                tint = Color.Unspecified,
             )
         }
 
@@ -114,15 +116,15 @@ private fun CalendarMonthRow() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowLeft,
+                painter = painterResource(R.drawable.ic_mini_arrow_left),
                 contentDescription = null,
-                tint = Color(0xFF454745),
+                tint = Color.Unspecified,
             )
 
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
+                painter = painterResource(R.drawable.ic_mini_arrow_right),
                 contentDescription = null,
-                tint = Color(0xFF454745),
+                tint = Color.Unspecified,
             )
         }
     }

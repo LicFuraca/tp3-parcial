@@ -47,6 +47,15 @@ private val RoutesWithoutTopBar = setOf(
     HomeRoute.Notifications.route,
 )
 
+private val RoutesWithoutBottomBar = setOf(
+    HomeRoute.CashIn.route,
+    HomeRoute.OnlineCashIn.route,
+    HomeRoute.OverTheCounterCashIn.route,
+    HomeRoute.CashInAmount.route,
+    HomeRoute.SuccessfulTransaction.route,
+    HomeRoute.Notifications.route,
+)
+
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
@@ -65,28 +74,30 @@ fun MainScreen() {
             }
         },
         bottomBar = {
-            LendlyBottomBar(
-                items = BottomBarItems,
-                currentRoute = currentRoute,
-                onItemSelected = { item ->
-                    if (item.route == LendlyRoutes.Home) {
-                        navController.navigate(HomeRoute.Home.route) {
-                            popUpTo(LendlyRoutes.Home) {
-                                inclusive = false
+            if (currentRoute !in RoutesWithoutBottomBar) {
+                LendlyBottomBar(
+                    items = BottomBarItems,
+                    currentRoute = currentRoute,
+                    onItemSelected = { item ->
+                        if (item.route == LendlyRoutes.Home) {
+                            navController.navigate(HomeRoute.Home.route) {
+                                popUpTo(LendlyRoutes.Home) {
+                                    inclusive = false
+                                }
+                                launchSingleTop = true
                             }
-                            launchSingleTop = true
-                        }
-                    } else {
-                        navController.navigate(item.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
+                        } else {
+                            navController.navigate(item.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
                         }
-                    }
-                },
-            )
+                    },
+                )
+            }
         },
     ) { innerPadding ->
         NavHost(

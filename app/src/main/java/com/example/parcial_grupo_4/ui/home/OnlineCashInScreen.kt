@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountBalance
-import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -110,40 +108,45 @@ private fun OnlineSearchBar(
 private fun OnlineBankSection(
     onOptionClick: () -> Unit,
 ) {
-    OnlineOptionSection(
-        title = stringResource(R.string.online_cash_in_banks_section),
-        items = listOf(
-            stringResource(R.string.online_cash_in_bank_bpi),
-            stringResource(R.string.online_cash_in_bank_chinabank),
-            stringResource(R.string.online_cash_in_bank_rcbc),
-            stringResource(R.string.online_cash_in_bank_unionbank),
-        ),
-        icon = Icons.Outlined.AccountBalance,
-        onOptionClick = onOptionClick,
-    )
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.online_cash_in_banks_section),
+            style = MaterialTheme.typography.labelMedium,
+            color = Color.Black,
+            fontWeight = FontWeight.Medium,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_bank_bpi),
+            leadingImageRes = R.drawable.img_bank_bpi,
+            onClick = onOptionClick,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_bank_chinabank),
+            leadingImageRes = R.drawable.img_bank_china,
+            onClick = onOptionClick,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_bank_rcbc),
+            leadingImageRes = R.drawable.img_bank_rcbc,
+            onClick = onOptionClick,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_bank_unionbank),
+            leadingImageRes = R.drawable.img_bank_union,
+            onClick = onOptionClick,
+        )
+    }
 }
 
 @Composable
 private fun OnlineWalletSection(
-    onOptionClick: () -> Unit,
-) {
-    OnlineOptionSection(
-        title = stringResource(R.string.online_cash_in_wallets_section),
-        items = listOf(
-            stringResource(R.string.online_cash_in_wallet_gcash),
-            stringResource(R.string.online_cash_in_wallet_paymaya),
-            stringResource(R.string.online_cash_in_wallet_paypal),
-        ),
-        icon = Icons.Outlined.AccountBalanceWallet,
-        onOptionClick = onOptionClick,
-    )
-}
-
-@Composable
-private fun OnlineOptionSection(
-    title: String,
-    items: List<String>,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
     onOptionClick: () -> Unit,
 ) {
     Column(
@@ -151,18 +154,28 @@ private fun OnlineOptionSection(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
-            text = title,
+            text = stringResource(R.string.online_cash_in_wallets_section),
             style = MaterialTheme.typography.labelMedium,
             color = Color.Black,
             fontWeight = FontWeight.Medium,
         )
 
-        items.forEach { item ->
-            HomeOptionItem(
-                title = item,
-                leadingIcon = icon,
-                onClick = onOptionClick,
-            )
-        }
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_wallet_gcash),
+            leadingImageRes = R.drawable.img_ewallet_gcash,
+            onClick = onOptionClick,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_wallet_paymaya),
+            leadingImageRes = R.drawable.img_ewallet_paymaya,
+            onClick = onOptionClick,
+        )
+
+        HomeOptionItem(
+            title = stringResource(R.string.online_cash_in_wallet_paypal),
+            leadingImageRes = R.drawable.img_ewallet_paypal,
+            onClick = onOptionClick,
+        )
     }
 }

@@ -15,9 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowForward
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -28,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -133,9 +131,10 @@ private fun AccountBalanceCard(
             contentPadding = PaddingValues(horizontal = 20.dp),
         ) {
             Icon(
-                imageVector = Icons.Outlined.Add,
+                painter = painterResource(R.drawable.ic_plus),
                 contentDescription = null,
-                modifier = Modifier.size(18.dp),
+                tint = Color.Unspecified,
+                modifier = Modifier.size(12.dp),
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -315,10 +314,10 @@ private fun HomeSectionHeader(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Icon(
-                imageVector = Icons.AutoMirrored.Outlined.ArrowForward,
+                painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = null,
-                tint = LendlyColors.Content.Primary,
-                modifier = Modifier.size(18.dp),
+                tint = Color.Unspecified,
+                modifier = Modifier.size(14.dp),
             )
         }
     }
