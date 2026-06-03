@@ -12,10 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowLeft
-import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
-import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -27,14 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.res.painterResource
 import com.example.parcial_grupo_4.R
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import androidx.compose.ui.res.stringResource
 
 
 private val CalendarShape = RoundedCornerShape(16.dp)
-private val DividerColor = Color(0xFFE5E2E1)
-private val AccentColor = Color(0xFF7BF179)
+private val DividerColor = LendlyColors.Border.Subtle
+private val AccentColor = LendlyColors.Interactive.Accent
 
 @Composable
 fun NotificationCalendar(
@@ -66,16 +63,16 @@ private fun CalendarHeader() {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            text = "Due dates",
+            text = stringResource(R.string.calendar_due_dates),
             style = MaterialTheme.typography.labelLarge,
-            color = Color(0xFF454745),
+            color = LendlyColors.Content.Secondary,
             fontWeight = FontWeight.SemiBold,
         )
 
         Text(
-            text = "Mon, Aug 17",
+            text = stringResource(R.string.calendar_selected_date),
             style = MaterialTheme.typography.headlineSmall,
-            color = Color(0xFF1D1B20),
+            color = LendlyColors.Content.OnSurface,
             fontWeight = FontWeight.SemiBold,
         )
     }
@@ -98,9 +95,9 @@ private fun CalendarMonthRow() {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "August 2023",
+                text = stringResource(R.string.calendar_month_year),
                 style = MaterialTheme.typography.labelLarge,
-                color = Color(0xFF454745),
+                color = LendlyColors.Content.Secondary,
                 fontWeight = FontWeight.SemiBold,
             )
 
@@ -132,7 +129,15 @@ private fun CalendarMonthRow() {
 
 @Composable
 private fun CalendarGrid() {
-    val weekDays = listOf("S", "M", "T", "W", "T", "F", "S")
+    val weekDays = listOf(
+        stringResource(R.string.calendar_day_s),
+        stringResource(R.string.calendar_day_m),
+        stringResource(R.string.calendar_day_t),
+        stringResource(R.string.calendar_day_w),
+        stringResource(R.string.calendar_day_t),
+        stringResource(R.string.calendar_day_f),
+        stringResource(R.string.calendar_day_s),
+    )
     val days = listOf(
         listOf("", "", "1", "2", "3", "4", "5"),
         listOf("6", "7", "8", "9", "10", "11", "12"),
@@ -239,14 +244,14 @@ private fun CalendarFooter(
             onClick = onOkClick,
             shape = RoundedCornerShape(8.dp),
             colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
-                containerColor = Color(0xFFFCF8F8),
-                contentColor = Color(0xFF1F3701),
+                containerColor = LendlyColors.Background.Soft,
+                contentColor = LendlyColors.Content.ButtonText,
             ),
         ) {
             Text(
-                text = "OK",
+                text = stringResource(R.string.calendar_ok),
                 style = MaterialTheme.typography.labelLarge,
-                color = Color(0xFF1F3701),
+                color = LendlyColors.Content.ButtonText,
                 fontWeight = FontWeight.Medium,
             )
         }

@@ -64,5 +64,14 @@
     <string name="notification_help_title">Got a minute to help us out?</string>
     <string name="notification_body">We’d like to remind you about your due date this month. Please pay this balance within the date to keep your credit score. Tap to pay.</string>
     <string name="notification_date">Mar 8</string>
+    <string name="calendar_due_dates">Due dates</string>
+    <string name="calendar_selected_date">Mon, Aug 17</string>
+    <string name="calendar_month_year">August 2023</string>
+    <string name="calendar_ok">OK</string>
+    <string name="calendar_day_s">S</string>
+    <string name="calendar_day_m">M</string>
+    <string name="calendar_day_t">T</string>
+    <string name="calendar_day_w">W</string>
+    <string name="calendar_day_f">F</string>
     <!--NotificationScreen Strings-->
 </resources>

@@ -25,10 +25,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import com.example.parcial_grupo_4.ui.home.components.NotificationCalendar
 import androidx.compose.foundation.layout.Box
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 
 private val ScreenBackground = Color.White
-private val DividerColor = Color(0xFFE5E2E1)
+private val DividerColor = LendlyColors.Border.Subtle
 
 @Composable
 fun NotificationScreen(
@@ -110,7 +111,7 @@ private fun NotificationSection(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleSmall,
-                color = Color(0xFF6A6C6A),
+                color = LendlyColors.Content.Tertiary,
                 fontWeight = FontWeight.Medium,
             )
 

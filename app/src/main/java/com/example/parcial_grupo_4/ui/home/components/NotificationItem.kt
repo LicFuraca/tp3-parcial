@@ -15,9 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
-private val ActiveDotColor = Color(0xFF7BF179)
-private val InactiveDotColor = Color(0xFFE5E2E1)
+private val ActiveDotColor = LendlyColors.Interactive.Accent
+private val InactiveDotColor = LendlyColors.Border.Subtle
 
 @Composable
 fun NotificationItem(

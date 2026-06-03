@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.common.PrimaryButton
 import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
-private val ScreenBackground = Color(0xFFFCF8F8)
-private val DividerColor = Color(0xFFE5E2E1)
+private val ScreenBackground = LendlyColors.Background.Soft
+private val DividerColor = LendlyColors.Border.Subtle
 
 @Composable
 fun CashInAmountScreen(
@@ -79,7 +80,7 @@ private fun AmountContent(
         Text(
             text = stringResource(R.string.cash_in_amount_balance),
             style = MaterialTheme.typography.labelLarge,
-            color = Color(0xFF6A6C6A),
+            color = LendlyColors.Content.Tertiary,
             fontWeight = FontWeight.SemiBold,
         )
 
@@ -99,7 +100,7 @@ private fun AmountContent(
         Text(
             text = stringResource(R.string.cash_in_amount_limit),
             style = MaterialTheme.typography.labelLarge,
-            color = Color(0xFF6A6C6A),
+            color = LendlyColors.Content.Tertiary,
             fontWeight = FontWeight.SemiBold,
         )
     }

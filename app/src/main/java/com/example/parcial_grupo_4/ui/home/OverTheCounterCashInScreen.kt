@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.R
 import com.example.parcial_grupo_4.ui.home.components.HomeOptionItem
 import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
-private val ScreenBackground = Color(0xFFFCF8F8)
+private val ScreenBackground = LendlyColors.Background.Soft
 private val CardShape = RoundedCornerShape(12.dp)
 
 @Composable

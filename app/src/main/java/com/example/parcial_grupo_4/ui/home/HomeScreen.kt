@@ -37,7 +37,7 @@ private val AccountCardHeight = 136.dp
 private val LoanItemHeight = 76.dp
 private val ProductPlaceholderWidth = 132.dp
 private val ProductPlaceholderHeight = 145.dp
-private val CardColor = Color(0xFFFCF8F8)
+private val CardColor = LendlyColors.Background.Soft
 private val CardShape = RoundedCornerShape(16.dp)
 private val SkeletonColor = Color(0xFFEDE7E7)
 

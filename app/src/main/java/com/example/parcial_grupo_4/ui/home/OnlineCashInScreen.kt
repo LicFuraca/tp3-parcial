@@ -25,9 +25,10 @@ import androidx.compose.ui.res.stringResource
 import com.example.parcial_grupo_4.R
 import androidx.compose.material3.HorizontalDivider
 import com.example.parcial_grupo_4.ui.home.components.HomeTopBar
+import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 
-private val ScreenBackground = Color(0xFFFCF8F8)
+private val ScreenBackground = LendlyColors.Background.Soft
 private val CardShape = RoundedCornerShape(12.dp)
 
 @Composable
@@ -69,7 +70,7 @@ fun OnlineCashInScreen(
 
             HorizontalDivider(
                 thickness = 1.dp,
-                color = Color(0xFFE5E2E1),
+                color = LendlyColors.Border.Subtle,
                 modifier = Modifier.padding(vertical = 16.dp)
             )
 

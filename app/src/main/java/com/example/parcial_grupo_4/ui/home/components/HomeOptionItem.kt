@@ -33,7 +33,7 @@ private val LeadingIconSize = 18.dp
 private val LeadingImageSize = 40.dp
 private val TrailingArrowWidth = 12.dp
 private val TrailingArrowHeight = 12.dp
-private val LeadingContainerColor = Color(0xFFE5F5EA)
+private val LeadingContainerColor = LendlyColors.Background.Neutral
 
 @Composable
 fun HomeOptionItem(
