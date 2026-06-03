@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
+import androidx.compose.foundation.clickable
 
 private val ActiveDotColor = LendlyColors.Interactive.Accent
 private val InactiveDotColor = LendlyColors.Border.Subtle
@@ -26,9 +27,10 @@ fun NotificationItem(
     date: String,
     active: Boolean,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.clickable { onClick() },
     ) {
         Spacer(
             modifier = Modifier

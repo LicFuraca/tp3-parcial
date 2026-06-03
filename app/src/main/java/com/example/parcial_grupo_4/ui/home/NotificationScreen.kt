@@ -33,6 +33,7 @@ private val ScreenBackground = LendlyColors.Background.Screen
 private val DividerColor = LendlyColors.Border.Subtle
 
 private data class NotificationUi(
+    val id: String,
     @StringRes val titleRes: Int,
     @StringRes val bodyRes: Int,
     @StringRes val dateRes: Int,
@@ -41,25 +42,29 @@ private data class NotificationUi(
 
 private val TodayNotifications = listOf(
     NotificationUi(
+        id = "notification_1",
         titleRes = R.string.notification_due_title,
-        bodyRes = R.string.notification_body,
-        dateRes = R.string.notification_date,
-        active = true,
-    ),
-    NotificationUi(
-        titleRes = R.string.notification_due_title,
-        bodyRes = R.string.notification_body,
-        dateRes = R.string.notification_date,
-        active = true,
-    ),
-    NotificationUi(
-        titleRes = R.string.notification_help_title,
         bodyRes = R.string.notification_body,
         dateRes = R.string.notification_date,
         active = false,
     ),
     NotificationUi(
-        titleRes = R.string.notification_help_title,
+        id = "notification_2",
+        titleRes = R.string.notification_due_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = false,
+    ),
+    NotificationUi(
+        id = "notification_3",
+        titleRes = R.string.notification_due_title,
+        bodyRes = R.string.notification_body,
+        dateRes = R.string.notification_date,
+        active = false,
+    ),
+    NotificationUi(
+        id = "notification_4",
+        titleRes = R.string.notification_due_title,
         bodyRes = R.string.notification_body,
         dateRes = R.string.notification_date,
         active = false,
@@ -68,13 +73,15 @@ private val TodayNotifications = listOf(
 
 private val AnnouncementNotifications = listOf(
     NotificationUi(
+        id = "notification_5",
         titleRes = R.string.notification_due_title,
         bodyRes = R.string.notification_body,
         dateRes = R.string.notification_date,
-        active = true,
+        active = false,
     ),
     NotificationUi(
-        titleRes = R.string.notification_help_title,
+        id = "notification_6",
+        titleRes = R.string.notification_due_title,
         bodyRes = R.string.notification_body,
         dateRes = R.string.notification_date,
         active = false,
@@ -88,6 +95,11 @@ fun NotificationScreen(
     var showCalendar by remember {
         mutableStateOf(false)
     }
+
+    var selectedNotificationIds by remember {
+        mutableStateOf(setOf<String>())
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -117,11 +129,29 @@ fun NotificationScreen(
             NotificationSection(
                 title = stringResource(R.string.notification_today),
                 items = TodayNotifications,
+                selectedIds = selectedNotificationIds,
+                onNotificationClick = { id ->
+                    selectedNotificationIds =
+                        if (id in selectedNotificationIds) {
+                            selectedNotificationIds - id
+                        } else {
+                            selectedNotificationIds + id
+                        }
+                },
             )
 
             NotificationSection(
                 title = stringResource(R.string.notification_announcement),
                 items = AnnouncementNotifications,
+                selectedIds = selectedNotificationIds,
+                onNotificationClick = { id ->
+                    selectedNotificationIds =
+                        if (id in selectedNotificationIds) {
+                            selectedNotificationIds - id
+                        } else {
+                            selectedNotificationIds + id
+                        }
+                },
             )
 
 
@@ -152,6 +182,8 @@ fun NotificationScreen(
 private fun NotificationSection(
     title: String,
     items: List<NotificationUi>,
+    selectedIds: Set<String>,
+    onNotificationClick: (String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -177,7 +209,10 @@ private fun NotificationSection(
                 title = stringResource(item.titleRes),
                 body = stringResource(item.bodyRes),
                 date = stringResource(item.dateRes),
-                active = item.active,
+                active = item.id in selectedIds,
+                onClick = {
+                    onNotificationClick(item.id)
+                },
             )
         }
     }
