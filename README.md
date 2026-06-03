@@ -22,6 +22,7 @@ Aplicación Android para **digitalizar el acceso a crédito, las compras y la ad
 - [Flujo de Git](#-flujo-de-git)
 - [Equipo](#-equipo)
 - [Licencia](#-licencia)
+- [Preguntas y respuestas](#-preguntas-y-respuestas)
 
 ---
 
@@ -222,7 +223,79 @@ Proyecto académico de uso educativo. Sin licencia de distribución.
 
 ---
 
-## 🗂️ Historial de cambios (preguntas y respuestas)
+## ❓ Preguntas y respuestas
+
+### 1. ¿Qué tipo de arquitectura usaron y por qué? ¿Podría mejorarla?
+
+Usamos **MVVM en capas con patrón Repository**, que es el requisito de la consigna y el estándar de Android. Las capas están bien separadas:
+
+- **UI** (`ui/<feature>/`): Composables + ViewModels que exponen `LiveData`.
+- **Repository** (`data/repository/`): orquesta las fuentes de datos.
+- **Data sources**: Retrofit (`data/api/`) y Room (`data/local/`).
+- **Dominio + mappers** (`data/model/`): modelos propios y conversiones DTO→Entity→UiModel.
+- **DI** (`di/`): Hilt cablea todo.
+
+El porqué: MVVM sobrevive a cambios de configuración (rotación), desacopla UI de lógica y hace testeable cada capa por separado. El Repository agrega una indirección clave: la UI no sabe si el dato vino de la red o de la base local.
+
+La mejor parte de nuestra arquitectura es `TransactionRepository.kt:24-34`: implementamos **offline-first** a mano — la UI observa Room como fuente de verdad (`observeTransactions`) y `refresh()` trae de la red para actualizar el caché.
+
+**¿Podría mejorarse?** La arquitectura es sólida pero **inconsistente entre features** (lo desarrollamos en la pregunta 3): Transactions está bien resuelto, mientras que Shop y Loans quedaron a mitad de camino. El siguiente paso natural sería sumar una capa de **UseCase/interactor** entre ViewModel y Repository; para el alcance del parcial lo consideramos sobre-ingeniería, así que no lo incorporamos.
+
+### 2. ¿Tuvieron objetos stateful y stateless? ¿Cómo definen la elección?
+
+El criterio que aplicamos es simple: ¿el objeto guarda y muta datos que sobreviven entre llamadas? → **stateful**. ¿Es una función/transformación sin memoria propia? → **stateless**. En el código se ve claro:
+
+| Stateful (tienen estado) | Stateless (sin estado) |
+|---|---|
+| **ViewModels** — el estado de pantalla vive en sus `LiveData` (`LoansViewModel`: `amount`, `plan`, `purpose`, `applyState`) | **Retrofit services** (`AuthApi`, `TransactionApi`) — interfaces puras |
+| **Room DB** (`LendlyDatabase`) — estado persistido en disco | **Mappers** (`toEntity`, `toUiModel`, `toDomain`) — funciones puras de transformación |
+| **El token de sesión** persistido (hoy en `EncryptedSharedPreferences`) | **`safeApiCall`** — entra una llamada, sale un `NetworkResult` |
+| **`ShopViewModel.originalShopData`** (`:27`) — caché mutable en memoria | **`toMessageRes()`** — mapeo puro error→string |
+
+Concentramos el estado arriba (ViewModels y Room) y mantenemos stateless las capas de transformación para que sean predecibles y testeables. En Compose esto se llama **state hoisting**: los Composables son stateless y reciben el estado desde el ViewModel. Marcamos los repos como `@Singleton` justamente porque no guardan estado mutable propio — una sola instancia sirve para toda la app.
+
+### 3. ¿Qué mejoras detectan que podrían realizarle a la app? ¿Tendrían side effect si escala el volumen de datos?
+
+Detectamos varias mejoras; destacamos las más concretas:
+
+**a) Búsqueda en memoria que no escala** — `ShopViewModel.kt:55-76`. `searchProducts` filtra la lista completa en RAM en cada tecla. Con un catálogo chico anda, pero si `/products` devuelve miles de items: cargamos todo en memoria y filtramos en el main thread en cada pulsación → *jank* y posible OOM. **Refactor:** búsqueda *server-side* (query param al endpoint) o paginación con Paging 3 (hoy no está en las deps) + filtrado en Room con índices.
+
+**b) `replaceAll` borra y reinserta TODO el historial** — `TransactionRepository.kt:30`. En cada `refresh()` se vacía la tabla y se reinsertan todas las filas. Con historial grande es caro y, además, borra el caché aunque la red falle a mitad de camino. **Refactor:** `@Upsert` incremental por `id` + paginación, en vez de un *full replace*.
+
+
+**Side effect transversal:** ningún endpoint pagina (`/loans`, `/transactions`, `/products` traen todo de una). Es el patrón de fondo a tener en cuenta si el volumen de datos crece.
+
+### 4. ¿Qué manejo de errores harían? ¿Dónde los contemplan a nivel código? Estrategia de mapeo.
+
+Ya tenemos la estrategia correcta implementada — el detalle es que no la aplicamos en todos lados. El patrón es un **mapeo en dos pasos**, que es justo la estrategia que más se adecúa:
+
+1. **Capa de datos** → traduce la excepción técnica a un error de dominio, agnóstico de UI: `SafeApiCall.kt` captura `IOException`/`HttpException` y devuelve un `NetworkResult.Error(NetworkErrorType)` (`NetworkResult.kt`). Acá nunca se filtra un stack trace.
+2. **Capa de presentación** → mapea ese enum a un texto localizable: `NetworkErrorType.toMessageRes()` (`NetworkErrorMessages.kt`) → `R.string.error_*`.
+
+Por qué es la adecuada: separa "qué falló técnicamente" de "qué texto ve el usuario". El dato no conoce la UI (testeable, reusable) y el texto sale de `strings.xml` (traducible). Cumple la regla de la consigna de "mensajes claros, no stack traces crudos".
+
+**Dónde está roto (deuda que reconocemos):** `ShopViewModel.kt:78-98` reimplementa el mapeo a mano, con strings en inglés hardcodeados en el ViewModel y sin usar `NetworkResult`. Lo mismo en `LoansViewModel.kt:59` (`"Error loading loans"`). **Refactor:** que `ProductRepository` y `LoanRepository` devuelvan `NetworkResult` (como ya hacen Auth y Transaction) y que los ViewModels usen `toMessageRes()`. Eso unifica el manejo de error y arregla la traducibilidad (pregunta 5).
+
+Un detalle de seguridad: hacemos el mapeo sin volcar el mensaje de la excepción a la UI ni al log con datos sensibles — el patrón de `NetworkErrorType` ya lo garantiza porque solo expone la categoría, nunca el detalle técnico.
+
+### 5. Si la tuviéramos que convertir a Español conservando el Inglés, ¿qué estrategia usarían? ¿Y para sumar otros idiomas?
+
+Estado actual: solo existe `app/src/main/res/values/strings.xml` (221 líneas), no hay `values-es/`. El `values/` default está en inglés, así que hoy la app es monolingüe.
+
+**Estrategia para ES + EN** (mecanismo nativo de Android, sin librerías):
+
+- `values/strings.xml` (default) = inglés. Es el *fallback*: si el idioma del teléfono no matchea ningún recurso, cae acá. Así conservamos el inglés sin esfuerzo.
+- `values-es/strings.xml` = traducción al español. Android resuelve el *locale* solo según la config del dispositivo — no tocamos código.
+- (Opcional) `values-en/` explícito si queremos separarlo del default.
+
+Pero hay un paso previo ineludible: hoy tenemos **strings hardcodeados en código** (los mensajes de error de `ShopViewModel`/`LoansViewModel`) que no se traducen nunca porque no pasan por `strings.xml`. Antes de internacionalizar hay que **externalizar todos los textos a recursos**; si no, traducimos a medias.
+
+**Para sumar más idiomas** (portugués, etc.):
+
+- Un directorio por idioma: `values-pt/`, `values-fr/`, con región si hace falta (`values-pt-rBR`). Nada más; el sistema de recursos escala solo.
+- Usar **placeholders posicionales** `%1$s`, `%2$d` (no concatenar strings), porque el orden de las palabras cambia entre idiomas.
+- Usar **plurals** (*quantity strings*) para cantidades ("1 préstamo" vs "3 préstamos").
+- Ojo con **fechas y moneda**: en `TransactionMappers.kt:59-65` y `LoanRepository.kt:46-47` están formateadas con `Locale.US` hardcodeado. Para i18n real eso debería usar el `Locale` del dispositivo, si no las fechas/números quedan siempre en formato yanqui aunque la UI esté en español.
 
 
 
