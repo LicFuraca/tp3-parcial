@@ -30,7 +30,8 @@ import com.example.parcial_grupo_4.ui.theme.LendlyColors
 
 @Composable
 fun ManageScreen(
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    onLogout: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -170,7 +171,7 @@ fun ManageScreen(
         ManageListItem(
             icon = Icons.AutoMirrored.Filled.ExitToApp,
             title = "Log Out",
-            onClick = { }
+            onClick = onLogout
         )
 
         Spacer(modifier = Modifier.height(80.dp))
