@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_green">#002203</color>
+    <color name="light_green">#75F074</color>
+    <color name="glass_card_bg">#33FFFFFF</color>
+    <color name="light_mint">#B1D18A</color>
+    <color name="touring_green">#E5F5EA</color>
 </resources>

@@ -1,16 +1,34 @@
 <resources>
     <string name="app_name">parcial-grupo-4</string>
-
     <!-- Bottom nav tabs -->
     <string name="tab_home">Home</string>
     <string name="tab_loan">Loan</string>
     <string name="tab_shop">Shop</string>
     <string name="tab_history">History</string>
     <string name="tab_manage">Manage</string>
-
     <!-- Top bar -->
     <string name="topbar_profile">Profile</string>
     <string name="topbar_app_logo">Lendly</string>
+    <string name="topbar_notifications">Notificaciones</string>
+    <string name="title_onboarding_1">Quick Loans</string>
+    <string name="title_onboarding_2">Loan product in-app</string>
+    <string name="title_onboarding_3">Track &amp; pay\neasily</string>
+    <string name="subtitle_onboarding_1">Trusted for easy, fast loan approvals.</string>
+    <string name="subtitle_onboarding_2">Many products to loan.</string>
+    <string name="onboarding_btn_get_started">Get Started</string>
+    <string name="loan_successful">Loan Successful</string>
+    <string name="loan_amount">+ ₱ 2000.00</string>
+    <string name="transaction_amount">+ ₱ 400.00</string>
+    <string name="onboarding_btn_next">Next</string>
+    <string name="btn_log_in">Log In</string>
+    <string name="btn_sign_up_free">Sign up for free</string>
+    <string name="product_iphone_title">iPhone 12 Pro…</string>
+    <string name="transaction_nike_title">Nike Inc.</string>
+    <string name="transaction_nike_subtitle">Fees of Febuary</string>
+    <string name="desc_lendly_logo">Lendly Logo</string>
+    <string name="desc_applause_emoji">Applause Emoji</string>
+    <string name="desc_smile_emoji">Smile Emoji</string>
+    <string name="desc_nike_logo">Nike Logo</string>
     <string name="topbar_notifications">Notifications</string>
 
     <!--HomeScreen Strings-->
@@ -116,7 +134,6 @@
     <string name="how_it_works_payments_desc">Skip the queue and pay your due on the application</string>
     <string name="how_it_works_secure_title">Safe and secure</string>
     <string name="how_it_works_secure_desc">Rayland is working with trusted partners to provide this service</string>
-
     <!-- Loan form screen -->
     <string name="loan_form_title">Loan</string>
     <string name="loan_form_header">Please provide your details\nfor your loan</string>
@@ -137,13 +154,11 @@
     <string name="loan_form_total">Total amount to Receive</string>
     <string name="loan_form_lender">Lender</string>
     <string name="loan_form_processing">Processing…</string>
-
     <!-- Validation errors -->
     <string name="error_amount_required">Please enter a valid amount</string>
     <string name="error_amount_invalid">Enter a number greater than 0</string>
     <string name="error_plan_required">Please select an installment plan</string>
     <string name="error_purpose_required">Please select a loan purpose</string>
-
     <!-- Loan success screen -->
     <string name="success_added_to_account">Added to your account</string>
     <string name="success_from">From %s</string>
@@ -157,7 +172,6 @@
     <string name="success_need_help">Need help?</string>
     <string name="success_help_center">Go to Help Center</string>
     <string name="success_done">Done</string>
-
     <!-- Active loans screen -->
     <string name="active_loans_title">Active loans</string>
     <string name="active_loans_present">Present</string>
@@ -165,7 +179,6 @@
     <string name="active_loans_paid">Paid</string>
     <string name="active_loans_empty">No active loans</string>
     <string name="active_loans_retry">Retry</string>
-
     <!-- History screen -->
     <string name="history_title">History</string>
     <string name="history_search_placeholder">Search</string>
@@ -180,7 +193,6 @@
     <string name="history_transaction_icon">Transaction</string>
     <string name="history_no_results">No transactions found</string>
     <string name="history_retry">Retry</string>
-
     <!-- Transaction detail screen -->
     <string name="transaction_detail_title">Transaction Details</string>
     <string name="transaction_detail_to_format">To %1$s</string>
@@ -196,7 +208,6 @@
     <string name="error_not_found">We couldn\'t find what you were looking for.</string>
     <string name="error_server">The service is unavailable right now. Try again later.</string>
     <string name="error_unknown">Something went wrong. Please try again.</string>
-
     <!-- Content descriptions -->
     <string name="cd_back">Back</string>
     <string name="cd_close">Close</string>

@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.parcial_grupo_4.ui.MainScreen
 import com.example.parcial_grupo_4.ui.theme.Parcialgrupo4Theme
+import com.example.parcial_grupo_4.ui.navigation.AppNavGraph
 
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Parcialgrupo4Theme {
                 MainScreen()
+                AppNavGraph()
             }
         }
     }

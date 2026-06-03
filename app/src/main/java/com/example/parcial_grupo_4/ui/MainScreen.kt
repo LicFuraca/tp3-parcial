@@ -17,7 +17,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -41,11 +44,23 @@ import com.example.parcial_grupo_4.ui.loans.LoanSuccessScreen
 import com.example.parcial_grupo_4.ui.home.HomeRoute
 import com.example.parcial_grupo_4.ui.loans.LoansScreen
 import com.example.parcial_grupo_4.ui.loans.LoansViewModel
+
+import com.example.parcial_grupo_4.ui.manage.CreditScoreScreen
+import com.example.parcial_grupo_4.ui.manage.DoneScreen
 import com.example.parcial_grupo_4.ui.manage.ManageScreen
+import com.example.parcial_grupo_4.ui.manage.ProfileDetailScreen
+import com.example.parcial_grupo_4.ui.manage.ProfileDetailViewModel
+
 import com.example.parcial_grupo_4.ui.navigation.Routes
 import com.example.parcial_grupo_4.ui.shop.ShopScreen
 import com.example.parcial_grupo_4.ui.shop.shopNavGraph
 import com.example.parcial_grupo_4.ui.home.homeNavGraph
+
+private object ManageRoutes {
+    const val ProfileDetail = "profile_detail"
+    const val Done = "done"
+    const val CreditScore = "credit_score"
+}
 
 private object TransactionDetailRoutes {
     private const val TransactionDetail = "transaction_detail"
@@ -74,6 +89,7 @@ private fun chromeFor(route: String?): ScreenChrome = when (route) {
         ScreenChrome(TopBarStyle.Detail, showBottomBar = false)
 
     Routes.LOAN_FORM, Routes.LOAN_SUCCESS, Routes.ACTIVE_LOANS,
+   ManageRoutes.ProfileDetail, ManageRoutes.Done, ManageRoutes.CreditScore
     HomeRoute.CashIn.route,
     HomeRoute.OnlineCashIn.route,
     HomeRoute.OverTheCounterCashIn.route,
@@ -95,7 +111,7 @@ fun MainScreen() {
     val currentRoute = backStackEntry?.destination?.route
     val chrome = chromeFor(currentRoute)
     val chromeTransition = fadeIn(animationSpec = tween(TransitionMillis)) togetherWith
-        fadeOut(animationSpec = tween(TransitionMillis))
+            fadeOut(animationSpec = tween(TransitionMillis))
 
     Scaffold(
         topBar = {
@@ -154,44 +170,85 @@ fun MainScreen() {
             popEnterTransition = { fadeIn(animationSpec = tween(TransitionMillis)) },
             popExitTransition = { fadeOut(animationSpec = tween(TransitionMillis)) },
         ) {
-            homeNavGraph(navController)
 
-            // Loans (nested graph para compartir LoansViewModel)
+            composable(Routes.HOME) { HomeScreen() }
+            composable(Routes.SHOP) { ShopScreen() }
+
+            // Manage Base y Sub-rutas
+            composable(Routes.MANAGE) {
+                ManageScreen(
+                    // Conectamos el botón para que viaje a la ruta correcta
+                    onNavigateToProfile = { navController.navigate(ManageRoutes.ProfileDetail) }
+                )
+            }
+
+            composable(ManageRoutes.ProfileDetail) {
+                val viewModel: ProfileDetailViewModel = hiltViewModel()
+                ProfileDetailScreen(
+                    viewModel = viewModel,
+                    onBackClick = { navController.popBackStack() },
+                    onSaveClick = { navController.navigate(ManageRoutes.Done) }
+                )
+            }
+
+            composable(ManageRoutes.Done) {
+                DoneScreen(
+                    onDoneClick = { navController.popBackStack(Routes.MANAGE, inclusive = false) }
+                )
+            }
+
+            composable(ManageRoutes.CreditScore) {
+                CreditScoreScreen(onBackClick = { navController.popBackStack() })
+            }
+
+            composable(ManageRoutes.ProfileDetail) {
+                val viewModel: ProfileDetailViewModel = viewModel()
+                ProfileDetailScreen(
+                    viewModel = viewModel,
+                    onBackClick = { navController.popBackStack() },
+                    onSaveClick = { navController.navigate(ManageRoutes.Done) }
+                )
+            }
+
+            composable(ManageRoutes.Done) {
+                DoneScreen(
+                    onDoneClick = { navController.popBackStack(Routes.MANAGE, inclusive = false) }
+                )
+            }
+
+            composable(ManageRoutes.CreditScore) {
+                CreditScoreScreen(onBackClick = { navController.popBackStack() })
+            }
+
+            // Loans
             navigation(
                 startDestination = Routes.LOANS,
                 route = Routes.LOANS_GRAPH,
             ) {
                 composable(Routes.LOANS) { entry ->
-                    val parentEntry = remember(entry) {
-                        navController.getBackStackEntry(Routes.LOANS_GRAPH)
-                    }
+                    val parentEntry = remember(entry) { navController.getBackStackEntry(Routes.LOANS_GRAPH) }
                     val viewModel = hiltViewModel<LoansViewModel>(parentEntry)
                     LoansScreen(viewModel = viewModel, navController = navController)
                 }
                 composable(Routes.LOAN_FORM) { entry ->
-                    val parentEntry = remember(entry) {
-                        navController.getBackStackEntry(Routes.LOANS_GRAPH)
-                    }
+                    val parentEntry = remember(entry) { navController.getBackStackEntry(Routes.LOANS_GRAPH) }
                     val viewModel = hiltViewModel<LoansViewModel>(parentEntry)
                     LoanFormScreen(viewModel = viewModel, navController = navController)
                 }
                 composable(Routes.LOAN_SUCCESS) { entry ->
-                    val parentEntry = remember(entry) {
-                        navController.getBackStackEntry(Routes.LOANS_GRAPH)
-                    }
+                    val parentEntry = remember(entry) { navController.getBackStackEntry(Routes.LOANS_GRAPH) }
                     val viewModel = hiltViewModel<LoansViewModel>(parentEntry)
                     LoanSuccessScreen(viewModel = viewModel, navController = navController)
                 }
                 composable(Routes.ACTIVE_LOANS) { entry ->
-                    val parentEntry = remember(entry) {
-                        navController.getBackStackEntry(Routes.LOANS_GRAPH)
-                    }
+                    val parentEntry = remember(entry) { navController.getBackStackEntry(Routes.LOANS_GRAPH) }
                     val viewModel = hiltViewModel<LoansViewModel>(parentEntry)
                     ActiveLoansScreen(viewModel = viewModel, navController = navController)
                 }
             }
 
             shopNavGraph(navController)
+
             composable(Routes.HISTORY) {
                 HistoryScreen(
                     onTransactionClick = { transaction ->
@@ -201,20 +258,16 @@ fun MainScreen() {
                     },
                 )
             }
-            composable(Routes.MANAGE) { ManageScreen() }
+
             composable(
                 route = TransactionDetailRoutes.Route,
-                arguments = listOf(
-                    navArgument(TransactionDetailRoutes.ArgTransactionId) { type = NavType.StringType },
-                ),
+                arguments = listOf(navArgument(TransactionDetailRoutes.ArgTransactionId) { type = NavType.StringType }),
             ) {
                 val detailViewModel: TransactionDetailViewModel = hiltViewModel()
                 val state by detailViewModel.state.observeAsState(TransactionDetailState.Loading)
                 when (val current = state) {
-                    is TransactionDetailState.Found ->
-                        TransactionDetailScreen(transaction = current.transaction)
-                    TransactionDetailState.NotFound ->
-                        LaunchedEffect(Unit) { navController.popBackStack() }
+                    is TransactionDetailState.Found -> TransactionDetailScreen(transaction = current.transaction)
+                    TransactionDetailState.NotFound -> LaunchedEffect(Unit) { navController.popBackStack() }
                     TransactionDetailState.Loading -> Unit
                 }
             }
