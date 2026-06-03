@@ -1,0 +1,40 @@
+app/src/main/java/com/example/parcial_grupo_4/ui/splash/SplashViewModel.kt
+  s_dee6e401e40079::t_38324aac0f12d4 1-26
+app/src/main/java/com/example/parcial_grupo_4/data/repository/AuthRepository.kt
+  s_dee6e401e40079::t_b26bca8b2a7e1c 7-9,16,21,23-24,33,36-38
+app/src/main/java/com/example/parcial_grupo_4/ui/navigation/NavGrapgh.kt
+  s_dee6e401e40079::t_75142bd2546007 28,31-36
+app/src/main/java/com/example/parcial_grupo_4/ui/auth/PantallaLogin.kt
+  s_dee6e401e40079::t_aecef2f78e11b3 72-100
+  s_dee6e401e40079::t_63a5dc911d497c 33,35
+  s_dee6e401e40079::t_1a5480a63f2a98 16
+  s_dee6e401e40079::t_6993100b5d2801 148-153
+  s_dee6e401e40079::t_c7f4ac5eecf99a 133-140
+gradle/libs.versions.toml
+  s_dee6e401e40079::t_4c52be2a1335a3 22
+  s_dee6e401e40079::t_38eb560cbb315d 59
+app/src/main/java/com/example/parcial_grupo_4/data/local/LendlyDatabase.kt
+  s_dee6e401e40079::t_0af082615e3121 6
+app/src/main/java/com/example/parcial_grupo_4/data/local/SessionManager.kt
+  s_dee6e401e40079::t_ca8e21536300bb 1-48
+app/src/main/java/com/example/parcial_grupo_4/di/DatabaseModule.kt
+  s_dee6e401e40079::t_93ef8576a1f604 6
+app/src/main/java/com/example/parcial_grupo_4/ui/splash/Splash.kt
+  s_dee6e401e40079::t_06c13b415b16b5 62
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "4b2116fcadcdfddaa9605add215551a4ae9aad60",
+  "prompts": {},
+  "sessions": {
+    "s_dee6e401e40079": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "21ecff1a-837c-4bb9-9b2e-f7e2506384f4",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "LicFuraca <martinexequield@gmail.com>"
+    }
+  }
+}
