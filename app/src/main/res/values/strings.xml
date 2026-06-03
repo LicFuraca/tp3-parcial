@@ -9,7 +9,6 @@
     <!-- Top bar -->
     <string name="topbar_profile">Profile</string>
     <string name="topbar_app_logo">Lendly</string>
-    <string name="topbar_notifications">Notificaciones</string>
     <string name="title_onboarding_1">Quick Loans</string>
     <string name="title_onboarding_2">Loan product in-app</string>
     <string name="title_onboarding_3">Track &amp; pay\neasily</string>
@@ -24,7 +23,7 @@
     <string name="btn_sign_up_free">Sign up for free</string>
     <string name="product_iphone_title">iPhone 12 Pro…</string>
     <string name="transaction_nike_title">Nike Inc.</string>
-    <string name="transaction_nike_subtitle">Fees of Febuary</string>
+    <string name="transaction_nike_subtitle">Fees of February</string>
     <string name="desc_lendly_logo">Lendly Logo</string>
     <string name="desc_applause_emoji">Applause Emoji</string>
     <string name="desc_smile_emoji">Smile Emoji</string>

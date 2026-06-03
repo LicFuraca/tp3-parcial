@@ -18,7 +18,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -89,7 +88,7 @@ private fun chromeFor(route: String?): ScreenChrome = when (route) {
         ScreenChrome(TopBarStyle.Detail, showBottomBar = false)
 
     Routes.LOAN_FORM, Routes.LOAN_SUCCESS, Routes.ACTIVE_LOANS,
-   ManageRoutes.ProfileDetail, ManageRoutes.Done, ManageRoutes.CreditScore
+    ManageRoutes.ProfileDetail, ManageRoutes.Done, ManageRoutes.CreditScore,
     HomeRoute.CashIn.route,
     HomeRoute.OnlineCashIn.route,
     HomeRoute.OverTheCounterCashIn.route,
@@ -171,7 +170,7 @@ fun MainScreen() {
             popExitTransition = { fadeOut(animationSpec = tween(TransitionMillis)) },
         ) {
 
-            composable(Routes.HOME) { HomeScreen() }
+            homeNavGraph(navController)
             composable(Routes.SHOP) { ShopScreen() }
 
             // Manage Base y Sub-rutas
@@ -184,25 +183,6 @@ fun MainScreen() {
 
             composable(ManageRoutes.ProfileDetail) {
                 val viewModel: ProfileDetailViewModel = hiltViewModel()
-                ProfileDetailScreen(
-                    viewModel = viewModel,
-                    onBackClick = { navController.popBackStack() },
-                    onSaveClick = { navController.navigate(ManageRoutes.Done) }
-                )
-            }
-
-            composable(ManageRoutes.Done) {
-                DoneScreen(
-                    onDoneClick = { navController.popBackStack(Routes.MANAGE, inclusive = false) }
-                )
-            }
-
-            composable(ManageRoutes.CreditScore) {
-                CreditScoreScreen(onBackClick = { navController.popBackStack() })
-            }
-
-            composable(ManageRoutes.ProfileDetail) {
-                val viewModel: ProfileDetailViewModel = viewModel()
                 ProfileDetailScreen(
                     viewModel = viewModel,
                     onBackClick = { navController.popBackStack() },
