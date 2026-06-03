@@ -1,0 +1,20 @@
+README.md
+  s_dee6e401e40079::t_4fc4f59afc9342 25
+  s_dee6e401e40079::t_2ec9da66571f21 226-298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "f88783828e1d56eb2b4c0ac0c769c8c175d8eebd",
+  "prompts": {},
+  "sessions": {
+    "s_dee6e401e40079": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "21ecff1a-837c-4bb9-9b2e-f7e2506384f4",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "LicFuraca <martinexequield@gmail.com>"
+    }
+  }
+}
