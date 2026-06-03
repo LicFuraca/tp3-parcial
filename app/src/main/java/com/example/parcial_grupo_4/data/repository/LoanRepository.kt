@@ -31,7 +31,7 @@ class LoanRepository @Inject constructor(
         return LoanApplication(
             transactionNumber = loan?.id ?: "#${System.currentTimeMillis()}",
             amount            = loan?.amount ?: amount,
-            lender            = null,
+            lender            = "Rayland",
             monthlyFee        = loan?.installmentAmount ?: 0.0,
             interest          = loan?.interestRate ?: 0.0,
             installments      = installments,

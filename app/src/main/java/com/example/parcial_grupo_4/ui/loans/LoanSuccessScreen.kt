@@ -1,5 +1,6 @@
 package com.example.parcial_grupo_4.ui.loans
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,8 +12,8 @@ import com.example.parcial_grupo_4.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -31,6 +32,8 @@ import com.example.parcial_grupo_4.ui.navigation.Routes
 import com.example.parcial_grupo_4.ui.theme.LendlyColors
 import com.example.parcial_grupo_4.ui.theme.LendlySpacing
 import com.example.parcial_grupo_4.ui.theme.Montserrat
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun LoanSuccessScreen(
@@ -75,8 +78,8 @@ fun LoanSuccessScreen(
                 }
             }
             Row {
-                IconButton(onClick = {}) { Icon(Icons.Filled.Info, null, tint = LendlyColors.Content.Secondary) }
-                IconButton(onClick = {}) { Icon(Icons.Filled.MoreVert, null, tint = LendlyColors.Content.Secondary) }
+                IconButton(onClick = {}) { Icon(Icons.Outlined.Info, null, tint = LendlyColors.Content.Secondary) }
+                IconButton(onClick = {}) { Icon(Icons.Outlined.MoreHoriz, null, tint = LendlyColors.Content.Secondary) }
             }
         }
 
@@ -108,7 +111,7 @@ fun LoanSuccessScreen(
             Spacer(Modifier.height(LendlySpacing.Spacing1))
 
             Text(
-                "%.2f PHP".format(result.amount),
+                "${NumberFormat.getNumberInstance(Locale.US).apply { minimumFractionDigits = 2; maximumFractionDigits = 2 }.format(result.amount)} PHP",
                 fontFamily = Montserrat,
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,
@@ -118,20 +121,24 @@ fun LoanSuccessScreen(
             Spacer(Modifier.height(4.dp))
 
             Text(
-                "From ${result.lender ?: "—"}",
+                stringResource(R.string.success_from, result.lender ?: "Rayland"),
                 style = MaterialTheme.typography.bodySmall,
                 color = LendlyColors.Content.Tertiary,
             )
 
             Spacer(Modifier.height(LendlySpacing.Spacing2))
 
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(100.dp))
-                    .background(LendlyColors.Background.Neutral)
-                    .padding(horizontal = LendlySpacing.Spacing2, vertical = 6.dp),
+            Surface(
+                shape = RoundedCornerShape(100.dp),
+                color = Color.Transparent,
+                border = BorderStroke(1.dp, LendlyColors.Border.Neutral),
             ) {
-                Text("Loan Amount", style = MaterialTheme.typography.labelMedium, color = LendlyColors.Interactive.Primary)
+                Text(
+                    stringResource(R.string.success_loan_amount_chip),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = LendlyColors.Interactive.Primary,
+                    modifier = Modifier.padding(horizontal = LendlySpacing.Spacing2, vertical = 6.dp),
+                )
             }
 
             Spacer(Modifier.height(LendlySpacing.Spacing4))

@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import java.text.NumberFormat
+import java.util.Locale
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -295,8 +297,11 @@ private fun InstallmentPlansColumn(
                     Text("${plan.interestPercent}% Interest", style = MaterialTheme.typography.labelSmall, color = LendlyColors.Content.Tertiary)
                 }
                 if (principal > 0) {
+                    val fmtPlan = NumberFormat.getNumberInstance(Locale.US).apply {
+                        minimumFractionDigits = 2; maximumFractionDigits = 2
+                    }
                     Text(
-                        "₱%.2f/mo".format(plan.monthlyPayment(principal)),
+                        "₱ ${fmtPlan.format(plan.monthlyPayment(principal))}/mo",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.SemiBold,
                         color = LendlyColors.Content.Primary,
@@ -370,11 +375,14 @@ private fun PurposeDropdown(
 
 @Composable
 private fun LoanSummaryCard(amount: Double, processingFee: Double) {
+    val fmt = NumberFormat.getNumberInstance(Locale.US).apply {
+        minimumFractionDigits = 2
+        maximumFractionDigits = 2
+    }
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = LendlyColors.Background.Elevated),
-        border = androidx.compose.foundation.BorderStroke(1.dp, LendlyColors.Border.Neutral),
         elevation = CardDefaults.cardElevation(0.dp),
     ) {
         Column(Modifier.padding(LendlySpacing.Spacing3), verticalArrangement = Arrangement.spacedBy(LendlySpacing.Spacing2)) {
@@ -382,22 +390,21 @@ private fun LoanSummaryCard(amount: Double, processingFee: Double) {
 
             SummaryRow(
                 stringResource(R.string.loan_form_loan_amount),
-                if (amount > 0) "PHP %.2f".format(amount) else "PHP 0.00",
+                "PHP ${fmt.format(if (amount > 0) amount else 0.0)}",
             )
             SummaryRow(
                 stringResource(R.string.loan_form_processing_fee),
-                if (amount > 0) "-%.2f".format(processingFee) else "0.00",
+                "-${fmt.format(if (amount > 0) processingFee else 0.0)}",
                 valueColor = LendlyColors.Sentiment.Negative,
             )
 
             HorizontalDivider(color = LendlyColors.Border.Neutral)
 
-            SummaryRow(
-                stringResource(R.string.loan_form_total),
-                if (amount > 0) "₱%.2f".format(amount) else "₱0.00",
-                isBold = true,
+            TotalRow(
+                label = stringResource(R.string.loan_form_total),
+                value = "₱ ${fmt.format(if (amount > 0) amount else 0.0)}",
             )
-            SummaryRow(stringResource(R.string.loan_form_lender), "—", valueColor = LendlyColors.Content.Tertiary)
+            SummaryRow(stringResource(R.string.loan_form_lender), "Rayland", valueColor = LendlyColors.Content.Tertiary)
 
             Text(
                 stringResource(R.string.loans_what_is_this),
@@ -423,6 +430,23 @@ private fun SummaryRow(
             style = MaterialTheme.typography.bodySmall,
             fontWeight = if (isBold) FontWeight.SemiBold else FontWeight.Normal,
             color = valueColor,
+        )
+    }
+}
+
+@Composable
+private fun TotalRow(label: String, value: String) {
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(label, style = MaterialTheme.typography.bodySmall, color = LendlyColors.Content.Secondary)
+        Text(
+            value,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = LendlyColors.Interactive.Primary,
         )
     }
 }
